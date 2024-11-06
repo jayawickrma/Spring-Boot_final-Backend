@@ -8,7 +8,7 @@ import java.util.List;
 public interface CropService {
     void saveCrop(CropDTO cropDTO);
     List<CropDTO>getAllCrops();
-    CropStatus getCrop(String cropId);
-    void deleteCrop(String cropId);
-    void updateCrop(String cropId, CropDTO cropDTO);
+    CropStatus getCrop(String cropCode);
+    void deleteCrop(String cropCode);
+    void updateCrop(String cropCode, CropDTO cropDTO);
 }

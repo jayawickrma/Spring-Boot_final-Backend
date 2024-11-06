@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface cropDao extends JpaRepository<CropEntity,String> {
+public interface CropDao extends JpaRepository<CropEntity,String> {
 }

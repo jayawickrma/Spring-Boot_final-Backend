@@ -1,5 +1,6 @@
 package com.example.demo.Entity.IMPL;
 
+import com.example.demo.Entity.FuelType;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,7 +11,7 @@ public class VehicleEntity {
 
     private String licensePlateNumber;
     private String vehicleCategory;
-    private String fuelType;
+    private FuelType fuelType;
     private String status;
 
     @OneToOne

@@ -3,10 +3,15 @@ package com.example.demo.DTO.IMPL;
 import com.example.demo.DTO.StaffStatus;
 import com.example.demo.Entity.Gender;
 import com.example.demo.Entity.Role;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class StaffDTO implements StaffStatus {
     private String id;
     private String firstName;

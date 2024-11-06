@@ -1,5 +1,7 @@
 package com.example.demo.Entity.IMPL;
 
+import com.example.demo.Entity.Gender;
+import com.example.demo.Entity.Role;
 import jakarta.persistence.*;
 
 import java.util.Date;

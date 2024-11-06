@@ -3,6 +3,8 @@ package com.example.demo.Service.IMPL;
 import com.example.demo.DAO.CropDao;
 import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.Entity.IMPL.CropEntity;
+import com.example.demo.Exception.DataPersistException;
+import com.example.demo.Exception.NotFoundException;
 import com.example.demo.Service.CropService;
 import com.example.demo.utill.AppUtill;
 import com.example.demo.utill.Mapping;
@@ -25,16 +27,24 @@ public class CropServiceIMPL implements CropService {
     public void saveCrop(CropDTO cropDTO) {
             cropDTO.setCropCode(AppUtill.generateCropId());
             CropEntity saveCrop =cropDao.save(mapping.toCropEntity(cropDTO));
+                if (saveCrop==null){
+                        throw new DataPersistException("Crop Not Saved");
+                }
     }
 
     @Override
     public List<CropDTO> getAllCrops() {
-        return null;
+        return mapping.asCropDtolist(cropDao.findAll());
     }
 
     @Override
-    public void getCrop(String cropCode) {
-       cropDao.getReferenceById(cropCode);
+    public CropDTO getCrop(String cropCode) {
+        if (cropDao.existsById(cropCode)) {
+            var selectCrop = cropDao.getReferenceById(cropCode);
+            return mapping.toCropDto(selectCrop);
+        }
+
+        return null;
     }
 
     @Override

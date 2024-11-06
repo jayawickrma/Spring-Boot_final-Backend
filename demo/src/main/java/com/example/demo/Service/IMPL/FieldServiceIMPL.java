@@ -4,6 +4,7 @@ import com.example.demo.DAO.FieldDao;
 import com.example.demo.DTO.FieldStatus;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.Entity.IMPL.FieldEntity;
+import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.FieldService;
 import com.example.demo.utill.AppUtill;
 import com.example.demo.utill.Mapping;
@@ -24,11 +25,14 @@ public class FieldServiceIMPL implements FieldService {
     public void saveField(FieldDTO fieldDTO) {
             fieldDTO.setFieldCode(AppUtill.generateFieldId());
             FieldEntity saveField =fieldDao.save(mapping.toFieldEntity(fieldDTO));
+                if (saveField==null){
+                    throw new DataPersistException("Field Not Saved");
+                }
     }
 
     @Override
     public List<FieldDTO> getAllFields() {
-        return null;
+        return mapping.asFieldDtoList(fieldDao.findAll());
     }
 
     @Override

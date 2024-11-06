@@ -5,8 +5,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "vahicle")
-public class vehicleEntity {
+@Table(name = "crop")
+public class CropEntity {
     @Id
-    private String vNumber;
+    private String cropId;
 }

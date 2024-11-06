@@ -6,9 +6,9 @@ import com.example.demo.DTO.VehicleStatus;
 import java.util.List;
 
 public interface VehicleService {
-    void saveVehicle(VehicleDTO vehicle);
+    void saveVehicle(VehicleDTO vehicleDTO);
     List<VehicleDTO>getAllVehicles();
     VehicleStatus getVehicle(String vehicleNumber);
     void deleteVehicle(String vehicleNumber);
-    void updateVehicle(String vehicleNumber, VehicleDTO vehicle);
+    void updateVehicle(String vehicleNumber, VehicleDTO vehicleDTO);
 }

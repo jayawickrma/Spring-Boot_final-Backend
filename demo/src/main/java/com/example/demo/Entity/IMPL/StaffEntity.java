@@ -5,8 +5,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "field")
-public class fieldEntity {
+@Table(name = "staff")
+public class StaffEntity {
     @Id
-    private String fieldID;
+    private String staffID;
 }

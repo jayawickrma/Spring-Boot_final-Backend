@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.util.ClassUtils.isPresent;
 
 
 @Service
@@ -39,17 +42,16 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public CropDTO getCrop(String cropCode) {
-        if (cropDao.existsById(cropCode)) {
-            var selectCrop = cropDao.getReferenceById(cropCode);
+
+            CropEntity selectCrop = cropDao.getReferenceById(cropCode);
             return mapping.toCropDto(selectCrop);
         }
 
-        return null;
-    }
 
     @Override
     public void deleteCrop(String cropCode) {
         cropDao.deleteById(cropCode);
+
 
     }
 

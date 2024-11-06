@@ -1,12 +1,21 @@
 package com.example.demo.Entity.IMPL;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "vahicle")
 public class VehicleEntity {
     @Id
-    private String vNumber;
+    private String vehicleCode;
+
+    private String licensePlateNumber;
+    private String vehicleCategory;
+    private String fuelType;
+    private String status;
+
+    @OneToOne
+    @JoinColumn(name = "allocatedStaffMemberDetail")
+    private StaffEntity allocatedStaffMemberDetails;
+
+    private String remarks;
 }

@@ -3,8 +3,10 @@ package com.example.demo.Service.IMPL;
 import com.example.demo.DAO.CropDao;
 import com.example.demo.DTO.CropStatus;
 import com.example.demo.DTO.IMPL.CropDTO;
+import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Service.CropService;
 import com.example.demo.utill.AppUtill;
+import com.example.demo.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +20,14 @@ public class CropServiceIMPL implements CropService {
 
     @Autowired
     private CropDao cropDao;
+    @Autowired
+    private Mapping mapping;
     @Override
     public void saveCrop(CropDTO cropDTO) {
             cropDTO.setCropCode(AppUtill.generateCropId());
+            CropEntity saveCrop =cropDao.save(mapping.toCropEntity(cropDTO));
+
+
 
     }
 
@@ -31,11 +38,12 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public CropStatus getCrop(String cropCode) {
-        return null;
+       cropDao.getReferenceById(cropCode);
     }
 
     @Override
     public void deleteCrop(String cropCode) {
+        cropDao.deleteById(cropCode);
 
     }
 

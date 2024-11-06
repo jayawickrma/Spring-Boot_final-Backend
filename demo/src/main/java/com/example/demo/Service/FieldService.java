@@ -9,7 +9,7 @@ public interface FieldService {
     void saveField(FieldDTO fieldDTO);
     List<FieldDTO>getAllFields();
     FieldStatus getField(String fieldCode);
-    void deleteFields(String fieldId);
+    void deleteFields(String fieldCode);
     void updateField(String fieldCode, FieldDTO fieldDTO);
 
 }

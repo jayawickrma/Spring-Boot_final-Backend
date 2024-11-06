@@ -1,5 +1,7 @@
 package com.example.demo.Entity.IMPL;
 
+import com.example.demo.Entity.EquipmentStatus;
+import com.example.demo.Entity.EquipmentType;
 import jakarta.persistence.*;
 
 @Entity

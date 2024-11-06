@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MonitoringLog implements MonitoringLogStatus {
+public class MonitoringLogDTO implements MonitoringLogStatus {
     private String logCode;
     private Date logDate;
     private String logDetails;

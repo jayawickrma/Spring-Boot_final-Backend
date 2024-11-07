@@ -3,9 +3,11 @@ package com.example.demo.utill;
 import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.DTO.IMPL.EquipmentDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
+import com.example.demo.DTO.IMPL.MonitoringLogDTO;
 import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Entity.IMPL.EquipmentEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
+import com.example.demo.Entity.IMPL.MonitoringLogEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,11 @@ public class Mapping {
     public List<CropDTO>asCropDtolist(List<CropEntity> cropEntity){
         return modelMapper.map(cropEntity,new TypeToken<List<CropDTO>>(){}.getType());
     }
+
+
+
+
+
     public FieldEntity toFieldEntity(FieldDTO fieldDTO){
 
         return modelMapper.map(fieldDTO, FieldEntity.class);
@@ -41,6 +48,11 @@ public class Mapping {
         return modelMapper.map(fieldEntities,new TypeToken<List<FieldDTO>>(){}.getType());
     }
 
+
+
+
+
+
     public EquipmentEntity toEquipmentEntity(EquipmentDTO equipmentDTO){
         return modelMapper.map(equipmentDTO, EquipmentEntity.class);
     }
@@ -49,5 +61,19 @@ public class Mapping {
     }
     public List<EquipmentDTO> asEquipmentDtoList(List<EquipmentEntity>equipmentEntities){
         return modelMapper.map(equipmentEntities,new TypeToken<List<EquipmentDTO>>(){}.getType());
+    }
+
+
+
+
+    public MonitoringLogEntity toMonitoringLogEntity(MonitoringLogDTO monitoringLogDTO){
+        return modelMapper.map(monitoringLogDTO, MonitoringLogEntity.class);
+    }
+
+    public MonitoringLogDTO toMonitoringLogDto(MonitoringLogEntity monitoringLog){
+       return modelMapper.map(monitoringLog, MonitoringLogDTO.class);
+    }
+    public List<MonitoringLogDTO>asMonitoringDtoList(List<MonitoringLogEntity>monitoringLogEntities){
+        return modelMapper.map(monitoringLogEntities,new TypeToken<List<MonitoringLogDTO>>(){}.getType());
     }
 }

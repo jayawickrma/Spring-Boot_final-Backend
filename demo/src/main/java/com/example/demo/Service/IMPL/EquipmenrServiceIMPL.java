@@ -8,30 +8,38 @@ import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.EquipmentService;
 import com.example.demo.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+@Service
+@Transactional
 
 public class EquipmenrServiceIMPL implements EquipmentService {
     @Autowired
     private EquipmentDao equipmentDao;
     @Autowired
     private Mapping mapping;
+
+
     @Override
     public void saveEquipment(EquipmentDTO equipmentDTO) {
-        EquipmentEntity saveEquipment =equipmentDao.save(mapping.toEquipmentEntity(equipmentDTO));
-            if (saveEquipment==null){
-                throw new DataPersistException("Equipment Not Found");
-            }
+        EquipmentEntity saveEqu =equipmentDao.save(mapping.toEquipmentEntity(equipmentDTO));
+        if (saveEqu==null){
+            throw new DataPersistException("Equipment Not Found");
+        }
     }
 
     @Override
     public List<EquipmentDTO> getAllEquipments() {
-        return null;
+        return mapping.asEquipmentDtoList(equipmentDao.findAll());
     }
 
     @Override
-    public EquipmentStatus getEquipment(String equipmentId) {
-        return null;
+    public EquipmentDTO getEquipment(String equipmentId) {
+        EquipmentEntity search =equipmentDao.getReferenceById(equipmentId);
+        return mapping.toEquipmentDTO(search);
     }
 
     @Override

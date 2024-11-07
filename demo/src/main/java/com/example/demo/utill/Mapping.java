@@ -1,13 +1,7 @@
 package com.example.demo.utill;
 
-import com.example.demo.DTO.IMPL.CropDTO;
-import com.example.demo.DTO.IMPL.EquipmentDTO;
-import com.example.demo.DTO.IMPL.FieldDTO;
-import com.example.demo.DTO.IMPL.MonitoringLogDTO;
-import com.example.demo.Entity.IMPL.CropEntity;
-import com.example.demo.Entity.IMPL.EquipmentEntity;
-import com.example.demo.Entity.IMPL.FieldEntity;
-import com.example.demo.Entity.IMPL.MonitoringLogEntity;
+import com.example.demo.DTO.IMPL.*;
+import com.example.demo.Entity.IMPL.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +69,18 @@ public class Mapping {
     }
     public List<MonitoringLogDTO>asMonitoringDtoList(List<MonitoringLogEntity>monitoringLogEntities){
         return modelMapper.map(monitoringLogEntities,new TypeToken<List<MonitoringLogDTO>>(){}.getType());
+    }
+
+
+
+
+    public StaffEntity toStaffEntity(StaffDTO staffDTO){
+        return modelMapper.map(staffDTO, StaffEntity.class);
+    }
+    public StaffDTO toStaffDto(StaffEntity staffEntity){
+        return modelMapper.map(staffEntity, StaffDTO.class);
+    }
+    public List<StaffDTO>asStafDtoList(List<StaffEntity>staffEntities){
+        return modelMapper.map(staffEntities,new TypeToken<List<StaffDTO>>(){}.getType());
     }
 }

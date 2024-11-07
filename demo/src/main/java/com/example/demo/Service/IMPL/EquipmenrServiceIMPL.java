@@ -1,7 +1,6 @@
 package com.example.demo.Service.IMPL;
 
 import com.example.demo.DAO.EquipmentDao;
-import com.example.demo.DTO.EquipmentStatus;
 import com.example.demo.DTO.IMPL.EquipmentDTO;
 import com.example.demo.Entity.IMPL.EquipmentEntity;
 import com.example.demo.Exception.DataPersistException;
@@ -38,8 +37,8 @@ public class EquipmenrServiceIMPL implements EquipmentService {
 
     @Override
     public EquipmentDTO getEquipment(String equipmentId) {
-        EquipmentEntity search =equipmentDao.getReferenceById(equipmentId);
-        return mapping.toEquipmentDTO(search);
+            EquipmentEntity equipmentEntity =equipmentDao.getReferenceById(equipmentId);
+            return mapping.toEquipmentDTO(equipmentEntity);
     }
 
     @Override

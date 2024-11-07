@@ -1,7 +1,6 @@
 package com.example.demo.Service.IMPL;
 
 import com.example.demo.DAO.FieldDao;
-import com.example.demo.DTO.FieldStatus;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Exception.DataPersistException;
@@ -37,8 +36,9 @@ public class FieldServiceIMPL implements FieldService {
     }
 
     @Override
-    public FieldStatus getField(String fieldCode) {
-        return null;
+    public FieldDTO getField(String fieldCode) {
+        FieldEntity fieldEntity =fieldDao.getReferenceById(fieldCode);
+            return mapping.toFieldDto(fieldEntity);
     }
 
     @Override

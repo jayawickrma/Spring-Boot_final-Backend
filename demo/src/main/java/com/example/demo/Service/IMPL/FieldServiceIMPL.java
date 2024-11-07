@@ -7,7 +7,7 @@ import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.FieldService;
 
-import com.example.demo.utill.AppUtill;
+import com.example.demo.utill.AppUtil;
 import com.example.demo.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class FieldServiceIMPL implements FieldService {
     private Mapping mapping;
     @Override
     public void saveField(FieldDTO fieldDTO) {
-            fieldDTO.setFieldCode(AppUtill.generateFieldId());
+            fieldDTO.setFieldCode(AppUtil.generateFieldId());
             FieldEntity saveField =fieldDao.save(mapping.toFieldEntity(fieldDTO));
                 if (saveField==null){
                     throw new DataPersistException("Field Not Saved");

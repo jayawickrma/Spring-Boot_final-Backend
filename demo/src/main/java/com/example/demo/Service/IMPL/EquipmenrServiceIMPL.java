@@ -44,7 +44,7 @@ public class EquipmenrServiceIMPL implements EquipmentService {
 
     @Override
     public void deleteEquipment(String equipmentId) {
-
+            equipmentDao.deleteById(equipmentId);
     }
 
     @Override

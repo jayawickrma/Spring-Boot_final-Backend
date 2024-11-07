@@ -7,7 +7,7 @@ import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.CropService;
 
 
-import com.example.demo.utill.AppUtil;
+import com.example.demo.utill.IdGenerate;
 import com.example.demo.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class CropServiceIMPL implements CropService {
     private Mapping mapping;
     @Override
     public void saveCrop(CropDTO cropDTO) {
-            cropDTO.setCropCode(AppUtil.generateCropId());
+            cropDTO.setCropCode(IdGenerate.generateCropId());
             CropEntity saveCrop =cropDao.save(mapping.toCropEntity(cropDTO));
                 if (saveCrop==null){
                         throw new DataPersistException("Crop Not Saved");

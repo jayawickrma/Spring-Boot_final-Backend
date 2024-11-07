@@ -5,6 +5,7 @@ import com.example.demo.DTO.IMPL.EquipmentDTO;
 import com.example.demo.Entity.IMPL.EquipmentEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.EquipmentService;
+import com.example.demo.utill.IdGenerate;
 import com.example.demo.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class EquipmenrServiceIMPL implements EquipmentService {
 
     @Override
     public void saveEquipment(EquipmentDTO equipmentDTO) {
+        equipmentDTO.setEquipmentId(IdGenerate.generateEquipmentID());
         EquipmentEntity saveEqu =equipmentDao.save(mapping.toEquipmentEntity(equipmentDTO));
         if (saveEqu==null){
             throw new DataPersistException("Equipment Not Found");

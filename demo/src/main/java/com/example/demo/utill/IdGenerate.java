@@ -6,4 +6,5 @@ public class IdGenerate {
     public static String generateFieldId(){return "Field- "+UUID.randomUUID();}
     public static String generateCropId(){return "Crop -"+UUID.randomUUID();}
     public static String generateEquipmentID(){return "Equipment -"+UUID.randomUUID();}
+    public static String generateLogCode(){return "Log- "+UUID.randomUUID();}
 }

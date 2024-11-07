@@ -4,8 +4,8 @@ import com.example.demo.DAO.CropDao;
 import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Exception.DataPersistException;
-import com.example.demo.Exception.NotFoundException;
 import com.example.demo.Service.CropService;
+
 import com.example.demo.utill.AppUtill;
 import com.example.demo.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.util.ClassUtils.isPresent;
 
 
 @Service

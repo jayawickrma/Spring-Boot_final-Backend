@@ -39,6 +39,7 @@ public class StaffEntity {
     private String addressLine05;
 
     private String contactNumber;
+
     private String email;
 
     @Enumerated(EnumType.STRING)

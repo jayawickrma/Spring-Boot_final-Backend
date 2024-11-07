@@ -3,12 +3,15 @@ package com.example.demo.Service.IMPL;
 import com.example.demo.DAO.VehicleDao;
 import com.example.demo.DTO.IMPL.VehicleDTO;
 import com.example.demo.DTO.VehicleStatus;
+import com.example.demo.Entity.IMPL.VehicleEntity;
+import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.VehicleService;
 import com.example.demo.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -20,22 +23,27 @@ public class VehicleServiceIMPL implements VehicleService {
     private Mapping mapping;
     @Override
     public void saveVehicle(VehicleDTO vehicleDTO) {
+        VehicleEntity saveVehicle =vehicleDao.save(mapping.toVehicleEntity(vehicleDTO));
+            if (saveVehicle==null){
+                throw new DataPersistException("Couldn't Find");
+            }
 
     }
 
     @Override
     public List<VehicleDTO> getAllVehicles() {
-        return null;
+        return mapping.asVehicleDto(vehicleDao.findAll());
     }
 
     @Override
     public VehicleStatus getVehicle(String vehicleCode) {
-        return null;
+        VehicleEntity searchVehicle =vehicleDao.getReferenceById(vehicleCode);
+            return mapping.toVehicleDto(searchVehicle);
     }
 
     @Override
     public void deleteVehicle(String vehicleCode) {
-
+            vehicleDao.deleteById(vehicleCode);
     }
 
     @Override

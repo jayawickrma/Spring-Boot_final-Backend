@@ -1,8 +1,10 @@
 package com.example.demo.utill;
 
 import com.example.demo.DTO.IMPL.CropDTO;
+import com.example.demo.DTO.IMPL.EquipmentDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.Entity.IMPL.CropEntity;
+import com.example.demo.Entity.IMPL.EquipmentEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -37,5 +39,15 @@ public class Mapping {
     }
     public List<FieldDTO> asFieldDtoList(List<FieldEntity>fieldEntities){
         return modelMapper.map(fieldEntities,new TypeToken<List<FieldDTO>>(){}.getType());
+    }
+
+    public EquipmentEntity toEquipmentEntity(EquipmentDTO equipmentDTO){
+        return modelMapper.map(equipmentDTO, EquipmentEntity.class);
+    }
+    public EquipmentDTO equipmentDTO(EquipmentEntity equipmentEntity){
+        return modelMapper.map(equipmentEntity, EquipmentDTO.class);
+    }
+    public List<EquipmentDTO> asEquipmentDtoList(List<EquipmentEntity>equipmentEntities){
+        return modelMapper.map(equipmentEntities,new TypeToken<List<EquipmentDTO>>(){}.getType());
     }
 }

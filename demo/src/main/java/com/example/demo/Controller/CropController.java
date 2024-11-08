@@ -48,7 +48,7 @@ public class CropController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @DeleteMapping(value = "{/cropCode}")
+    @DeleteMapping(value = "/{cropCode}")
     public void deleteCrop(@PathVariable("cropCode")String cropCode){
         cropService.deleteCrop(cropCode);
     }

@@ -1,6 +1,8 @@
 package com.example.demo.Controller;
 
+import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
+import com.example.demo.DTO.IMPL.StaffDTO;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.FieldService;
 import com.example.demo.utill.IdGenerate;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/fields")
 public class FieldController {
@@ -25,8 +29,8 @@ public class FieldController {
     public ResponseEntity<Void> saveField(@RequestPart("fieldName") String fieldName,
                                           @RequestPart("fieldLocation") String fieldLocation,
                                           @RequestPart("fieldSize") Double fieldSize,
-                                          @RequestPart("cropId") String cropId,
-                                          @RequestPart("staffId") String staffId,
+                                          @RequestPart("cropId") List<CropDTO> cropId,
+                                          @RequestPart("staffId") List<StaffDTO> staffId,
                                           @RequestPart("fieldImg1") MultipartFile fieldImg1,
                                           @RequestPart("fieldImg2") MultipartFile fieldImg2) {
         try {

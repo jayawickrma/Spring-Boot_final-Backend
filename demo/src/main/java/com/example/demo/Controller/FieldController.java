@@ -35,14 +35,14 @@ public class FieldController {
             String img2 = PicEncorder.generateProfilePicToBase64(fieldImg2);
 
             FieldDTO fieldDTO = new FieldDTO();
-            fieldDTO.setFieldCode(fieldId);
-            fieldDTO.setFieldName(fieldName);
-            fieldDTO.setFieldLocation(fieldLocation);
-            fieldDTO.setExtentSizeOfTheField(fieldSize);
-            fieldDTO.setCrops(cropId);
-            fieldDTO.setStaff(staffId);
-            fieldDTO.setFieldImage1(img1);
-            fieldDTO.setFieldImage2(img2);
+                fieldDTO.setFieldCode(fieldId);
+                fieldDTO.setFieldName(fieldName);
+                fieldDTO.setFieldLocation(fieldLocation);
+                fieldDTO.setExtentSizeOfTheField(fieldSize);
+                fieldDTO.setCrops(cropId);
+                fieldDTO.setStaff(staffId);
+                fieldDTO.setFieldImage1(img1);
+                fieldDTO.setFieldImage2(img2);
 
             fieldService.saveField(fieldDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

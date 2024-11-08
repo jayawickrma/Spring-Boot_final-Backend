@@ -1,6 +1,9 @@
 package com.example.demo.Controller;
 
+import com.example.demo.DAO.FieldDao;
 import com.example.demo.DTO.IMPL.CropDTO;
+import com.example.demo.Entity.IMPL.CropEntity;
+import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.CropService;
 import com.example.demo.util.IdGenerate;
@@ -48,6 +51,7 @@ public class CropController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @DeleteMapping(value = "/{cropCode}")
     public void deleteCrop(@PathVariable("cropCode")String cropCode){
         cropService.deleteCrop(cropCode);

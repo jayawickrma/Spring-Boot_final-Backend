@@ -1,6 +1,7 @@
 package com.example.demo.DTO.IMPL;
 
 import com.example.demo.DTO.CropStatus;
+import com.example.demo.Entity.IMPL.FieldEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

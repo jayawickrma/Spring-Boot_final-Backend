@@ -20,12 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/fields")
+    @RequestMapping("api/v1/fields")
 public class FieldController {
     @Autowired
     private FieldService fieldService;
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveField(@RequestPart("fieldName") String fieldName,
                                           @RequestPart("fieldLocation") String fieldLocation,
                                           @RequestPart("fieldSize") Double fieldSize,

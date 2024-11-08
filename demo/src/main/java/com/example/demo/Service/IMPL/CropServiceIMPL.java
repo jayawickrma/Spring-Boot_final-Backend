@@ -25,12 +25,13 @@ public class CropServiceIMPL implements CropService {
     @Autowired
     private Mapping mapping;
     @Override
-    public void saveCrop(CropDTO cropDTO) {
+    public CropDTO saveCrop(CropDTO cropDTO) {
             cropDTO.setCropCode(IdGenerate.generateCropId());
             CropEntity saveCrop =cropDao.save(mapping.toCropEntity(cropDTO));
                 if (saveCrop==null){
                         throw new DataPersistException("Crop Not Saved");
                 }
+                return mapping.toCropDto(saveCrop);
     }
 
     @Override

@@ -3,10 +3,15 @@ package com.example.demo.Entity.IMPL;
 import com.example.demo.Entity.Gender;
 import com.example.demo.Entity.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "staff")
 public class StaffEntity {

@@ -1,21 +1,26 @@
 package com.example.demo.Entity.IMPL;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.awt.*;
 import java.util.List;
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "field")
 public class FieldEntity {
     @Id
     private String fieldCode;
     private String fieldName;
-    private Point fieldLocation;
-    private Double extentSizeOfTheField;
+    private String fieldLocation;
+    private String extentSizeOfTheField;
 
     @OneToMany(mappedBy = "cropCode")
-    private java.util.List<CropEntity> crops;
+    private List<CropEntity> crops;
 
     @OneToMany(mappedBy = "staffId")
     private List<StaffEntity> staff;

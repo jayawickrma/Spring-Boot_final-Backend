@@ -1,4 +1,4 @@
-package com.example.demo.utill;
+package com.example.demo.util;
 
 import com.example.demo.DTO.IMPL.*;
 import com.example.demo.Entity.IMPL.*;

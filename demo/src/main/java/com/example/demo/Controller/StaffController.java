@@ -7,7 +7,7 @@ import com.example.demo.Entity.Gender;
 import com.example.demo.Entity.Role;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.StaffService;
-import com.example.demo.utill.IdGenerate;
+import com.example.demo.util.IdGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

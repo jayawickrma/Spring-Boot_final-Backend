@@ -5,7 +5,7 @@ import com.example.demo.Entity.EquipmentStatus;
 import com.example.demo.Entity.EquipmentType;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.EquipmentService;
-import com.example.demo.utill.IdGenerate;
+import com.example.demo.util.IdGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

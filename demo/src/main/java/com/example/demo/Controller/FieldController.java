@@ -28,9 +28,9 @@ public class FieldController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveField(@RequestPart("fieldName") String fieldName,
                                           @RequestPart("fieldLocation") String fieldLocation,
-                                          @RequestPart("fieldSize") Double fieldSize,
-                                          @RequestPart("cropId") List<CropDTO> cropId,
-                                          @RequestPart("staffId") List<StaffDTO> staffId,
+                                          @RequestPart("fieldSize") String fieldSize,
+                                          @RequestPart("cropId") String cropId,
+                                          @RequestPart("staffId") String staffId,
                                           @RequestPart("fieldImg1") MultipartFile fieldImg1,
                                           @RequestPart("fieldImg2") MultipartFile fieldImg2) {
         try {

@@ -26,7 +26,7 @@ import java.util.List;
 public class LogsController {
     @Autowired
     private MonitoringLogService monitoringLogService;
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>saveLog(@RequestPart("logDate")Date date,
                                        @RequestPart("logDetails")String details,
                                        @RequestPart("logImg")MultipartFile img,

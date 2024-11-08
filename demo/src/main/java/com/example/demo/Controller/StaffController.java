@@ -29,9 +29,9 @@ public class StaffController {
     public ResponseEntity<Void>saveStaff(@RequestPart("firstName")String firstName,
                                          @RequestPart("lastName")String lastName,
                                          @RequestPart("designation")String designation,
-                                         @RequestPart("gender")Gender gender,
-                                         @RequestPart("joinedDate")Date joinedDate,
-                                         @RequestPart("dob")Date dob,
+                                         @RequestPart("gender")String gender,
+                                         @RequestPart("joinedDate")String joinedDate,
+                                         @RequestPart("dob")String dob,
                                          @RequestPart("address1")String address1,
                                          @RequestPart("address2")String address2,
                                          @RequestPart("address3")String address3,
@@ -39,9 +39,9 @@ public class StaffController {
                                          @RequestPart("address5")String address5,
                                          @RequestPart("contact")String contactNumber,
                                          @RequestPart("email")String email,
-                                         @RequestPart("role")Role role,
-                                         @RequestPart("field")List<FieldDTO>field,
-                                         @RequestPart("vehicle")List<VehicleDTO>vehicle){
+                                         @RequestPart("role")String role,
+                                         @RequestPart("field")String field,
+                                         @RequestPart("vehicle")String vehicle){
         try{
             String id= IdGenerate.generateStaffId();
             StaffDTO staffDTO=new StaffDTO();

@@ -40,9 +40,9 @@ public class CropServiceIMPL implements CropService {
         cropEntity.setCropImage(cropDTO.getCropImage()); // Base64 encoded image
         cropEntity.setCategory(cropDTO.getCategory());
         cropEntity.setCropSeason(cropDTO.getCropSeason());
-        cropEntity.setField(fieldEntity); // Set the associated FieldEntity
+        cropEntity.setField(fieldEntity);
 
-        // Save the CropEntity
+
         cropDao.save(cropEntity);
         return cropDTO;
     }

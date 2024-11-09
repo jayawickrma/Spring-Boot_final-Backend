@@ -1,5 +1,6 @@
 package com.example.demo.Entity.IMPL;
 
+import com.example.demo.DTO.IMPL.CropDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

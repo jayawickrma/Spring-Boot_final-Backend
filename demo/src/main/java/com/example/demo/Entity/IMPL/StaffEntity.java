@@ -1,5 +1,6 @@
 package com.example.demo.Entity.IMPL;
 
+import com.example.demo.DTO.IMPL.StaffDTO;
 import com.example.demo.Entity.Gender;
 import com.example.demo.Entity.Role;
 import jakarta.persistence.*;
@@ -14,7 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "staff")
-public class StaffEntity {
+public class StaffEntity  {
     @Id
     private String staffId;
 

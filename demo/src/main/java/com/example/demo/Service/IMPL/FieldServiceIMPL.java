@@ -1,8 +1,14 @@
 package com.example.demo.Service.IMPL;
 
+import com.example.demo.DAO.CropDao;
 import com.example.demo.DAO.FieldDao;
+import com.example.demo.DAO.StaffDao;
+import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
+import com.example.demo.DTO.IMPL.StaffDTO;
+import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
+import com.example.demo.Entity.IMPL.StaffEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.FieldService;
 
@@ -12,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,14 +27,14 @@ public class FieldServiceIMPL implements FieldService {
     @Autowired
     private FieldDao fieldDao;
     @Autowired
+    private StaffDao staffDao;
+    @Autowired
+    private CropDao cropDao;
+    @Autowired
     private Mapping mapping;
     @Override
     public void saveField(FieldDTO fieldDTO) {
-            fieldDTO.setFieldCode(IdGenerate.generateFieldId());
-            FieldEntity saveField =fieldDao.save(mapping.toFieldEntity(fieldDTO));
-                if (saveField==null){
-                    throw new DataPersistException("Field Not Saved");
-                }
+
     }
 
     @Override

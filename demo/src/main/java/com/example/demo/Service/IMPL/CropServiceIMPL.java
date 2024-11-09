@@ -32,12 +32,11 @@ public class CropServiceIMPL implements CropService {
     public CropDTO saveCrop(CropDTO cropDTO) {
         FieldEntity fieldEntity = fieldDao.findByFieldCode(cropDTO.getField());
 
-        // Create CropEntity from CropDTO
         CropEntity cropEntity = new CropEntity();
         cropEntity.setCropCode(cropDTO.getCropCode());
         cropEntity.setCropCommonName(cropDTO.getCropCommonName());
         cropEntity.setCropScientificName(cropDTO.getCropScientificName());
-        cropEntity.setCropImage(cropDTO.getCropImage()); // Base64 encoded image
+        cropEntity.setCropImage(cropDTO.getCropImage());
         cropEntity.setCategory(cropDTO.getCategory());
         cropEntity.setCropSeason(cropDTO.getCropSeason());
         cropEntity.setField(fieldEntity);

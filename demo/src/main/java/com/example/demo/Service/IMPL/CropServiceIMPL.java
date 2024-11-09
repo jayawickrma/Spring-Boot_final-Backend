@@ -3,13 +3,12 @@ package com.example.demo.Service.IMPL;
 import com.example.demo.DAO.CropDao;
 import com.example.demo.DAO.FieldDao;
 import com.example.demo.DTO.IMPL.CropDTO;
+import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
-import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.CropService;
 
 
-import com.example.demo.util.IdGenerate;
 import com.example.demo.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

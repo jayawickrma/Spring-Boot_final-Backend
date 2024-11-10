@@ -19,7 +19,7 @@ public class FieldEntity {
     private String fieldLocation;
     private String extentSizeOfTheField;
 
-    @OneToMany(mappedBy = "cropCode")
+    @OneToMany(mappedBy = "field")
     private List<CropEntity> crops;
 
     @OneToMany(mappedBy = "staffId")

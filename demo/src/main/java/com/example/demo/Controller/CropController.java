@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
+import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.CropService;
 import com.example.demo.util.IdGenerate;
@@ -39,7 +40,7 @@ public class CropController {
                 cropDTO.setCropImage(cropIMG);
                 cropDTO.setCategory(category);
                 cropDTO.setCropSeason(season);
-                cropDTO.setField(String.valueOf(field));
+                cropDTO.setField_code(field);
 
             cropService.saveCrop(cropDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

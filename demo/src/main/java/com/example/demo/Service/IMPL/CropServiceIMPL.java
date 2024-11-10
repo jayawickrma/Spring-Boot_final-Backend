@@ -6,6 +6,7 @@ import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
+import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.CropService;
 
 
@@ -29,19 +30,12 @@ public class CropServiceIMPL implements CropService {
     FieldDao fieldDao;
     @Override
     public CropDTO saveCrop(CropDTO cropDTO) {
-        FieldEntity fieldEntity = fieldDao.findByFieldCode(cropDTO.getField());
-
-        CropEntity cropEntity = new CropEntity();
-        cropEntity.setCropCode(cropDTO.getCropCode());
-        cropEntity.setCropCommonName(cropDTO.getCropCommonName());
-        cropEntity.setCropScientificName(cropDTO.getCropScientificName());
-        cropEntity.setCropImage(cropDTO.getCropImage());
-        cropEntity.setCategory(cropDTO.getCategory());
-        cropEntity.setCropSeason(cropDTO.getCropSeason());
-        cropEntity.setField(fieldEntity);
-
-
-        cropDao.save(cropEntity);
+        CropEntity cropEntity = mapping.toCropEntity(cropDTO);
+        cropEntity.setField(fieldDao.getReferenceById(cropDTO.getField_code()));
+        CropEntity saveCrop =cropDao.save(cropEntity);
+       if (saveCrop==null){
+           throw new DataPersistException("wdfvcxagsdfv");
+       }
         return cropDTO;
     }
 

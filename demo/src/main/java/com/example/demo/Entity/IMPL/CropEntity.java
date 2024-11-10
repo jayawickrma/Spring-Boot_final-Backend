@@ -25,6 +25,6 @@ public class CropEntity {
     private String cropSeason;
 
     @ManyToOne
-    @JoinColumn(name = "fieldId")
+    @JoinColumn(name = "fieldCode")
     private FieldEntity field;
 }

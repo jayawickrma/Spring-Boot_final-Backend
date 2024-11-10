@@ -34,9 +34,13 @@ public class FieldServiceIMPL implements FieldService {
     private Mapping mapping;
     @Override
     public void saveField(FieldDTO fieldDTO) {
-
-
+        FieldEntity fieldEntity=mapping.toFieldEntity(fieldDTO);
+        FieldEntity saveField =fieldDao.save(fieldEntity);
+            if (saveField==null){
+                throw new DataPersistException("Something Went Wrong");
+                }
     }
+
 
     @Override
     public List<FieldDTO> getAllFields() {

@@ -1,5 +1,6 @@
 package com.example.demo.Service.IMPL;
 
+import com.example.demo.DAO.StaffDao;
 import com.example.demo.DAO.VehicleDao;
 import com.example.demo.DTO.IMPL.VehicleDTO;
 import com.example.demo.DTO.VehicleStatus;
@@ -20,6 +21,8 @@ public class VehicleServiceIMPL implements VehicleService {
     private VehicleDao vehicleDao;
     @Autowired
     private Mapping mapping;
+    @Autowired
+    private StaffDao staffDao;
     @Override
     public void saveVehicle(VehicleDTO vehicleDTO) {
         VehicleEntity saveVehicle =vehicleDao.save(mapping.toVehicleEntity(vehicleDTO));

@@ -23,7 +23,7 @@ public class EquipmentController {
     public ResponseEntity<Void>saveEquipment(@RequestPart("equipmentName")String equipmentName,
                                              @RequestPart("equipmentType")String equipmentType,
                                              @RequestPart("equipmentStatus")String equipmentStatus,
-                                             @RequestPart("staff")String staff,
+                                                 @RequestPart("staff")String staff,
                                              @RequestPart("field")String field){
         try {
             String equipmentID = IdGenerate.generateEquipmentID();

@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class EquipmentDTO {
     private String equipmentId;
     private String equipmentName;
-    private EquipmentType equipmentType;
-    private EquipmentStatus equipmentStatus;
+    private String equipmentType;
+    private String equipmentStatus;
     private String assignedStaffDetails;
     private String assignedFieldDetails;
 }

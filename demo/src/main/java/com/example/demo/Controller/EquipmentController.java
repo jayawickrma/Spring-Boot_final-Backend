@@ -30,8 +30,8 @@ public class EquipmentController {
             EquipmentDTO equipmentDTO =new EquipmentDTO();
                 equipmentDTO.setEquipmentId(equipmentID);
                 equipmentDTO.setEquipmentName(equipmentName);
-                equipmentDTO.setEquipmentType(EquipmentType.valueOf(equipmentType));
-                equipmentDTO.setEquipmentStatus(EquipmentStatus.valueOf(equipmentStatus));
+                equipmentDTO.setEquipmentType(equipmentType);
+                equipmentDTO.setEquipmentStatus(equipmentStatus);
                 equipmentDTO.setAssignedStaffDetails(staff);
                 equipmentDTO.setAssignedFieldDetails(field);
 

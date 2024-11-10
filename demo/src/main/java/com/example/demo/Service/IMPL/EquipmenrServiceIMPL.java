@@ -1,6 +1,8 @@
 package com.example.demo.Service.IMPL;
 
 import com.example.demo.DAO.EquipmentDao;
+import com.example.demo.DAO.FieldDao;
+import com.example.demo.DAO.StaffDao;
 import com.example.demo.DTO.IMPL.EquipmentDTO;
 import com.example.demo.Entity.IMPL.EquipmentEntity;
 import com.example.demo.Exception.DataPersistException;
@@ -21,12 +23,19 @@ public class EquipmenrServiceIMPL implements EquipmentService {
     private EquipmentDao equipmentDao;
     @Autowired
     private Mapping mapping;
+    @Autowired
+    private StaffDao staffDao;
+    @Autowired
+    private FieldDao fieldDao;
 
 
     @Override
     public void saveEquipment(EquipmentDTO equipmentDTO) {
         equipmentDTO.setEquipmentId(IdGenerate.generateEquipmentID());
-        EquipmentEntity saveEqu =equipmentDao.save(mapping.toEquipmentEntity(equipmentDTO));
+        EquipmentEntity equipmentEntity=mapping.toEquipmentEntity(equipmentDTO);
+        equipmentEntity.setAssignedStaffDetails(staffDao.getReferenceById(equipmentDTO.getAssignedStaffDetails()));
+        equipmentEntity.setAssignedFieldDetails(fieldDao.getReferenceById(equipmentDTO.getAssignedFieldDetails()));
+        EquipmentEntity saveEqu =equipmentDao.save(equipmentEntity);
         if (saveEqu==null){
             throw new DataPersistException("Equipment Not Found");
         }

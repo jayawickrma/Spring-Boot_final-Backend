@@ -26,24 +26,26 @@ import java.util.List;
 public class LogsController {
     @Autowired
     private MonitoringLogService monitoringLogService;
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void>saveLog(@RequestPart("logDate")Date date,
-                                       @RequestPart("logDetails")String details,
-                                       @RequestPart("logImg")MultipartFile img,
-                                       @RequestPart("field")String field,
-                                       @RequestPart("crop")String crop,
-                                       @RequestPart("staff")String staff){
-        try{
-            String logCode= IdGenerate.generateLogCode();
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> saveLog(@RequestPart("logDate") Date date,
+                                        @RequestPart("logDetails") String details,
+                                        @RequestPart("logImg") MultipartFile img)
+//                                       @RequestPart("field")String field,
+//                                       @RequestPart("crop")String crop,
+//                                       @RequestPart("staff")String staff)
+    {
+        try {
+            String logCode = IdGenerate.generateLogCode();
             String image = PicEncorder.generateProfilePicToBase64(img);
-            MonitoringLogDTO monitoringLogDTO =new MonitoringLogDTO();
-                monitoringLogDTO.setLogCode(logCode);
-                monitoringLogDTO.setLogDate(date);
-                monitoringLogDTO.setLogDetails(details);
-                monitoringLogDTO.setObservedImage(image);
-                monitoringLogDTO.setField(field);
-                monitoringLogDTO.setCrop(crop);
-                monitoringLogDTO.setStaff(staff);
+            MonitoringLogDTO monitoringLogDTO = new MonitoringLogDTO();
+            monitoringLogDTO.setLogCode(logCode);
+            monitoringLogDTO.setLogDate(date);
+            monitoringLogDTO.setLogDetails(details);
+            monitoringLogDTO.setObservedImage(image);
+//                monitoringLogDTO.setField(field);
+//                monitoringLogDTO.setCrop(crop);
+//                monitoringLogDTO.setStaff(staff);
 
             monitoringLogService.saveLog(monitoringLogDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -54,3 +56,4 @@ public class LogsController {
         }
     }
 }
+

@@ -20,8 +20,8 @@ public class VehicleEntity {
     private FuelType fuelType;
     private String status;
 
-    @OneToOne
-    @JoinColumn(name = "allocatedStaffMemberDetail")
+    @ManyToOne
+    @JoinColumn(name = "StaffID")
     private StaffEntity allocatedStaffMemberDetails;
 
     private String remarks;

@@ -55,6 +55,6 @@ public class StaffEntity  {
     @JoinColumn(name = "fieldCode")
     private FieldEntity field;
 
-    @OneToMany(mappedBy = "vehicleCode")
+    @OneToMany(mappedBy = "allocatedStaffMemberDetails")
     private List<VehicleEntity> vehicle;
 }

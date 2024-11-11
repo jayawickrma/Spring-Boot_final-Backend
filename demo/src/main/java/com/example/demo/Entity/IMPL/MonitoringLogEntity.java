@@ -28,6 +28,6 @@ public class MonitoringLogEntity {
     @OneToMany(mappedBy = "cropCode")
     private List<CropEntity> crop;
 
-    @OneToMany(mappedBy = "staffId")
-    private List<StaffEntity> staff;
+    @OneToMany(mappedBy = "logCode")
+    private List<StaffEntity> staffId;
 }

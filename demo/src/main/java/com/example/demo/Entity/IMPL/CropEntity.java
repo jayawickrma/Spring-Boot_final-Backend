@@ -27,4 +27,8 @@ public class CropEntity {
     @ManyToOne
     @JoinColumn(name = "fieldCode")
     private FieldEntity field;
+
+    @ManyToOne
+    @JoinColumn(name = "logCode")
+    private MonitoringLogEntity log;
 }

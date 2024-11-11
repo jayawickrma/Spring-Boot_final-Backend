@@ -53,7 +53,11 @@ public class StaffEntity  {
 
     @ManyToOne
     @JoinColumn(name = "fieldCode")
-    private FieldEntity field;
+    private FieldEntity fieldId;
+
+    @ManyToOne
+    @JoinColumn(name = "logCode")
+    private MonitoringLogEntity logCode;
 
     @OneToMany(mappedBy = "assignedStaffDetails")
     private List<EquipmentEntity> equipment;

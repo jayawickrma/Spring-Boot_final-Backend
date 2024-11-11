@@ -22,7 +22,7 @@ public class FieldEntity {
     @OneToMany(mappedBy = "field")
     private List<CropEntity> crops;
 
-    @OneToMany(mappedBy = "field")
+    @OneToMany(mappedBy = "fieldId")
     private List<StaffEntity> staff;
 
     @OneToMany(mappedBy = "assignedFieldDetails")

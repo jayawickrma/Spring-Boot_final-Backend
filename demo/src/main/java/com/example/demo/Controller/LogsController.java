@@ -30,9 +30,9 @@ public class LogsController {
     public ResponseEntity<Void>saveLog(@RequestPart("logDate")Date date,
                                        @RequestPart("logDetails")String details,
                                        @RequestPart("logImg")MultipartFile img,
-                                       @RequestPart("field")List<FieldDTO>field,
-                                       @RequestPart("crop")List<CropDTO>crop,
-                                       @RequestPart("staff")List<StaffDTO>staff){
+                                       @RequestPart("field")String field,
+                                       @RequestPart("crop")String crop,
+                                       @RequestPart("staff")String staff){
         try{
             String logCode= IdGenerate.generateLogCode();
             String image = PicEncorder.generateProfilePicToBase64(img);

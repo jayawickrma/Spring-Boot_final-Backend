@@ -28,7 +28,8 @@ public class CropController {
                                          @RequestPart("cropImage") MultipartFile cropIMg,
                                          @RequestPart("category") String category,
                                          @RequestPart("cropSeason") String season,
-                                         @RequestPart("field") String field) {
+                                         @RequestPart("field") String field,
+                                         @RequestPart("log")String log){
 
         try {
             String CropId = IdGenerate.generateCropId();
@@ -41,6 +42,7 @@ public class CropController {
                 cropDTO.setCategory(category);
                 cropDTO.setCropSeason(season);
                 cropDTO.setField_code(field);
+                cropDTO.setLogCode(log);
 
             cropService.saveCrop(cropDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

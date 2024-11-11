@@ -28,6 +28,7 @@ public class StaffDTO implements StaffStatus {
     private String contactNumber;
     private String email;
     private String role;
-    private String field;
-    private String vehicle;
+    private String equipment;
+    private String log;
+
 }

@@ -2,6 +2,7 @@ package com.example.demo.Service.IMPL;
 
 import com.example.demo.DAO.CropDao;
 import com.example.demo.DAO.FieldDao;
+import com.example.demo.DAO.MonitoringLogDao;
 import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.Entity.IMPL.CropEntity;
@@ -28,10 +29,13 @@ public class CropServiceIMPL implements CropService {
     private Mapping mapping;
     @Autowired
     FieldDao fieldDao;
+    @Autowired
+    private MonitoringLogDao monitoringLogDao;
     @Override
     public CropDTO saveCrop(CropDTO cropDTO) {
         CropEntity cropEntity = mapping.toCropEntity(cropDTO);
         cropEntity.setField(fieldDao.getReferenceById(cropDTO.getField_code()));
+        cropEntity.setLog(monitoringLogDao.getReferenceById(cropDTO.getLogCode()));
         CropEntity saveCrop =cropDao.save(cropEntity);
        if (saveCrop==null){
            throw new DataPersistException("wdfvcxagsdfv");

@@ -60,8 +60,8 @@ public class StaffController {
                 staffDTO.setContactNumber(contactNumber);
                 staffDTO.setEmail(email);
                 staffDTO.setRole(role);
-                staffDTO.setField(field);
-                staffDTO.setVehicle(vehicle);
+//                staffDTO.setField(field);
+//                staffDTO.setVehicle(vehicle);
 
             staffService.saveStaff(staffDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

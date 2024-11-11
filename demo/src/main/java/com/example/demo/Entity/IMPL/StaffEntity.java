@@ -23,8 +23,8 @@ public class StaffEntity  {
     private String lastName;
     private String designation;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+
+    private String gender;
 
     private Date joinedDate;
     private Date dob;
@@ -48,11 +48,12 @@ public class StaffEntity  {
 
     private String email;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
-    @OneToMany(mappedBy = "fieldCode")
-    private List<FieldEntity> field;
+    private String role;
+
+    @ManyToOne
+    @JoinColumn(name = "fieldCode")
+    private FieldEntity field;
 
     @OneToMany(mappedBy = "vehicleCode")
     private List<VehicleEntity> vehicle;

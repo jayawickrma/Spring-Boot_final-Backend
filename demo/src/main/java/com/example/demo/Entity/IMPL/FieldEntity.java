@@ -25,6 +25,9 @@ public class FieldEntity {
     @OneToMany(mappedBy = "field")
     private List<StaffEntity> staff;
 
+    @OneToMany(mappedBy = "assignedFieldDetails")
+    private List<EquipmentEntity>equipments;
+
     @Lob
     private String fieldImage1;
     @Lob

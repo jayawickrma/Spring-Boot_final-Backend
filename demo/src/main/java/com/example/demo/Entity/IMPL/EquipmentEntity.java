@@ -21,10 +21,10 @@ public class EquipmentEntity {
     private EquipmentStatus equipmentStatus;
 
     @ManyToOne
-    @JoinColumn(name = "equipment_assigned_staff_details")
+    @JoinColumn(name = "staffId")
     private StaffEntity assignedStaffDetails;
 
     @ManyToOne
-    @JoinColumn(name = "equipment_assigned_field_details")
+    @JoinColumn(name = "fieldCode")
     private FieldEntity assignedFieldDetails;
 }

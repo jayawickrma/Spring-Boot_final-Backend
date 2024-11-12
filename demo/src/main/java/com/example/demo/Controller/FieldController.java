@@ -29,9 +29,9 @@ public class FieldController {
     public ResponseEntity<Void> saveField(@RequestPart("fieldName") String fieldName,
                                           @RequestPart("fieldLocation") String fieldLocation,
                                           @RequestPart("fieldSize") String fieldSize,
-//                                          @RequestPart("cropId") String cropId,
-//                                          @RequestPart("staffId") String staffId,
-//                                          @RequestPart("equipment")String euqipment,
+                                          @RequestPart("cropId") String cropId,
+                                          @RequestPart("staffId") String staffId,
+                                          @RequestPart("equipment")String euqipment,
                                           @RequestPart("fieldImg1") MultipartFile fieldImg1,
                                           @RequestPart("fieldImg2") MultipartFile fieldImg2) {
         try {
@@ -44,9 +44,9 @@ public class FieldController {
                 fieldDTO.setFieldName(fieldName);
                 fieldDTO.setFieldLocation(fieldLocation);
                 fieldDTO.setExtentSizeOfTheField(fieldSize);
-//                fieldDTO.setCrops(cropId);
-//                fieldDTO.setStaff(staffId);
-//                fieldDTO.setEquipment(euqipment);
+                fieldDTO.setCrops(cropId);
+                fieldDTO.setStaff(staffId);
+                fieldDTO.setEquipment(euqipment);
                 fieldDTO.setFieldImage1(img1);
                 fieldDTO.setFieldImage2(img2);
 

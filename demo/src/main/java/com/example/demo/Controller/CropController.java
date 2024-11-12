@@ -23,11 +23,11 @@ public class CropController {
     private CropService cropService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveCrop(@RequestPart("cropName") String cropName,
-                                         @RequestPart("cropScientificName") String scientificName,
+    public ResponseEntity<Void> saveCrop(@RequestPart("commonName") String cropName,
+                                         @RequestPart("scientificName") String scientificName,
                                          @RequestPart("cropImage") MultipartFile cropIMg,
                                          @RequestPart("category") String category,
-                                         @RequestPart("cropSeason") String season,
+                                         @RequestPart("season") String season,
                                          @RequestPart("field") String field,
                                          @RequestPart("log")String log){
 

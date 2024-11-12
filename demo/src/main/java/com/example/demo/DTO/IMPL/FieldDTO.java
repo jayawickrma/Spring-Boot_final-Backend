@@ -15,9 +15,9 @@ public class FieldDTO implements FieldStatus {
     private String fieldName;
     private String fieldLocation;
     private String extentSizeOfTheField;
-//    private String crops;
-//    private String staff;
-//    private String equipment;
+    private String crops;
+    private String staff;
+    private String equipment;
     private String fieldImage1;
     private String fieldImage2;
 }

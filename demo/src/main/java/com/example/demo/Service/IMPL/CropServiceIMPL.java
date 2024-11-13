@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,12 +30,31 @@ public class CropServiceIMPL implements CropService {
     private Mapping mapping;
     @Autowired
     FieldDao fieldDao;
-    @Autowired
-    private MonitoringLogDao monitoringLogDao;
-    @Override
-    public CropDTO saveCrop(CropDTO cropDTO) {
 
-        return cropDTO;
+    @Override
+    public void saveCrop(CropDTO cropDTO) {
+        int number =0;
+        CropEntity crop =cropDao.findLastRowNative();
+            if (crop != null){
+                String [] parts =crop.getCropCode().split("-");
+                number =Integer.parseInt(parts[1]);
+            }
+            cropDTO.setCropCode("C00"+ ++number);
+            CropEntity cropEntity =mapping.toCropEntity(cropDTO);
+            List<FieldEntity>fieldEntities =new ArrayList<>();
+                for (FieldDTO fieldDTO: cropDTO.getFieldList()){
+                    if (fieldDao.existsById(fieldDTO.getFieldCode())){
+                        fieldEntities.add(fieldDao.getReferenceById(fieldDTO.getFieldCode()));
+                    }
+                }
+            cropEntity.setFieldList(fieldEntities);
+                for (FieldEntity fieldEntity:fieldEntities){
+                    fieldEntity.getCropList().add(cropEntity);
+                }
+                cropDao.save(cropEntity);
+                if (cropEntity==null){
+                    throw new DataPersistException("Crop ID not found!");
+                }
     }
 
     @Override

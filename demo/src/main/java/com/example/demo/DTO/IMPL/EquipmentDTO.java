@@ -15,5 +15,5 @@ public class EquipmentDTO {
     private String equipmentType;
     private String equipmentStatus;
     private String assignedStaffDetails;
-    private String assignedFieldDetails;
+
 }

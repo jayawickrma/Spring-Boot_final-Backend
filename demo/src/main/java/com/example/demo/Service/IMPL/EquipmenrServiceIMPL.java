@@ -34,7 +34,7 @@ public class EquipmenrServiceIMPL implements EquipmentService {
         equipmentDTO.setEquipmentId(IdGenerate.generateEquipmentID());
         EquipmentEntity equipmentEntity=mapping.toEquipmentEntity(equipmentDTO);
         equipmentEntity.setAssignedStaffDetails(staffDao.getReferenceById(equipmentDTO.getAssignedStaffDetails()));
-        equipmentEntity.setAssignedFieldDetails(fieldDao.getReferenceById(equipmentDTO.getAssignedFieldDetails()));
+
         EquipmentEntity saveEqu =equipmentDao.save(equipmentEntity);
         if (saveEqu==null){
             throw new DataPersistException("Equipment Not Found");

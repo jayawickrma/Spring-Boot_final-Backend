@@ -1,10 +1,13 @@
 package com.example.demo.Entity.IMPL;
 
 import com.example.demo.DTO.IMPL.CropDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,21 +17,17 @@ import lombok.NoArgsConstructor;
 public class CropEntity {
     @Id
     private String cropCode;
-
-    private String cropCommonName;
-    private String cropScientificName;
-
-    @Lob
-    private String cropImage;
-
+    private String cropName;
+    private String scientificName;
     private String category;
-    private String cropSeason;
+    private String season;
+    @Column(columnDefinition = "LONGTEXT")
+    private String cropImage;
+    @JsonIgnore// Ignore during serialization to avoid recursion
+    @ManyToMany(mappedBy = "cropList")
+    private List<LogEntity> logList;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "cropList")
+    private List<FieldEntity> fieldList;
 
-    @ManyToOne
-    @JoinColumn(name = "fieldCode")
-    private FieldEntity field;
-
-    @ManyToOne
-    @JoinColumn(name = "logCode")
-    private MonitoringLogEntity log;
 }

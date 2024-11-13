@@ -61,14 +61,14 @@ public class Mapping {
 
 
 
-    public MonitoringLogEntity toMonitoringLogEntity(MonitoringLogDTO monitoringLogDTO){
-        return modelMapper.map(monitoringLogDTO, MonitoringLogEntity.class);
+    public LogEntity toMonitoringLogEntity(MonitoringLogDTO monitoringLogDTO){
+        return modelMapper.map(monitoringLogDTO, LogEntity.class);
     }
 
-    public MonitoringLogDTO toMonitoringLogDto(MonitoringLogEntity monitoringLog){
+    public MonitoringLogDTO toMonitoringLogDto(LogEntity monitoringLog){
        return modelMapper.map(monitoringLog, MonitoringLogDTO.class);
     }
-    public List<MonitoringLogDTO>asMonitoringDtoList(List<MonitoringLogEntity>monitoringLogEntities){
+    public List<MonitoringLogDTO>asMonitoringDtoList(List<LogEntity>monitoringLogEntities){
         return modelMapper.map(monitoringLogEntities,new TypeToken<List<MonitoringLogDTO>>(){}.getType());
     }
 

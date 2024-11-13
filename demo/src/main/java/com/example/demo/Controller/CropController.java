@@ -42,7 +42,7 @@ public class CropController {
                 cropDTO.setCategory(category);
                 cropDTO.setCropSeason(season);
                 cropDTO.setField_code(field);
-                cropDTO.setLogCode(log);
+
 
             cropService.saveCrop(cropDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

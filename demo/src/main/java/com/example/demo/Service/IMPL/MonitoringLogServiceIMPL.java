@@ -3,7 +3,7 @@ package com.example.demo.Service.IMPL;
 import com.example.demo.DAO.MonitoringLogDao;
 import com.example.demo.DTO.IMPL.MonitoringLogDTO;
 import com.example.demo.DTO.MonitoringLogStatus;
-import com.example.demo.Entity.IMPL.MonitoringLogEntity;
+import com.example.demo.Entity.IMPL.LogEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.MonitoringLogService;
 import com.example.demo.util.IdGenerate;
@@ -24,7 +24,7 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
     @Override
     public void saveLog(MonitoringLogDTO monitoringLogDTO) {
         monitoringLogDTO.setLogCode(IdGenerate.generateLogCode());
-        MonitoringLogEntity saveLog = monitoringLogDao.save(mapping.toMonitoringLogEntity(monitoringLogDTO));
+        LogEntity saveLog = monitoringLogDao.save(mapping.toMonitoringLogEntity(monitoringLogDTO));
             if (saveLog==null){
                 throw new DataPersistException("Log Not Found");
             }
@@ -37,7 +37,7 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
 
     @Override
     public MonitoringLogStatus getLog(String logCode) {
-        MonitoringLogEntity findLog =monitoringLogDao.getReferenceById(logCode);
+        LogEntity findLog =monitoringLogDao.getReferenceById(logCode);
         return mapping.toMonitoringLogDto(findLog);
     }
 

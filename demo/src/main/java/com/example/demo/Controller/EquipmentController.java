@@ -33,7 +33,7 @@ public class EquipmentController {
                 equipmentDTO.setEquipmentType(equipmentType);
                 equipmentDTO.setEquipmentStatus(equipmentStatus);
                 equipmentDTO.setAssignedStaffDetails(staff);
-                equipmentDTO.setAssignedFieldDetails(field);
+
 
             equipmentService.saveEquipment(equipmentDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

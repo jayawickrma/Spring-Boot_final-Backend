@@ -1,11 +1,8 @@
 package com.example.demo.Controller;
 
 import com.example.demo.DTO.IMPL.EquipmentDTO;
-import com.example.demo.Entity.EquipmentStatus;
-import com.example.demo.Entity.EquipmentType;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.EquipmentService;
-import com.example.demo.util.IdGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +23,7 @@ public class EquipmentController {
                                              @RequestPart("staff")String staff,
                                              @RequestPart("field")String field){
         try {
-            String equipmentID = IdGenerate.generateEquipmentID();
+
             EquipmentDTO equipmentDTO =new EquipmentDTO();
 
 

@@ -1,12 +1,8 @@
 package com.example.demo.Controller;
 
-import com.example.demo.DTO.IMPL.CropDTO;
-import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.DTO.IMPL.MonitoringLogDTO;
-import com.example.demo.DTO.IMPL.StaffDTO;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.MonitoringLogService;
-import com.example.demo.util.IdGenerate;
 import com.example.demo.util.PicEncorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/logs")
@@ -36,8 +31,8 @@ public class LogsController {
 //                                       @RequestPart("staff")String staff)
     {
         try {
-            String logCode = IdGenerate.generateLogCode();
-            String image = PicEncorder.generateProfilePicToBase64(img);
+
+            String image = PicEncorder.generatePicture(img);
             MonitoringLogDTO monitoringLogDTO = new MonitoringLogDTO();
 
 //                monitoringLogDTO.setField(field);

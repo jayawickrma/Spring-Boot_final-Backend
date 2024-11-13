@@ -1,13 +1,8 @@
 package com.example.demo.Controller;
 
-import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.DTO.IMPL.StaffDTO;
-import com.example.demo.DTO.IMPL.VehicleDTO;
-import com.example.demo.Entity.Gender;
-import com.example.demo.Entity.Role;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.StaffService;
-import com.example.demo.util.IdGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,9 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/staff")
@@ -43,7 +35,7 @@ public class StaffController {
                                          @RequestPart("field")String field,
                                          @RequestPart("vehicle")String vehicle){
         try{
-            String id= IdGenerate.generateStaffId();
+
             StaffDTO staffDTO=new StaffDTO();
 
             staffService.saveStaff(staffDTO);

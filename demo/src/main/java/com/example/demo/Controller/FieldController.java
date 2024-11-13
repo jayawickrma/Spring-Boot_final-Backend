@@ -1,11 +1,8 @@
 package com.example.demo.Controller;
 
-import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
-import com.example.demo.DTO.IMPL.StaffDTO;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.FieldService;
-import com.example.demo.util.IdGenerate;
 import com.example.demo.util.PicEncorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @RestController
     @RequestMapping("api/v1/fields")
@@ -35,12 +30,12 @@ public class FieldController {
                                           @RequestPart("fieldImg1") MultipartFile fieldImg1,
                                           @RequestPart("fieldImg2") MultipartFile fieldImg2) {
         try {
-            String fieldId = IdGenerate.generateFieldId();
-            String img1 = PicEncorder.generateProfilePicToBase64(fieldImg1);
-            String img2 = PicEncorder.generateProfilePicToBase64(fieldImg2);
+
+            String img1 = PicEncorder.generatePicture(fieldImg1);
+            String img2 = PicEncorder.generatePicture(fieldImg2);
 
             FieldDTO fieldDTO = new FieldDTO();
-                fieldDTO.setFieldCode(fieldId);
+
 
             fieldService.saveField(fieldDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

@@ -6,7 +6,6 @@ import com.example.demo.DTO.MonitoringLogStatus;
 import com.example.demo.Entity.IMPL.LogEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.MonitoringLogService;
-import com.example.demo.util.IdGenerate;
 import com.example.demo.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
     private Mapping mapping;
     @Override
     public void saveLog(MonitoringLogDTO monitoringLogDTO) {
-        monitoringLogDTO.setLogCode(IdGenerate.generateLogCode());
+
         LogEntity saveLog = monitoringLogDao.save(mapping.toMonitoringLogEntity(monitoringLogDTO));
             if (saveLog==null){
                 throw new DataPersistException("Log Not Found");

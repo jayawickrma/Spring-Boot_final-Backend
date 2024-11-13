@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Base64;
 
 public class PicEncorder {
-    public static String generateProfilePicToBase64(MultipartFile profilePic){
+    public static String generatePicture(MultipartFile profilePic){
         try {
             return Base64.getEncoder().encodeToString(profilePic.getBytes());  //converted to base64
         } catch (IOException e) {

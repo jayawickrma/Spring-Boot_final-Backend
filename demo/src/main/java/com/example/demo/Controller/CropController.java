@@ -1,11 +1,8 @@
 package com.example.demo.Controller;
 
 import com.example.demo.DTO.IMPL.CropDTO;
-import com.example.demo.DTO.IMPL.FieldDTO;
-import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.CropService;
-import com.example.demo.util.IdGenerate;
 import com.example.demo.util.PicEncorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,8 +29,7 @@ public class CropController {
                                          @RequestPart("log")String log){
 
         try {
-            String CropId = IdGenerate.generateCropId();
-            String cropIMG = PicEncorder.generateProfilePicToBase64(cropIMg);
+            String cropIMG = PicEncorder.generatePicture(cropIMg);
             CropDTO cropDTO = new CropDTO();
 
 

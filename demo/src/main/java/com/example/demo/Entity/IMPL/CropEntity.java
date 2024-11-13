@@ -25,9 +25,9 @@ public class CropEntity {
     private String cropImage;
 
     @ManyToMany(mappedBy = "cropList")
-    private List<String> logList;
+    private List<LogEntity> logList;
 
     @ManyToMany(mappedBy = "cropList")
-    private List<String> fieldList;
+    private List<FieldEntity> fieldList;
 
 }

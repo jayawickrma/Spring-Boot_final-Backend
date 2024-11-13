@@ -28,11 +28,19 @@ public class FieldServiceIMPL implements FieldService {
     private Mapping mapping;
     @Override
     public void saveField(FieldDTO fieldDTO) {
-        FieldEntity fieldEntity=mapping.toFieldEntity(fieldDTO);
-        FieldEntity saveField =fieldDao.save(fieldEntity);
-            if (saveField==null){
-                throw new DataPersistException("Something Went Wrong");
+            int number=0;
+            FieldEntity field=fieldDao.findLastRowNative();
+                if(field!=null){
+                    String [] parts=field.getFieldCode().split("-");
+                    number=Integer.parseInt(parts[1]);
                 }
+                fieldDTO.setFieldCode("F00"+ ++number);
+                FieldEntity fieldEntity =mapping.toFieldEntity(fieldDTO);
+                FieldEntity fieldEntity1 =fieldDao.save(fieldEntity);
+                if(fieldEntity1==null){
+                    throw new DataPersistException("Something Went Wrong");
+                }
+
     }
 
 

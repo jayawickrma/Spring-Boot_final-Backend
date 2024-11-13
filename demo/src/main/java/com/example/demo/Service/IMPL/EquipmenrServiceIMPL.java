@@ -29,6 +29,7 @@ public class EquipmenrServiceIMPL implements EquipmentService {
 
     @Override
     public void saveEquipment(EquipmentDTO equipmentDTO) {
+        int number =0;
 
 
     }

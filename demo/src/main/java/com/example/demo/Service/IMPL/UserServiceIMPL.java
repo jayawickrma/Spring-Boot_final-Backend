@@ -1,12 +1,17 @@
 package com.example.demo.Service.IMPL;
 
+import com.example.demo.DAO.UserDao;
 import com.example.demo.DTO.IMPL.UserDTO;
+import com.example.demo.Exception.UserNotFoundException;
 import com.example.demo.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
 public class UserServiceIMPL implements UserService {
+
     @Override
     public void saveUser(UserDTO userDTO) {
 
@@ -31,4 +36,5 @@ public class UserServiceIMPL implements UserService {
     public UserDetailsService userDetailsService() {
         return null;
     }
+
 }

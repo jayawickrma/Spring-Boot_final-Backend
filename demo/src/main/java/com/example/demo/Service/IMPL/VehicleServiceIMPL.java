@@ -26,7 +26,7 @@ public class VehicleServiceIMPL implements VehicleService {
     @Override
     public void saveVehicle(VehicleDTO vehicleDTO) {
         VehicleEntity vehicleEntity =mapping.toVehicleEntity(vehicleDTO);
-        vehicleEntity.setAllocatedStaffMemberDetails(staffDao.getReferenceById(vehicleDTO.getAllocatedStaffMemberDetails()));
+
         VehicleEntity vehicleEntity1 =vehicleDao.save(vehicleEntity);
             if (vehicleEntity1==null){
                 throw new DataPersistException("Something went wrong");

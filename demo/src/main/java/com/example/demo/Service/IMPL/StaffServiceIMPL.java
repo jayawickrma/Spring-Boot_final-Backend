@@ -23,7 +23,7 @@ public class StaffServiceIMPL implements StaffService {
     private Mapping mapping;
     @Override
     public void saveStaff(StaffDTO staffDTO) {
-            staffDTO.setId(IdGenerate.generateStaffId());
+
         StaffEntity saveStaff =staffDao.save(mapping.toStaffEntity(staffDTO));
             if (saveStaff==null){
                 throw new DataPersistException("Couldn't Find");

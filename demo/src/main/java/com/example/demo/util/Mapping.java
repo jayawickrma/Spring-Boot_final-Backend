@@ -16,8 +16,7 @@ public class Mapping {
 
     public CropEntity toCropEntity(CropDTO cropDTO) {
         CropEntity map = modelMapper.map(cropDTO, CropEntity.class);
-        System.out.println(map.getField());
-        return map;
+             return map;
     }
     public CropDTO toCropDto(CropEntity cropEntity) {
 

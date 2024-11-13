@@ -41,14 +41,6 @@ public class FieldController {
 
             FieldDTO fieldDTO = new FieldDTO();
                 fieldDTO.setFieldCode(fieldId);
-                fieldDTO.setFieldName(fieldName);
-                fieldDTO.setFieldLocation(fieldLocation);
-                fieldDTO.setExtentSizeOfTheField(fieldSize);
-                fieldDTO.setCrops(cropId);
-                fieldDTO.setStaff(staffId);
-                fieldDTO.setEquipment(euqipment);
-                fieldDTO.setFieldImage1(img1);
-                fieldDTO.setFieldImage2(img2);
 
             fieldService.saveField(fieldDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

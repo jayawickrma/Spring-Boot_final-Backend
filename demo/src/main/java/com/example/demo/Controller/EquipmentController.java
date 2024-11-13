@@ -28,11 +28,7 @@ public class EquipmentController {
         try {
             String equipmentID = IdGenerate.generateEquipmentID();
             EquipmentDTO equipmentDTO =new EquipmentDTO();
-                equipmentDTO.setEquipmentId(equipmentID);
-                equipmentDTO.setEquipmentName(equipmentName);
-                equipmentDTO.setEquipmentType(equipmentType);
-                equipmentDTO.setEquipmentStatus(equipmentStatus);
-                equipmentDTO.setAssignedStaffDetails(staff);
+
 
 
             equipmentService.saveEquipment(equipmentDTO);

@@ -39,10 +39,7 @@ public class LogsController {
             String logCode = IdGenerate.generateLogCode();
             String image = PicEncorder.generateProfilePicToBase64(img);
             MonitoringLogDTO monitoringLogDTO = new MonitoringLogDTO();
-            monitoringLogDTO.setLogCode(logCode);
-            monitoringLogDTO.setLogDate(date);
-            monitoringLogDTO.setLogDetails(details);
-            monitoringLogDTO.setObservedImage(image);
+
 //                monitoringLogDTO.setField(field);
 //                monitoringLogDTO.setCrop(crop);
 //                monitoringLogDTO.setStaff(staff);

@@ -29,13 +29,7 @@ public class VehicleController {
                                             @RequestPart("remarks") String remark) {
         try {
             VehicleDTO vehicleDTO = new VehicleDTO();
-            vehicleDTO.setVehicleCode(vehicleCode);
-            vehicleDTO.setLicensePlateNumber(vehicleNumber);
-            vehicleDTO.setVehicleCategory(vehicleCategory);
-            vehicleDTO.setFuelType(fuelType);
-            vehicleDTO.setStatus(vehicleStatus);
-            vehicleDTO.setAllocatedStaffMemberDetails(staff);
-            vehicleDTO.setRemarks(remark);
+
 
             vehicleService.saveVehicle(vehicleDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

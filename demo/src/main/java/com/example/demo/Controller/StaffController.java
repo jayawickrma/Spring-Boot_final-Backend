@@ -45,23 +45,6 @@ public class StaffController {
         try{
             String id= IdGenerate.generateStaffId();
             StaffDTO staffDTO=new StaffDTO();
-                staffDTO.setId(id);
-                staffDTO.setFirstName(firstName);
-                staffDTO.setLastName(lastName);
-                staffDTO.setDesignation(designation);
-                staffDTO.setGender(gender);
-                staffDTO.setJoinedDate(joinedDate);
-                staffDTO.setDob(dob);
-                staffDTO.setAddressLine01(address1);
-                staffDTO.setAddressLine02(address2);
-                staffDTO.setAddressLine03(address3);
-                staffDTO.setAddressLine04(address4);
-                staffDTO.setAddressLine05(address5);
-                staffDTO.setContactNumber(contactNumber);
-                staffDTO.setEmail(email);
-                staffDTO.setRole(role);
-//                staffDTO.setField(field);
-//                staffDTO.setVehicle(vehicle);
 
             staffService.saveStaff(staffDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

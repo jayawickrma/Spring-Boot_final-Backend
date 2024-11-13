@@ -35,13 +35,7 @@ public class CropController {
             String CropId = IdGenerate.generateCropId();
             String cropIMG = PicEncorder.generateProfilePicToBase64(cropIMg);
             CropDTO cropDTO = new CropDTO();
-                cropDTO.setCropCode(CropId);
-                cropDTO.setCropCommonName(cropName);
-                cropDTO.setCropScientificName(scientificName);
-                cropDTO.setCropImage(cropIMG);
-                cropDTO.setCategory(category);
-                cropDTO.setCropSeason(season);
-                cropDTO.setField_code(field);
+
 
 
             cropService.saveCrop(cropDTO);

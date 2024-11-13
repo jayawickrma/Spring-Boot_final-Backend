@@ -33,7 +33,7 @@ public class SecurityConfig {
                                .anyRequest()
                                .authenticated())
                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-               .authenticationProvider(authentiacationProvider())
+               .authenticationProvider(authenticationProvider())
                .addFilterBefore(jwtConfig, UsernamePasswordAuthenticationFilter.class);
        return http.build();
 

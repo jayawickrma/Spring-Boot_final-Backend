@@ -24,10 +24,10 @@ public class FieldEntity {
     private String fieldImage1;
     @Column(columnDefinition = "LONGTEXT")
     private String fieldImage2;
-    @JsonIgnore  // Ignore during serialization to avoid recursion
+
     @ManyToMany(mappedBy = "fieldList")
     private List<EquipmentEntity> equipmentsList;
-    @JsonIgnore
+
     @ManyToMany
     @JoinTable(
             name = "field_staff_details",
@@ -35,7 +35,7 @@ public class FieldEntity {
             inverseJoinColumns = @JoinColumn(name = "memberCode")
     )
     private List<StaffEntity> staffList;
-    @JsonIgnore
+
     @ManyToMany
     @JoinTable(
             name = "field_log_details",

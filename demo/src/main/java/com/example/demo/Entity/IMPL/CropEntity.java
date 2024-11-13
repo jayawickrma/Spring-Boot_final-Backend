@@ -23,11 +23,11 @@ public class CropEntity {
     private String season;
     @Column(columnDefinition = "LONGTEXT")
     private String cropImage;
-    @JsonIgnore// Ignore during serialization to avoid recursion
+
     @ManyToMany(mappedBy = "cropList")
-    private List<LogEntity> logList;
-    @JsonIgnore
+    private List<String> logList;
+
     @ManyToMany(mappedBy = "cropList")
-    private List<FieldEntity> fieldList;
+    private List<String> fieldList;
 
 }

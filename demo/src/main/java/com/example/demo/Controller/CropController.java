@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,7 @@ public class CropController {
 
         try {
             String cropIMG = PicEncorder.generatePicture(cropIMg);
+
             CropDTO cropDTO = new CropDTO();
                 cropDTO.setCropCode(IdGenerater.generateId("C00"));
                 cropDTO.setCropName(cropName);

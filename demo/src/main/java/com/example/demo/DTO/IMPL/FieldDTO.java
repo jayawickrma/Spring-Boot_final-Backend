@@ -20,10 +20,8 @@ public class FieldDTO implements FieldStatus {
     private String extentSize;
     private String fieldImage1;
     private String fieldImage2;
-    @JsonIgnore
     private List<EquipmentDTO> equipmentsList;
     private List<StaffDTO> staffList;
     private List<CropDTO> cropsList;
-    @JsonIgnore
     private List<MonitoringLogDTO> logsList;
 }

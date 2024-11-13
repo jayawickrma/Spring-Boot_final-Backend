@@ -33,13 +33,7 @@ public class CropServiceIMPL implements CropService {
     private MonitoringLogDao monitoringLogDao;
     @Override
     public CropDTO saveCrop(CropDTO cropDTO) {
-        CropEntity cropEntity = mapping.toCropEntity(cropDTO);
-        cropEntity.setField(fieldDao.getReferenceById(cropDTO.getField_code()));
 
-        CropEntity saveCrop =cropDao.save(cropEntity);
-       if (saveCrop==null){
-           throw new DataPersistException("wdfvcxagsdfv");
-       }
         return cropDTO;
     }
 

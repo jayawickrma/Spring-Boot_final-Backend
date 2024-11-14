@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.Entity.IMPL.UserEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface JWTService {

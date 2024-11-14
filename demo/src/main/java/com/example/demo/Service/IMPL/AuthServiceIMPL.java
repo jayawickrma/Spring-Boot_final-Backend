@@ -27,14 +27,14 @@ public class AuthServiceIMPL implements AuthService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signIn.getEmail(),signIn.getPassword()));
          var user=userDao.findByEmail(signIn.getEmail())
                  .orElseThrow(() -> new RuntimeException("User not found"));
-        var generatedToken=jwtService.generateToken((UserDetails) user);
+        var generatedToken=jwtService.generateToken(user);
         return JWTAuthResponse.builder().token(generatedToken).build();
     }
 
     @Override
     public JWTAuthResponse signUp(UserDTO userDTO) {
         UserEntity saveUser=userDao.save(mapping.toUserEntity(userDTO));
-        var generatedToken=jwtService.generateToken((UserDetails) saveUser);
+        var generatedToken=jwtService.generateToken(saveUser);
         return JWTAuthResponse.builder().token(generatedToken).build();
     }
 
@@ -43,7 +43,7 @@ public class AuthServiceIMPL implements AuthService {
        var userName=jwtService.extractUserName(accessToken);
        var findUser=userDao.findByEmail(userName)
                .orElseThrow(() -> new RuntimeException("User not found"));
-       var refreshToken=jwtService.refreshToken((UserDetails) findUser);
+       var refreshToken=jwtService.refreshToken(findUser);
        return JWTAuthResponse.builder().token(refreshToken).build();
     }
 }

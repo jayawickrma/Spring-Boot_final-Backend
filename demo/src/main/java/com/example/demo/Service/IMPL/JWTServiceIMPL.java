@@ -1,5 +1,6 @@
 package com.example.demo.Service.IMPL;
 
+import com.example.demo.Entity.IMPL.UserEntity;
 import com.example.demo.Service.JWTService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -20,21 +21,15 @@ import java.util.function.Function;
 public class JWTServiceIMPL implements JWTService {
     @Value("${spring.jwtKey}")
     private String jwtKey;
+
     @Override
     public String extractUserName(String token) {
-       return extractClaim(token, Claims::getSubject);
-    }
-
-
-    @Override
-    public String generateToken(UserDetails user) {
-        return generateToken(new HashMap<>(),user);
+        return extractClaim(token,Claims::getSubject);
     }
 
     @Override
-    public boolean validateToken(String token, UserDetails userDetails) {
-       var username = extractUserName(token);
-       return (username.equals(userDetails.getUsername())) &&!isTokenExpired(token);
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(),userDetails);
     }
 
     @Override
@@ -42,8 +37,12 @@ public class JWTServiceIMPL implements JWTService {
         return refreshToken(new HashMap<>(),userDetails);
     }
 
+    @Override
+    public boolean validateToken(String token, UserDetails userDetails) {
+        var username = extractUserName(token);
+        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
 
-
+    }
     // actual process
     private <T> T extractClaim(String token, Function<Claims,T> claimResolve) {
         final Claims claims = getAllClaims(token);

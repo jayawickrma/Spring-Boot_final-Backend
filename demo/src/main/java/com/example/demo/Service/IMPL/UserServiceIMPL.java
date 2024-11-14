@@ -33,7 +33,7 @@ public class UserServiceIMPL implements UserService {
 
     @Override
     public void deleteUser(String userId) {
-
+            userDao.deleteById(userId);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class UserServiceIMPL implements UserService {
 
     @Override
     public List<UserDTO> getAllUsers() {
-        return null;
+        return mapping.asUserDTOList(userDao.findAll());
     }
 
     @Override

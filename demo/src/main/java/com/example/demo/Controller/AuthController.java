@@ -6,7 +6,6 @@ import com.example.demo.Secure.JWTAuthResponse;
 import com.example.demo.Service.AuthService;
 import com.example.demo.Service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

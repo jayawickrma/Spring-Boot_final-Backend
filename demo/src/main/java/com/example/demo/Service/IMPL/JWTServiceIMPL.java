@@ -18,8 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 @Service
-@Transactional
-@RequiredArgsConstructor
 public class JWTServiceIMPL implements JWTService {
     @Value("${spring.jwtKey}")
     private String jwtKey;

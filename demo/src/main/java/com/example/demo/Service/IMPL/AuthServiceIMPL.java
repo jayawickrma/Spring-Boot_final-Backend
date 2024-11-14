@@ -11,6 +11,7 @@ import com.example.demo.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,14 +27,14 @@ public class AuthServiceIMPL implements AuthService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signIn.getEmail(),signIn.getPassword()));
          var user=userDao.findByEmail(signIn.getEmail())
                  .orElseThrow(() -> new RuntimeException("User not found"));
-        var generatedToken=jwtService.generateToken(user);
+        var generatedToken=jwtService.generateToken((UserDetails) user);
         return JWTAuthResponse.builder().token(generatedToken).build();
     }
 
     @Override
     public JWTAuthResponse signUp(UserDTO userDTO) {
         UserEntity saveUser=userDao.save(mapping.toUserEntity(userDTO));
-        var generatedToken=jwtService.generateToken(saveUser);
+        var generatedToken=jwtService.generateToken((UserDetails) saveUser);
         return JWTAuthResponse.builder().token(generatedToken).build();
     }
 
@@ -42,7 +43,7 @@ public class AuthServiceIMPL implements AuthService {
        var userName=jwtService.extractUserName(accessToken);
        var findUser=userDao.findByEmail(userName)
                .orElseThrow(() -> new RuntimeException("User not found"));
-       var refreshToken=jwtService.refreshToken(findUser);
+       var refreshToken=jwtService.refreshToken((UserDetails) findUser);
        return JWTAuthResponse.builder().token(refreshToken).build();
     }
 }

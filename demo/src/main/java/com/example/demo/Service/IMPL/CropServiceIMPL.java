@@ -5,8 +5,10 @@ import com.example.demo.DAO.FieldDao;
 import com.example.demo.DAO.MonitoringLogDao;
 import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
+import com.example.demo.DTO.IMPL.MonitoringLogDTO;
 import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
+import com.example.demo.Entity.IMPL.LogEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.CropService;
 
@@ -29,7 +31,9 @@ public class CropServiceIMPL implements CropService {
     @Autowired
     private Mapping mapping;
     @Autowired
-    FieldDao fieldDao;
+    private FieldDao fieldDao;
+    @Autowired
+    private MonitoringLogDao monitoringLogDao;
 
     @Override
     public void saveCrop(CropDTO cropDTO) {
@@ -50,6 +54,17 @@ public class CropServiceIMPL implements CropService {
             cropEntity.setFieldList(fieldEntities);
                 for (FieldEntity fieldEntity:fieldEntities){
                     fieldEntity.getCropList().add(cropEntity);
+                }
+
+                List<LogEntity>logEntities=new ArrayList<>();
+                for(MonitoringLogDTO monitoringLogDTO:cropDTO.getLogList()){
+                    if (monitoringLogDao.existsById(monitoringLogDTO.getLogCode())){
+                        logEntities.add(monitoringLogDao.getReferenceById(monitoringLogDTO.getLogCode()));
+                    }
+                }
+                cropEntity.setLogList(logEntities);
+                for (LogEntity logEntity : logEntities){
+                    logEntity.getCropList().add(cropEntity);
                 }
                 cropDao.save(cropEntity);
                 if (cropEntity==null){

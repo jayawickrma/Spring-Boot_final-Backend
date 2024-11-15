@@ -3,13 +3,16 @@ package com.example.demo.Service.IMPL;
 import com.example.demo.DAO.FieldDao;
 import com.example.demo.DAO.MonitoringLogDao;
 import com.example.demo.DAO.StaffDao;
+import com.example.demo.DAO.VehicleDao;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.DTO.IMPL.MonitoringLogDTO;
 import com.example.demo.DTO.IMPL.StaffDTO;
+import com.example.demo.DTO.IMPL.VehicleDTO;
 import com.example.demo.DTO.StaffStatus;
 import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Entity.IMPL.LogEntity;
 import com.example.demo.Entity.IMPL.StaffEntity;
+import com.example.demo.Entity.IMPL.VehicleEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.StaffService;
 import com.example.demo.util.Mapping;
@@ -32,6 +35,8 @@ public class StaffServiceIMPL implements StaffService {
     private FieldDao fieldDao;
     @Autowired
     private MonitoringLogDao monitoringLogDao;
+    @Autowired
+    private VehicleDao vehicleDao;
     @Override
     public void saveStaff(StaffDTO staffDTO) {
         int number =0;
@@ -64,8 +69,18 @@ public class StaffServiceIMPL implements StaffService {
         staffEntity.setLogList(logEntities);
         for (LogEntity logEntity:logEntities){
             logEntity.getStaffList().add(staffEntity);
-
-        }    }
+        }
+        List<VehicleEntity>vehicleEntities=new ArrayList<>();
+        for (VehicleDTO vehicleDTO : staffDTO.getVehicleList()){
+            if (vehicleDao.existsById(vehicleDTO.getVehicleCode())){
+                vehicleEntities.add(vehicleDao.getReferenceById(vehicleDTO.getVehicleCode()));
+            }
+            staffEntity.setVehicleList(vehicleEntities);
+            for (VehicleEntity vehicleEntity : vehicleEntities){
+                vehicleEntity.getStaff();
+            }
+        }
+    }
 
     @Override
     public List<StaffDTO> getAllStaff() {

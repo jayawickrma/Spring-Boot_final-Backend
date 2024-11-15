@@ -46,7 +46,10 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
         for (FieldEntity fieldEntity :fieldEntities){
             fieldEntity.getLogList().add(logEntity);
         }
-
+    monitoringLogDao.save(logEntity);
+        if (logEntity==null){
+            throw new DataPersistException("something went wrong");
+        }
 
     }
 

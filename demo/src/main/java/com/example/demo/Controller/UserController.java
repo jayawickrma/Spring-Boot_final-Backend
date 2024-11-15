@@ -17,14 +17,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void>saveUser(@RequestPart("email")String email,
-                                        @RequestPart("password")String password,
-                                        @RequestPart("role")String role){
-
-        UserDTO userDTO =new UserDTO();
-            userDTO.setEmail(email);
-            userDTO.setPassword(password);
-            userDTO.setRole(role);
+    public ResponseEntity<Void>saveUser(@RequestPart UserDTO userDTO){
 
             userService.saveUser(userDTO);
             return ResponseEntity.ok().build();

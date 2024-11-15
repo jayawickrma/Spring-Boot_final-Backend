@@ -84,6 +84,10 @@ public class StaffServiceIMPL implements StaffService {
         for (staffDetailsEntity staffDetailsEntity : staffDetailsEntities){
             staffDetailsEntity.getStaffEntity();
         }
+        staffDao.save(staffEntity);
+        if (staffEntity==null){
+            throw new DataPersistException("Staff ID Not match");
+        }
 
     }
 

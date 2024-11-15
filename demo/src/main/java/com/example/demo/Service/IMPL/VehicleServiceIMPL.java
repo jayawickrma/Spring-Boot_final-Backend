@@ -2,8 +2,10 @@ package com.example.demo.Service.IMPL;
 
 import com.example.demo.DAO.StaffDao;
 import com.example.demo.DAO.VehicleDao;
+import com.example.demo.DTO.IMPL.StaffDTO;
 import com.example.demo.DTO.IMPL.VehicleDTO;
 import com.example.demo.DTO.VehicleStatus;
+import com.example.demo.Entity.IMPL.StaffEntity;
 import com.example.demo.Entity.IMPL.VehicleEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.VehicleService;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +29,13 @@ public class VehicleServiceIMPL implements VehicleService {
     @Override
     public void saveVehicle(VehicleDTO vehicleDTO) {
        int number=0;
+       VehicleEntity vehicle =vehicleDao.findLastRowNative();
+       if (vehicle!=null){
+           String [] parts =vehicle.getVehicleCode().split("-");
+           number=Integer.parseInt(parts[1]);
+       }
+       vehicleDTO.setVehicleCode("V00"+ ++number);
+       VehicleEntity vehicleEntity =mapping.toVehicleEntity(vehicleDTO);
     }
 
     @Override

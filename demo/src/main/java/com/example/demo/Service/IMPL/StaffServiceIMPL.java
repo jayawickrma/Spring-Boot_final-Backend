@@ -84,6 +84,7 @@ public class StaffServiceIMPL implements StaffService {
         for (staffDetailsEntity staffDetailsEntity : staffDetailsEntities){
             staffDetailsEntity.getStaffEntity();
         }
+
     }
 
     @Override

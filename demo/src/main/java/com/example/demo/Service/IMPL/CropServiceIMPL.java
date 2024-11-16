@@ -74,7 +74,21 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public List<CropDTO> getAllCrops() {
-        return mapping.asCropDtolist(cropDao.findAll());
+        List<CropDTO> cropDTOS = new ArrayList<>();
+        List<CropEntity> all = cropDao.findAll();
+        for (CropEntity cropEntity : all) {
+            List<FieldDTO> fieldDTOS = new ArrayList<>();
+            List<MonitoringLogDTO> monitoringLogDTOS = new ArrayList<>();
+
+            for (FieldEntity fieldEntity : cropEntity.getFieldList()) {
+                fieldDTOS.add(new FieldDTO(fieldEntity.getFieldCode(),fieldEntity.getName(),fieldEntity.getLocation(),fieldEntity.getExtentSize(),fieldEntity.getFieldImage1(),fieldEntity.getFieldImage2(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+            }
+            for (LogEntity logEntity:cropEntity.getLogList()){
+                monitoringLogDTOS.add(mapping.toMonitoringLogDto(logEntity));
+            }
+            cropDTOS.add(new CropDTO(cropEntity.getCropCode(),cropEntity.getCropName(),cropEntity.getScientificName(),cropEntity.getCategory(),cropEntity.getSeason(),cropEntity.getCropImage(),monitoringLogDTOS,fieldDTOS));
+        }
+        return cropDTOS;
     }
 
     @Override

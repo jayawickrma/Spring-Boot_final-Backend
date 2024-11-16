@@ -5,6 +5,7 @@ import com.example.demo.DAO.FieldDao;
 import com.example.demo.DAO.StaffDao;
 import com.example.demo.DTO.IMPL.EquipmentDTO;
 import com.example.demo.Entity.IMPL.EquipmentEntity;
+import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.EquipmentService;
 import com.example.demo.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,16 @@ public class EquipmenrServiceIMPL implements EquipmentService {
     @Override
     public void saveEquipment(EquipmentDTO equipmentDTO) {
         int number =0;
-
-
+        EquipmentEntity equipmentEntity =equipmentDao.findLastRowNative();
+        if (equipmentEntity!=null){
+            String [] psrts =equipmentEntity.getEquipmentCode().split("-");
+            number =Integer.parseInt(psrts[1]);
+        }
+    equipmentDTO.setEquipmentCode("E00"+ ++number);
+        EquipmentEntity equipmentEntity1 =equipmentDao.save(mapping.toEquipmentEntity(equipmentDTO));
+            if (equipmentEntity1==null){
+                throw new DataPersistException("Something Went Wrong");
+            }
     }
 
     @Override

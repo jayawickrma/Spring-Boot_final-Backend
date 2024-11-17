@@ -4,7 +4,9 @@ import com.example.demo.DAO.CropDao;
 import com.example.demo.DAO.FieldDao;
 import com.example.demo.DAO.StaffDao;
 import com.example.demo.DTO.IMPL.FieldDTO;
+import com.example.demo.DTO.IMPL.StaffDTO;
 import com.example.demo.Entity.IMPL.FieldEntity;
+import com.example.demo.Entity.IMPL.StaffEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.FieldService;
 
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,14 +33,24 @@ public class FieldServiceIMPL implements FieldService {
     public void saveField(FieldDTO fieldDTO) {
             int number=0;
             FieldEntity field=fieldDao.findLastRowNative();
+             FieldEntity fieldEntity =mapping.toFieldEntity(fieldDTO);
                 if(field!=null){
                     String [] parts=field.getFieldCode().split("-");
                     number=Integer.parseInt(parts[1]);
                 }
                 fieldDTO.setFieldCode("F00"+ ++number);
-                FieldEntity fieldEntity =mapping.toFieldEntity(fieldDTO);
-                FieldEntity fieldEntity1 =fieldDao.save(fieldEntity);
-                if(fieldEntity1==null){
+                List<StaffEntity>staffEntities =new ArrayList<>();
+                for (StaffDTO staffDTO:fieldDTO.getStaffList()){
+                    if (staffDao.existsById(staffDTO.getMemberCode())){
+                        staffEntities.add(staffDao.getReferenceById(staffDTO.getMemberCode()));
+                    }
+                }
+                fieldEntity.setStaffList(staffEntities);
+                for (StaffEntity staffEntity:staffEntities){
+                    staffEntity.getFieldList().add(fieldEntity);
+                }
+                fieldDao.save(fieldEntity);
+                if(fieldEntity==null){
                     throw new DataPersistException("Something Went Wrong");
                 }
 

@@ -4,7 +4,9 @@ import com.example.demo.DAO.EquipmentDao;
 import com.example.demo.DAO.FieldDao;
 import com.example.demo.DAO.StaffDao;
 import com.example.demo.DTO.IMPL.EquipmentDTO;
+import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.Entity.IMPL.EquipmentEntity;
+import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.EquipmentService;
 import com.example.demo.util.Mapping;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,7 +40,16 @@ public class EquipmenrServiceIMPL implements EquipmentService {
             number =Integer.parseInt(psrts[1]);
         }
     equipmentDTO.setEquipmentCode("E00"+ ++number);
-        EquipmentEntity equipmentEntity1 =equipmentDao.save(mapping.toEquipmentEntity(equipmentDTO));
+        List<FieldEntity>fieldEntities=new ArrayList<>();
+        for (FieldDTO id :equipmentDTO.getFieldList()){
+            fieldEntities.add(fieldDao.getReferenceById(id.getFieldCode()));
+        }
+
+        EquipmentEntity equipmentEntity1 =mapping.toEquipmentEntity(equipmentDTO);
+        equipmentEntity1.setFieldList(fieldEntities);
+        for (FieldEntity fieldEntity:fieldEntities){
+            fieldEntity.getEquipmentsList().add(equipmentEntity1);
+        }
             if (equipmentEntity1==null){
                 throw new DataPersistException("Something Went Wrong");
             }

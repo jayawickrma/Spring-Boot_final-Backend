@@ -22,7 +22,7 @@ public class CropDTO implements CropStatus {
    private String season;
    private String cropImage;
    @JsonIgnore
-    private List<MonitoringLogDTO>logList;
+    private List<String>logList;
    @JsonIgnore
-   private List<FieldDTO> fieldList;
+   private List<String> fieldList;
 }

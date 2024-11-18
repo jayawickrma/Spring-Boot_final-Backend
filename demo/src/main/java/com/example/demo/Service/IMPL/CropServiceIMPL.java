@@ -46,9 +46,9 @@ public class CropServiceIMPL implements CropService {
             cropDTO.setCropCode("C00"+ ++number);
             CropEntity cropEntity =mapping.toCropEntity(cropDTO);
             List<FieldEntity>fieldEntities =new ArrayList<>();
-                for (FieldDTO fieldDTO: cropDTO.getFieldList()){
-                    if (fieldDao.existsById(fieldDTO.getFieldCode())){
-                        fieldEntities.add(fieldDao.getReferenceById(fieldDTO.getFieldCode()));
+                for (String fieldCode: cropDTO.getFieldList()){
+                    if (fieldDao.existsById(fieldCode)){
+                        fieldEntities.add(fieldDao.getReferenceById(fieldCode));
                     }
                 }
             cropEntity.setFieldList(fieldEntities);
@@ -57,9 +57,9 @@ public class CropServiceIMPL implements CropService {
                 }
 
                 List<LogEntity>logEntities=new ArrayList<>();
-                for(MonitoringLogDTO monitoringLogDTO:cropDTO.getLogList()){
-                    if (monitoringLogDao.existsById(monitoringLogDTO.getLogCode())){
-                        logEntities.add(monitoringLogDao.getReferenceById(monitoringLogDTO.getLogCode()));
+                for(String logCode:cropDTO.getLogList()){
+                    if (monitoringLogDao.existsById(logCode)){
+                        logEntities.add(monitoringLogDao.getReferenceById(logCode));
                     }
                 }
                 cropEntity.setLogList(logEntities);
@@ -74,19 +74,21 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public List<CropDTO> getAllCrops() {
-        List<CropDTO> cropDTOS = new ArrayList<>();
-        List<CropEntity> all = cropDao.findAll();
-        for (CropEntity cropEntity : all) {
-            List<FieldDTO> fieldDTOS = new ArrayList<>();
-            List<MonitoringLogDTO> monitoringLogDTOS = new ArrayList<>();
+        List<CropDTO>cropDTOS =new ArrayList<>();
+        for (CropEntity crop: cropDao.findAll()){
+            List<String>fieldCodes =new ArrayList<>();
+            List<String>logCodes =new ArrayList<>();
+            for (FieldEntity fieldEntity:crop.getFieldList()){
+                fieldCodes.add(fieldEntity.getFieldCode());
+            }
+            for (LogEntity logEntity:crop.getLogList()){
+                logCodes.add(logEntity.getLogCode());
+            }
+            CropDTO cropDTO =mapping.toCropDto(crop);
+            cropDTO.setLogList(logCodes);
+            cropDTO.setFieldList(fieldCodes);
+            cropDTOS.add(cropDTO);
 
-            for (FieldEntity fieldEntity : cropEntity.getFieldList()) {
-                fieldDTOS.add(new FieldDTO(fieldEntity.getFieldCode(),fieldEntity.getName(),fieldEntity.getLocation(),fieldEntity.getExtentSize(),fieldEntity.getFieldImage1(),fieldEntity.getFieldImage2(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
-            }
-            for (LogEntity logEntity:cropEntity.getLogList()){
-                monitoringLogDTOS.add(mapping.toMonitoringLogDto(logEntity));
-            }
-            cropDTOS.add(new CropDTO(cropEntity.getCropCode(),cropEntity.getCropName(),cropEntity.getScientificName(),cropEntity.getCategory(),cropEntity.getSeason(),cropEntity.getCropImage(),monitoringLogDTOS,fieldDTOS));
         }
         return cropDTOS;
     }

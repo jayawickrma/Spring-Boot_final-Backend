@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.DTO.IMPL.UserDTO;
+import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,9 +18,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void>saveUser(@RequestPart UserDTO userDTO){
-
+    public ResponseEntity<Void> saveUser(@RequestPart UserDTO userDTO) {
+        try {
             userService.saveUser(userDTO);
             return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new DataPersistException("Something went wrongus");
+        }
     }
 }

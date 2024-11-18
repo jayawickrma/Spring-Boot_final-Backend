@@ -18,26 +18,8 @@ public class StaffController {
     @Autowired
     private StaffService staffService;
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void>saveStaff(@RequestPart("firstName")String firstName,
-                                         @RequestPart("lastName")String lastName,
-                                         @RequestPart("designation")String designation,
-                                         @RequestPart("gender")String gender,
-                                         @RequestPart("joinedDate")String joinedDate,
-                                         @RequestPart("dob")String dob,
-                                         @RequestPart("address1")String address1,
-                                         @RequestPart("address2")String address2,
-                                         @RequestPart("address3")String address3,
-                                         @RequestPart("address4")String address4,
-                                         @RequestPart("address5")String address5,
-                                         @RequestPart("contact")String contactNumber,
-                                         @RequestPart("email")String email,
-                                         @RequestPart("role")String role,
-                                         @RequestPart("field")String field,
-                                         @RequestPart("vehicle")String vehicle){
+    public ResponseEntity<Void>saveStaff(@RequestPart StaffDTO staffDTO){
         try{
-
-            StaffDTO staffDTO=new StaffDTO();
-
             staffService.saveStaff(staffDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {

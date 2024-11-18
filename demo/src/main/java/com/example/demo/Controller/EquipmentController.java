@@ -17,17 +17,8 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void>saveEquipment(@RequestPart("equipmentName")String equipmentName,
-                                             @RequestPart("equipmentType")String equipmentType,
-                                             @RequestPart("equipmentStatus")String equipmentStatus,
-                                             @RequestPart("staff")String staff,
-                                             @RequestPart("field")String field){
+    public ResponseEntity<Void>saveEquipment(@RequestPart EquipmentDTO equipmentDTO){
         try {
-
-            EquipmentDTO equipmentDTO =new EquipmentDTO();
-
-
-
             equipmentService.saveEquipment(equipmentDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {

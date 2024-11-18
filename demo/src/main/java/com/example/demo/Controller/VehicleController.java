@@ -20,17 +20,8 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveVehicle(@RequestPart("code") String vehicleCode,
-                                            @RequestPart("number") String vehicleNumber,
-                                            @RequestPart("category") String vehicleCategory,
-                                            @RequestPart("FuelType") String fuelType,
-                                            @RequestPart("status") String vehicleStatus,
-                                            @RequestPart("staff") String staff,
-                                            @RequestPart("remarks") String remark) {
+    public ResponseEntity<Void> saveVehicle(@RequestPart VehicleDTO vehicleDTO) {
         try {
-            VehicleDTO vehicleDTO = new VehicleDTO();
-
-
             vehicleService.saveVehicle(vehicleDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (

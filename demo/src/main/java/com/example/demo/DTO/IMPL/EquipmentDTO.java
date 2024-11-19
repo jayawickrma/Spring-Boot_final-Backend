@@ -20,5 +20,5 @@ public class EquipmentDTO {
    private String status;
    private int availableCount;
    private List<staffDetailsDto> staffEquipmentDetailsList;
-   private List<FieldDTO> fieldList;
+   private List<String> fieldList;
 }

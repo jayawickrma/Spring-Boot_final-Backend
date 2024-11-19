@@ -40,7 +40,22 @@ public class EquipmenrServiceIMPL implements EquipmentService {
             number =Integer.parseInt(psrts[1]);
         }
     equipmentDTO.setEquipmentCode("EQU-"+ ++number);
+        List<FieldEntity>fieldEntities =new ArrayList<>();
+            for (String fieldCode :equipmentDTO.getFieldList()){
+                if (fieldDao.existsById(fieldCode)){
+                    fieldEntities.add(fieldDao.getReferenceById(fieldCode));
+                }
+            }
+            EquipmentEntity equipmentEntity1 =mapping.toEquipmentEntity(equipmentDTO);
+            equipmentEntity1.setFieldList(fieldEntities);
+            for (FieldEntity field :fieldEntities){
+                field.getEquipmentsList().add(equipmentEntity1);
+            }
+            EquipmentEntity eq =equipmentDao.save(equipmentEntity1);
 
+            if (eq==null){
+                throw new DataPersistException("Something went wrong");
+            }
     }
 
     @Override

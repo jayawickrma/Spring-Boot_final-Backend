@@ -36,14 +36,12 @@ public class CropController {
         try {
             String cropIMG = PicEncorder.generatePicture(cropIMg);
             List<String> filed_codes = new ArrayList<>();
-            List<String> log_codes = new ArrayList<>();
+
 
             if (field!= null) {
                 filed_codes = SplitString.spiltLists(field);
             }
-//            if (log != null) {
-//                log_codes = SplitString.spiltLists(log);
-//}
+
 
             CropDTO cropDTO = new CropDTO();
                 cropDTO.setCropCode(IdGenerater.generateId("C00"));
@@ -53,7 +51,6 @@ public class CropController {
                 cropDTO.setSeason(season);
                 cropDTO.setCropImage(cropIMG);
                 cropDTO.setFieldList(filed_codes);
-            System.out.println(cropDTO);
 
             cropService.saveCrop(cropDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

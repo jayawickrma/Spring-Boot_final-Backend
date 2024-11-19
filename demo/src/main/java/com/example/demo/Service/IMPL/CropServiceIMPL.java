@@ -32,8 +32,7 @@ public class CropServiceIMPL implements CropService {
     private Mapping mapping;
     @Autowired
     private FieldDao fieldDao;
-    @Autowired
-    private MonitoringLogDao monitoringLogDao;
+
 
     @Override
     public void saveCrop(CropDTO cropDTO) {

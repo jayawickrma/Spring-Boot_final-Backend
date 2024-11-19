@@ -6,6 +6,7 @@ import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.CropService;
 import com.example.demo.util.IdGenerater;
 import com.example.demo.util.PicEncorder;
+import com.example.demo.util.SplitString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,17 +25,26 @@ public class CropController {
     private CropService cropService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveCrop(@RequestPart("commonName") String cropName,
+    public ResponseEntity<Void> saveCrop(@RequestPart( "commonName") String cropName,
                                          @RequestPart("scientificName") String scientificName,
                                          @RequestPart("category") String category,
                                          @RequestPart("season") String season,
                                          @RequestPart("cropImage") MultipartFile cropIMg,
-                                         @RequestPart("field") List<String> field,
-                                         @RequestPart("log")List<String>log)
+                                         @RequestPart("field") String field,
+                                         @RequestPart("log")String log)
                                          {
 
         try {
             String cropIMG = PicEncorder.generatePicture(cropIMg);
+            List<String> filed_codes = new ArrayList<>();
+            List<String> log_codes = new ArrayList<>();
+
+            if (field!= null) {
+                filed_codes = SplitString.spiltLists(field);
+            }
+            if (log != null) {
+                log_codes = SplitString.spiltLists(log);
+}
 
             CropDTO cropDTO = new CropDTO();
                 cropDTO.setCropCode(IdGenerater.generateId("C00"));
@@ -42,12 +53,13 @@ public class CropController {
                 cropDTO.setCategory(category);
                 cropDTO.setSeason(season);
                 cropDTO.setCropImage(cropIMG);
-                cropDTO.setFieldList(field);
-                cropDTO.setLogList(log);
+                cropDTO.setFieldList(filed_codes);
+                cropDTO.setLogList(log_codes);
 
             cropService.saveCrop(cropDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

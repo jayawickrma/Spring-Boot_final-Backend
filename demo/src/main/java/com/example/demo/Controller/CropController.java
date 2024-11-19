@@ -30,8 +30,7 @@ public class CropController {
                                          @RequestPart("category") String category,
                                          @RequestPart("season") String season,
                                          @RequestPart("cropImage") MultipartFile cropIMg,
-                                         @RequestPart("field") String field)
-                                         {
+                                         @RequestPart("field") String field) {
 
         try {
             String cropIMG = PicEncorder.generatePicture(cropIMg);

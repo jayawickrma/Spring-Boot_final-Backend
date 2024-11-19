@@ -7,7 +7,6 @@ import com.example.demo.DTO.IMPL.EquipmentDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.Entity.IMPL.EquipmentEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
-import com.example.demo.Entity.IMPL.StaffEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.EquipmentService;
 import com.example.demo.util.Mapping;
@@ -42,6 +41,7 @@ public class EquipmenrServiceIMPL implements EquipmentService {
         }
     equipmentDTO.setEquipmentCode("EQU-"+ ++number);
 
+    }
 
     @Override
     public List<EquipmentDTO> getAllEquipments() {

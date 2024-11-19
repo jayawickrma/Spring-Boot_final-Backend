@@ -39,10 +39,12 @@ public class EquipmenrServiceIMPL implements EquipmentService {
             String [] psrts =equipmentEntity.getEquipmentCode().split("-");
             number =Integer.parseInt(psrts[1]);
         }
-    equipmentDTO.setEquipmentCode("E00"+ ++number);
+    equipmentDTO.setEquipmentCode("EQU-"+ ++number);
         List<FieldEntity>fieldEntities=new ArrayList<>();
-        for (FieldDTO id :equipmentDTO.getFieldList()){
-            fieldEntities.add(fieldDao.getReferenceById(id.getFieldCode()));
+        for (String fieldCode :equipmentDTO.getFieldList()) {
+            if (fieldDao.existsById(fieldCode)) {
+                fieldEntities.add(fieldDao.getReferenceById(fieldCode));
+            }
         }
 
         EquipmentEntity equipmentEntity1 =mapping.toEquipmentEntity(equipmentDTO);

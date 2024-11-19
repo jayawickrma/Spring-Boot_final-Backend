@@ -50,7 +50,7 @@ public class FieldController {
             }
 
             FieldDTO fieldDTO = new FieldDTO();
-                fieldDTO.setFieldCode(IdGenerater.generateId("F00-"));
+                fieldDTO.setFieldCode(IdGenerater.generateId("FIELD-"));
                 fieldDTO.setName(fieldName);
                 fieldDTO.setLocation(fieldLocation);
                 fieldDTO.setExtentSize(Double.parseDouble(fieldSize));

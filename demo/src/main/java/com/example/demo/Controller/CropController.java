@@ -30,8 +30,7 @@ public class CropController {
                                          @RequestPart("category") String category,
                                          @RequestPart("season") String season,
                                          @RequestPart("cropImage") MultipartFile cropIMg,
-                                         @RequestPart("field") String field,
-                                         @RequestPart("log")String log)
+                                         @RequestPart("field") String field)
                                          {
 
         try {
@@ -42,9 +41,9 @@ public class CropController {
             if (field!= null) {
                 filed_codes = SplitString.spiltLists(field);
             }
-            if (log != null) {
-                log_codes = SplitString.spiltLists(log);
-}
+//            if (log != null) {
+//                log_codes = SplitString.spiltLists(log);
+//}
 
             CropDTO cropDTO = new CropDTO();
                 cropDTO.setCropCode(IdGenerater.generateId("C00"));
@@ -54,7 +53,7 @@ public class CropController {
                 cropDTO.setSeason(season);
                 cropDTO.setCropImage(cropIMG);
                 cropDTO.setFieldList(filed_codes);
-                cropDTO.setLogList(log_codes);
+            System.out.println(cropDTO);
 
             cropService.saveCrop(cropDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -62,6 +61,7 @@ public class CropController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

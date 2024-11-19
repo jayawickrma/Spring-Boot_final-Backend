@@ -39,11 +39,11 @@ public class CropServiceIMPL implements CropService {
     public void saveCrop(CropDTO cropDTO) {
         int number =0;
         CropEntity crop =cropDao.findLastRowNative();
-            if (crop != null){
-                String [] parts =crop.getCropCode().split("-");
-                number =Integer.parseInt(parts[1]);
-            }
-            cropDTO.setCropCode("C00"+ ++number);
+        if (crop != null) {
+            String[] parts = crop.getCropCode().split("-");
+            number = Integer.parseInt(parts[1]);
+        }
+            cropDTO.setCropCode("CROP-"+ ++number);
             CropEntity cropEntity =mapping.toCropEntity(cropDTO);
             List<FieldEntity>fieldEntities =new ArrayList<>();
                 for (String fieldCode: cropDTO.getFieldList()){
@@ -56,16 +56,6 @@ public class CropServiceIMPL implements CropService {
                     fieldEntity.getCropList().add(cropEntity);
                 }
 
-                List<LogEntity>logEntities=new ArrayList<>();
-                for(String logCode:cropDTO.getLogList()){
-                    if (monitoringLogDao.existsById(logCode)){
-                        logEntities.add(monitoringLogDao.getReferenceById(logCode));
-                    }
-                }
-                cropEntity.setLogList(logEntities);
-                for (LogEntity logEntity : logEntities){
-                    logEntity.getCropList().add(cropEntity);
-                }
                 cropDao.save(cropEntity);
                 if (cropEntity==null){
                     throw new DataPersistException("Crop ID not found!");

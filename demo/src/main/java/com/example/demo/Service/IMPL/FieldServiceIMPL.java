@@ -48,13 +48,13 @@ public class FieldServiceIMPL implements FieldService {
                             staffEntities.add(staffDao.getReferenceById(memberCode));
                         }
                     }
+
                     List<LogEntity>logEntities=new ArrayList<>();
                         for (String logCode : fieldDTO.getLogsList()){
                             if (monitoringLogDao.existsById(logCode)){
                                 logEntities.add(monitoringLogDao.getReferenceById(logCode));
                             }
                         }
-
 
                     fieldEntity.setStaffList(staffEntities);
                     fieldEntity.setLogList(logEntities);

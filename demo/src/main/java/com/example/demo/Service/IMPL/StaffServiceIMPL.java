@@ -41,52 +41,6 @@ public class StaffServiceIMPL implements StaffService {
         staffDTO.setMemberCode("S00"+ ++number);
         StaffEntity staffEntity=mapping.toStaffEntity(staffDTO);
 
-        List<FieldEntity>fieldEntities=new ArrayList<>();
-        for (FieldDTO fieldDTO:staffDTO.getFieldList()){
-                fieldEntities.add(fieldDao.getReferenceById(fieldDTO.getFieldCode()));
-        }
-        staffEntity.setFieldList(fieldEntities);
-        for (FieldEntity fieldEntity :fieldEntities){
-            fieldEntity.getStaffList().add(staffEntity);
-        }
-
-        List<LogEntity>logEntities =new ArrayList<>();
-        for (MonitoringLogDTO monitoringLogDTO:staffDTO.getLogList()){
-            if (monitoringLogDao.existsById(monitoringLogDTO.getLogCode())){
-                logEntities.add(monitoringLogDao.getReferenceById(monitoringLogDTO.getLogCode()));
-            }
-
-        }
-        staffEntity.setLogList(logEntities);
-        for (LogEntity logEntity:logEntities){
-            logEntity.getStaffList().add(staffEntity);
-        }
-        List<VehicleEntity>vehicleEntities=new ArrayList<>();
-        for (VehicleDTO vehicleDTO : staffDTO.getVehicleList()) {
-            if (vehicleDao.existsById(vehicleDTO.getVehicleCode())) {
-                vehicleEntities.add(vehicleDao.getReferenceById(vehicleDTO.getVehicleCode()));
-            }
-        }
-            staffEntity.setVehicleList(vehicleEntities);
-            for (VehicleEntity vehicleEntity : vehicleEntities){
-                vehicleEntity.getStaff();
-            }
-
-        List<staffDetailsEntity>staffDetailsEntities =new ArrayList<>();
-        for (staffDetailsDto staffDetailsDto : staffDTO.getStaffEquipmentDetailsList()){
-            if (staffDetailsDao.existsById(staffDetailsDto.getId())){
-                staffDetailsEntities.add(staffDetailsDao.getReferenceById(staffDetailsDto.getId()));
-            }
-        }
-        staffEntity.setStaffEquipmentDetailsList(staffDetailsEntities);
-        for (staffDetailsEntity staffDetailsEntity : staffDetailsEntities){
-            staffDetailsEntity.getStaffEntity();
-        }
-        staffDao.save(staffEntity);
-        if (staffEntity==null){
-            throw new DataPersistException("Staff ID Not match");
-        }
-
     }
 
     @Override

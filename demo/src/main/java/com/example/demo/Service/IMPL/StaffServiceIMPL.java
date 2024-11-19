@@ -43,9 +43,7 @@ public class StaffServiceIMPL implements StaffService {
 
         List<FieldEntity>fieldEntities=new ArrayList<>();
         for (FieldDTO fieldDTO:staffDTO.getFieldList()){
-            if (fieldDao.existsById(fieldDTO.getFieldCode())){
                 fieldEntities.add(fieldDao.getReferenceById(fieldDTO.getFieldCode()));
-            }
         }
         staffEntity.setFieldList(fieldEntities);
         for (FieldEntity fieldEntity :fieldEntities){

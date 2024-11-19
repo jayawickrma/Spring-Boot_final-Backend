@@ -42,9 +42,7 @@ public class EquipmenrServiceIMPL implements EquipmentService {
     equipmentDTO.setEquipmentCode("EQU-"+ ++number);
         List<FieldEntity>fieldEntities =new ArrayList<>();
             for (String fieldCode :equipmentDTO.getFieldList()){
-                if (fieldDao.existsById(fieldCode)){
                     fieldEntities.add(fieldDao.getReferenceById(fieldCode));
-                }
             }
             EquipmentEntity equipmentEntity1 =mapping.toEquipmentEntity(equipmentDTO);
             equipmentEntity1.setFieldList(fieldEntities);

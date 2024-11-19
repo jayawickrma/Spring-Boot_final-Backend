@@ -36,6 +36,7 @@ public class VehicleServiceIMPL implements VehicleService {
        }
        vehicleDTO.setVehicleCode("V00"+ ++number);
        VehicleEntity vehicleEntity =mapping.toVehicleEntity(vehicleDTO);
+       StaffEntity staffEntity =staffDao.getReferenceById(vehicleDTO.getMemberCode());
        vehicleDao.save(vehicleEntity);
        if (vehicleEntity==null){
            throw new DataPersistException("Something went wrong");

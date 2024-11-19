@@ -19,4 +19,5 @@ public class VehicleDTO implements VehicleStatus {
     private FuelType fuelType;
     private String remark;
     private String status;
+    private String memberCode;
 }

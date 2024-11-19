@@ -1,12 +1,16 @@
 package com.example.demo.Service.IMPL;
 
+import com.example.demo.DAO.CropDao;
 import com.example.demo.DAO.FieldDao;
 import com.example.demo.DAO.MonitoringLogDao;
+import com.example.demo.DAO.StaffDao;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.DTO.IMPL.MonitoringLogDTO;
 import com.example.demo.DTO.MonitoringLogStatus;
+import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Entity.IMPL.LogEntity;
+import com.example.demo.Entity.IMPL.StaffEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.MonitoringLogService;
 import com.example.demo.util.Mapping;
@@ -26,6 +30,10 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
     private Mapping mapping;
     @Autowired
     private FieldDao fieldDao;
+    @Autowired
+    private StaffDao staffDao;
+    @Autowired
+    private CropDao cropDao;
     @Override
     public void saveLog(MonitoringLogDTO monitoringLogDTO) {
         int number=0;
@@ -37,16 +45,32 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
         monitoringLogDTO.setLogCode("L00"+ ++number);
         LogEntity logEntity=mapping.toMonitoringLogEntity(monitoringLogDTO);
         List<FieldEntity>fieldEntities=new ArrayList<>();
-        for (FieldDTO fieldDTO :monitoringLogDTO.getFieldList()){
-            if (fieldDao.existsById(fieldDTO.getFieldCode())){
-                fieldEntities.add(fieldDao.getReferenceById(fieldDTO.getFieldCode()));
+
+            for (String fieldCode :monitoringLogDTO.getFieldList()){
+                if (fieldDao.existsById(fieldCode)){
+                    fieldEntities.add(fieldDao.getReferenceById(fieldCode));
+                }
             }
-        }
-        logEntity.setFieldList(fieldEntities);
-        for (FieldEntity fieldEntity :fieldEntities){
-            fieldEntity.getLogList().add(logEntity);
-        }
-    monitoringLogDao.save(logEntity);
+
+        List<StaffEntity>staffEntities =new ArrayList<>();
+            for (String stafId :monitoringLogDTO.getStaffList()){
+                if (staffDao.existsById(stafId)){
+                    staffEntities.add(staffDao.getReferenceById(stafId));
+                }
+            }
+
+        List<CropEntity>cropEntities =new ArrayList<>();
+            for (String cropCode : monitoringLogDTO.getCropList()){
+                if (cropDao.existsById(cropCode)){
+                    cropEntities.add(cropDao.getReferenceById(cropCode));
+                }
+            }
+
+            logEntity.setFieldList(fieldEntities);
+            logEntity.setStaffList(staffEntities);
+            logEntity.setCropList(cropEntities);
+
+            monitoringLogDao.save(logEntity);
         if (logEntity==null){
             throw new DataPersistException("something went wrong");
         }

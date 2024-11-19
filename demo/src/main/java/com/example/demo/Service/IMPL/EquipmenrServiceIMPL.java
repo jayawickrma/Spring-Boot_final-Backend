@@ -7,6 +7,7 @@ import com.example.demo.DTO.IMPL.EquipmentDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.Entity.IMPL.EquipmentEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
+import com.example.demo.Entity.IMPL.StaffEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.EquipmentService;
 import com.example.demo.util.Mapping;
@@ -40,22 +41,7 @@ public class EquipmenrServiceIMPL implements EquipmentService {
             number =Integer.parseInt(psrts[1]);
         }
     equipmentDTO.setEquipmentCode("EQU-"+ ++number);
-        List<FieldEntity>fieldEntities=new ArrayList<>();
-        for (String fieldCode :equipmentDTO.getFieldList()) {
-            if (fieldDao.existsById(fieldCode)) {
-                fieldEntities.add(fieldDao.getReferenceById(fieldCode));
-            }
-        }
 
-        EquipmentEntity equipmentEntity1 =mapping.toEquipmentEntity(equipmentDTO);
-        equipmentEntity1.setFieldList(fieldEntities);
-        for (FieldEntity fieldEntity:fieldEntities){
-            fieldEntity.getEquipmentsList().add(equipmentEntity1);
-        }
-            if (equipmentEntity1==null){
-                throw new DataPersistException("Something Went Wrong");
-            }
-    }
 
     @Override
     public List<EquipmentDTO> getAllEquipments() {

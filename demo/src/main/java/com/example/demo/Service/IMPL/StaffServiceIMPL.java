@@ -41,6 +41,21 @@ public class StaffServiceIMPL implements StaffService {
         staffDTO.setMemberCode("S00"+ ++number);
         StaffEntity staffEntity=mapping.toStaffEntity(staffDTO);
 
+        List<FieldEntity>fieldEntities =new ArrayList<>();
+            for (String fieldCode : staffDTO.getFieldList()){
+                fieldEntities.add(fieldDao.getReferenceById(fieldCode));
+            }
+
+            staffEntity.setFieldList(fieldEntities);
+
+            for (FieldEntity field : fieldEntities){
+                    field.getStaffList().add(staffEntity);
+            }
+            StaffEntity staffEntity1 =staffDao.save(staffEntity);
+            if (staffEntity1==null){
+                throw new DataPersistException("Something went wrong");
+            }
+
     }
 
     @Override

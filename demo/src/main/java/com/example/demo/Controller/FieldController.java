@@ -50,7 +50,7 @@ public class FieldController {
             }
 
             FieldDTO fieldDTO = new FieldDTO();
-                fieldDTO.setFieldCode(IdGenerater.generateId("FIELD-"));
+                fieldDTO.setFieldCode(IdGenerater.generateId("F00-"));
                 fieldDTO.setName(fieldName);
                 fieldDTO.setLocation(fieldLocation);
                 fieldDTO.setExtentSize(Double.parseDouble(fieldSize));
@@ -58,12 +58,15 @@ public class FieldController {
                 fieldDTO.setFieldImage2(img2);
                 fieldDTO.setCropsList(cropEntities);
                 fieldDTO.setStaffList(staffEntities);
+            System.out.println(fieldDTO);
 
             fieldService.saveField(fieldDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

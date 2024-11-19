@@ -40,7 +40,7 @@ public class FieldServiceIMPL implements FieldService {
                     String [] parts=field.getFieldCode().split("-");
                     number=Integer.parseInt(parts[1]);
                 }
-                fieldDTO.setFieldCode("FIELD-"+ ++number);
+                fieldDTO.setFieldCode("F00-"+ ++number);
 
                      List<StaffEntity>staffEntities =new ArrayList<>();
                          for (String memberCode :fieldDTO.getStaffList()){

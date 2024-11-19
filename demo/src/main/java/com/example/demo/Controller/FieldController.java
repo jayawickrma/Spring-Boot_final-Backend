@@ -31,11 +31,10 @@ public class FieldController {
     public ResponseEntity<Void> saveField(@RequestPart("fieldName") String fieldName,
                                           @RequestPart("fieldLocation") String fieldLocation,
                                           @RequestPart("fieldSize") String fieldSize,
-                                          @RequestPart("cropId")String cropList,
-                                          @RequestPart("staffId")String staffList,
-                                          @RequestPart("equipment")String euqipment,
                                           @RequestPart("fieldImg1") MultipartFile fieldImg1,
-                                          @RequestPart("fieldImg2") MultipartFile fieldImg2) {
+                                          @RequestPart("fieldImg2") MultipartFile fieldImg2,
+                                          @RequestPart("cropId")String cropList,
+                                          @RequestPart("staffId")String staffList) {
         try {
 
             String img1 = PicEncorder.generatePicture(fieldImg1);
@@ -52,7 +51,13 @@ public class FieldController {
 
             FieldDTO fieldDTO = new FieldDTO();
                 fieldDTO.setFieldCode(IdGenerater.generateId("FIELD-"));
-
+                fieldDTO.setName(fieldName);
+                fieldDTO.setLocation(fieldLocation);
+                fieldDTO.setExtentSize(Double.parseDouble(fieldSize));
+                fieldDTO.setFieldImage1(img1);
+                fieldDTO.setFieldImage2(img2);
+                fieldDTO.setCropsList(cropEntities);
+                fieldDTO.setStaffList(staffEntities);
 
             fieldService.saveField(fieldDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

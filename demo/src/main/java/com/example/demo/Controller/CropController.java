@@ -43,7 +43,7 @@ public class CropController {
 
 
             CropDTO cropDTO = new CropDTO();
-                cropDTO.setCropCode(IdGenerater.generateId("C00"));
+                cropDTO.setCropCode(IdGenerater.generateId("CROP-"));
                 cropDTO.setCropName(cropName);
                 cropDTO.setScientificName(scientificName);
                 cropDTO.setCategory(category);

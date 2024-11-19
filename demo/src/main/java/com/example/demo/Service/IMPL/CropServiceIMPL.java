@@ -66,15 +66,13 @@ public class CropServiceIMPL implements CropService {
         List<CropDTO>cropDTOS =new ArrayList<>();
         for (CropEntity crop: cropDao.findAll()){
             List<String>fieldCodes =new ArrayList<>();
-            List<String>logCodes =new ArrayList<>();
+
             for (FieldEntity fieldEntity:crop.getFieldList()){
                 fieldCodes.add(fieldEntity.getFieldCode());
             }
-            for (LogEntity logEntity:crop.getLogList()){
-                logCodes.add(logEntity.getLogCode());
-            }
+
             CropDTO cropDTO =mapping.toCropDto(crop);
-            cropDTO.setLogList(logCodes);
+
             cropDTO.setFieldList(fieldCodes);
             cropDTOS.add(cropDTO);
 

@@ -2,6 +2,7 @@ package com.example.demo.DTO.IMPL;
 
 import com.example.demo.Entity.EquipmentStatus;
 import com.example.demo.Entity.EquipmentType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;

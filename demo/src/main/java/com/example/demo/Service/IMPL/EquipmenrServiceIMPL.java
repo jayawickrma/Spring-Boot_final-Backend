@@ -39,7 +39,7 @@ public class EquipmenrServiceIMPL implements EquipmentService {
             String [] psrts =equipmentEntity.getEquipmentCode().split("-");
             number =Integer.parseInt(psrts[1]);
         }
-    equipmentDTO.setEquipmentCode("EQU-"+ ++number);
+    equipmentDTO.setEquipmentCode("EQUIPMENT-"+ ++number);
         List<FieldEntity>fieldEntities =new ArrayList<>();
             for (String fieldCode :equipmentDTO.getFieldList()){
                     fieldEntities.add(fieldDao.getReferenceById(fieldCode));

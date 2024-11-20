@@ -6,6 +6,7 @@ import com.example.demo.DAO.MonitoringLogDao;
 import com.example.demo.DAO.StaffDao;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.DTO.IMPL.StaffDTO;
+import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Entity.IMPL.LogEntity;
 import com.example.demo.Entity.IMPL.StaffEntity;
@@ -28,40 +29,40 @@ public class FieldServiceIMPL implements FieldService {
     @Autowired
     private StaffDao staffDao;
     @Autowired
-    private MonitoringLogDao monitoringLogDao;
+    private CropDao cropDao;
     @Autowired
     private Mapping mapping;
+
     @Override
     public void saveField(FieldDTO fieldDTO) {
-            int number=0;
-            FieldEntity field=fieldDao.findLastRowNative();
-             FieldEntity fieldEntity =mapping.toFieldEntity(fieldDTO);
-                if(field!=null){
-                    String [] parts=field.getFieldCode().split("-");
-                    number=Integer.parseInt(parts[1]);
-                }
-                fieldDTO.setFieldCode("FIELD-"+ ++number);
+        int number = 0;
+        FieldEntity field = fieldDao.findLastRowNative();
+        if (field != null) {
+            String[] parts = field.getFieldCode().split("-");
+            number = Integer.parseInt(parts[1]);
+        }
+        fieldDTO.setFieldCode("FIELD-" + ++number);
+        FieldEntity fieldEntity = mapping.toFieldEntity(fieldDTO);
 
-                     List<StaffEntity>staffEntities =new ArrayList<>();
-                         for (String memberCode :fieldDTO.getStaffList()){
-                             if (staffDao.existsById(memberCode)){
-                            staffEntities.add(staffDao.getReferenceById(memberCode));
-                        }
-                    }
+        List<StaffEntity> staffEntities = new ArrayList<>();
+        for (String memberCode : fieldDTO.getStaffList()) {
+            if (staffDao.existsById(memberCode)) {
+                staffEntities.add(staffDao.getReferenceById(memberCode));
+            }
+        }
+        List<CropEntity>cropEntities=new ArrayList<>();
+        for (String cropCode :fieldDTO.getCropsList()){
+            if (cropDao.existsById(cropCode)){
+                cropEntities.add(cropDao.getReferenceById(cropCode));
+            }
+        }
 
-                    List<LogEntity>logEntities=new ArrayList<>();
-                        for (String logCode : fieldDTO.getLogsList()){
-                            if (monitoringLogDao.existsById(logCode)){
-                                logEntities.add(monitoringLogDao.getReferenceById(logCode));
-                            }
-                        }
-
-                    fieldEntity.setStaffList(staffEntities);
-                    fieldEntity.setLogList(logEntities);
-                        FieldEntity field1 =fieldDao.save(fieldEntity);
-                            if (field1==null){
-                                throw new DataPersistException("Something went wrong");
-                            }
+        fieldEntity.setStaffList(staffEntities);
+        fieldEntity.setCropList(cropEntities);
+        FieldEntity field1 = fieldDao.save(fieldEntity);
+        if (field1 == null) {
+            throw new DataPersistException("Something went wrong");
+        }
 
 
     }
@@ -74,8 +75,8 @@ public class FieldServiceIMPL implements FieldService {
 
     @Override
     public FieldDTO getField(String fieldCode) {
-        FieldEntity fieldEntity =fieldDao.getReferenceById(fieldCode);
-            return mapping.toFieldDto(fieldEntity);
+        FieldEntity fieldEntity = fieldDao.getReferenceById(fieldCode);
+        return mapping.toFieldDto(fieldEntity);
     }
 
     @Override

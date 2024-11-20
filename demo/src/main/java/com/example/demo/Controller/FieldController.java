@@ -58,7 +58,7 @@ public class FieldController {
                 fieldDTO.setFieldImage2(img2);
                 fieldDTO.setCropsList(cropEntities);
                 fieldDTO.setStaffList(staffEntities);
-            System.out.println(fieldDTO);
+//            System.out.println(fieldDTO);
 
             fieldService.saveField(fieldDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

@@ -43,7 +43,7 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
             String [] parts=monitoringLogDTO.getLogCode().split("-");
             number=Integer.parseInt(parts[1]);
         }
-        monitoringLogDTO.setLogCode("L00"+ ++number);
+        monitoringLogDTO.setLogCode("LOG-"+ ++number);
         LogEntity logEntity=mapping.toMonitoringLogEntity(monitoringLogDTO);
 
         List<StaffEntity>staffEntities =new ArrayList<>();

@@ -34,7 +34,7 @@ public class VehicleServiceIMPL implements VehicleService {
            String [] parts =vehicle.getVehicleCode().split("-");
            number=Integer.parseInt(parts[1]);
        }
-       vehicleDTO.setVehicleCode("V00"+ ++number);
+       vehicleDTO.setVehicleCode("VEHICLE-"+ ++number);
        VehicleEntity vehicleEntity =mapping.toVehicleEntity(vehicleDTO);
        StaffEntity staffEntity =staffDao.getReferenceById(vehicleDTO.getMemberCode());
        vehicleEntity.setStaff(staffEntity);

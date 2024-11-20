@@ -38,7 +38,7 @@ public class StaffServiceIMPL implements StaffService {
             String [] parts=staff.getMemberCode().split("-");
             number=Integer.parseInt(parts[1]);
         }
-        staffDTO.setMemberCode("S00"+ ++number);
+        staffDTO.setMemberCode("STAFF-"+ ++number);
         StaffEntity staffEntity=mapping.toStaffEntity(staffDTO);
 
         List<FieldEntity>fieldEntities =new ArrayList<>();

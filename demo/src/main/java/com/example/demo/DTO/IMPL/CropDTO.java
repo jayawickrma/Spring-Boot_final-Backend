@@ -25,4 +25,8 @@ public class CropDTO implements CropStatus {
     private List<String>logList;
    @JsonIgnore
    private List<String> fieldList;
+
+
+
+
 }

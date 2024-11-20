@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VehicleDao extends JpaRepository<VehicleEntity,String> {
-    @Query(value = "SELECT * FROM vehicle WHERE vehicleCode = (SELECT vehicleCode FROM vehicle ORDER BY CAST(SUBSTRING(vehicleCode, 6) AS UNSIGNED) DESC LIMIT 1);", nativeQuery = true)
+    @Query(value = "SELECT * FROM vehicle WHERE vehicleCode = (SELECT vehicleCode FROM vehicle ORDER BY CAST(SUBSTRING(vehicleCode, 9) AS UNSIGNED) DESC LIMIT 1);", nativeQuery = true)
     VehicleEntity findLastRowNative();
 }

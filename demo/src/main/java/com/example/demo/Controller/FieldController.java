@@ -34,7 +34,7 @@ public class FieldController {
                                           @RequestPart("fieldImg1") MultipartFile fieldImg1,
                                           @RequestPart("fieldImg2") MultipartFile fieldImg2,
                                           @RequestPart("cropId")String cropList,
-                                          @RequestPart("staffId")String staffList) {
+                                          @RequestPart("staffId")String staffList ){
         try {
 
             String img1 = PicEncorder.generatePicture(fieldImg1);
@@ -42,12 +42,14 @@ public class FieldController {
             List<String>cropEntities=new ArrayList<>();
             List<String>staffEntities=new ArrayList<>();
 
+
             if (cropList!= null) {
                 cropEntities = SplitString.spiltLists(cropList);
             }
             if (staffList!=null){
                 staffEntities=SplitString.spiltLists(staffList);
             }
+
 
             FieldDTO fieldDTO = new FieldDTO();
                 fieldDTO.setFieldCode(IdGenerater.generateId("FIELD-"));
@@ -58,6 +60,7 @@ public class FieldController {
                 fieldDTO.setFieldImage2(img2);
                 fieldDTO.setCropsList(cropEntities);
                 fieldDTO.setStaffList(staffEntities);
+
 //            System.out.println(fieldDTO);
 
             fieldService.saveField(fieldDTO);

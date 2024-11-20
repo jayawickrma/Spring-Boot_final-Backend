@@ -21,10 +21,9 @@ public class StaffEntity  {
     private String memberCode;
     private String firstName;
     private String lastName;
-    private LocalDate joinedDate;
-    private LocalDate dateOfBirth;
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String joinedDate;
+    private String dateOfBirth;
+    private String gender;
     private String designation;
     private String addressLine1;
     private String addressLine2;
@@ -34,8 +33,7 @@ public class StaffEntity  {
     private String contactNo;
     @Column(unique = true)
     private String email;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
     @OneToMany(mappedBy = "staffEntity",cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<staffDetailsEntity> staffEquipmentDetailsList;
     @OneToMany(mappedBy = "staff" ,cascade = {CascadeType.MERGE, CascadeType.PERSIST})

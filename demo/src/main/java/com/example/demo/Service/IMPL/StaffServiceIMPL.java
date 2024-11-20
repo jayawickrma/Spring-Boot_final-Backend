@@ -39,18 +39,22 @@ public class StaffServiceIMPL implements StaffService {
             number=Integer.parseInt(parts[1]);
         }
         staffDTO.setMemberCode("STAFF-"+ ++number);
-        StaffEntity staffEntity=mapping.toStaffEntity(staffDTO);
-
         List<FieldEntity>fieldEntities =new ArrayList<>();
             for (String fieldCode : staffDTO.getFieldList()){
                 fieldEntities.add(fieldDao.getReferenceById(fieldCode));
             }
-
-            staffEntity.setFieldList(fieldEntities);
-
-            for (FieldEntity field : fieldEntities){
-                    field.getStaffList().add(staffEntity);
+        List<VehicleEntity>vehicleEntities=new ArrayList<>();
+            for (String id :staffDTO.getVehicleList()){
+                vehicleEntities.add(vehicleDao.getReferenceById(id));
             }
+        List<LogEntity>logEntities=new ArrayList<>();
+            for (String lid :staffDTO.getLogList()){
+                logEntities.add(monitoringLogDao.getReferenceById(lid));
+            }
+        StaffEntity staffEntity=mapping.toStaffEntity(staffDTO);
+        staffEntity.setFieldList(fieldEntities);
+        staffEntity.setVehicleList(vehicleEntities);
+        staffEntity.setLogList(logEntities);
             StaffEntity staffEntity1 =staffDao.save(staffEntity);
             if (staffEntity1==null){
                 throw new DataPersistException("Something went wrong");

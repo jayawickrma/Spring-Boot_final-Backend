@@ -19,9 +19,9 @@ public class StaffDTO implements StaffStatus {
     private String memberCode;
     private String firstName;
     private String lastName;
-    private LocalDate joinedDate;
-    private LocalDate dateOfBirth;
-    private Gender gender;
+    private String joinedDate;
+    private String dateOfBirth;
+    private String gender;
     private String designation;
     private String addressLine1;
     private String addressLine2;
@@ -30,7 +30,7 @@ public class StaffDTO implements StaffStatus {
     private String addressLine5;
     private String contactNo;
     private String email;
-    private Role role;
+    private String role;
     private List<staffDetailsDto> staffEquipmentDetailsList;
     private List<String> vehicleList;
     private List<String> fieldList;

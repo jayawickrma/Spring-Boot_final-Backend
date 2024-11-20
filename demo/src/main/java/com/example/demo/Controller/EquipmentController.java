@@ -17,7 +17,7 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void>saveEquipment(@RequestPart EquipmentDTO equipmentDTO){
+    public ResponseEntity<Void>saveEquipment(@RequestBody EquipmentDTO equipmentDTO){
         try {
             equipmentService.saveEquipment(equipmentDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

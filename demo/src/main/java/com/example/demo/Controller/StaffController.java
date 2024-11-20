@@ -19,8 +19,9 @@ public class StaffController {
     public ResponseEntity<Void>saveStaff(@RequestBody StaffDTO staffDTO){
         try{
             System.out.println(staffDTO);
-            staffDTO.setMemberCode(IdGenerater.generateId("STAFF-"));
+            staffDTO.setMemberCode(IdGenerater.generateId("MEMBER-"));
             staffService.saveStaff(staffDTO);
+
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

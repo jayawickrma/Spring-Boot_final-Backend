@@ -88,17 +88,18 @@ public class EquipmenrServiceIMPL implements EquipmentService {
 
     @Override
     public void updateEquipment(String equipmentId, EquipmentDTO equipmentDTO) {
-        Optional<EquipmentEntity>equipmentEntity =equipmentDao.findById(equipmentId);
+        Optional<EquipmentEntity> equipmentEntity = equipmentDao.findById(equipmentId);
+        if (equipmentEntity.isPresent()) {
+            equipmentEntity.get().setName(equipmentDTO.getName());
+            equipmentEntity.get().setType(equipmentDTO.getType());
+            equipmentEntity.get().setStatus(equipmentDTO.getStatus());
+            equipmentEntity.get().setAvailableCount(equipmentDTO.getAvailableCount());
 
-        equipmentEntity.get().setName(equipmentDTO.getName());
-        equipmentEntity.get().setType(equipmentDTO.getType());
-        equipmentEntity.get().setStatus(equipmentDTO.getStatus());
-        equipmentEntity.get().setAvailableCount(equipmentDTO.getAvailableCount());
-
-        List<FieldEntity>fieldEntities=new ArrayList<>();
-        for (String field:equipmentDTO.getFieldList()){
-fieldEntities.add(fieldDao.getReferenceById(field));
+            List<FieldEntity> fieldEntities = new ArrayList<>();
+            for (String field : equipmentDTO.getFieldList()) {
+                fieldEntities.add(fieldDao.getReferenceById(field));
+            }
+            equipmentEntity.get().setFieldList(fieldEntities);
         }
-        equipmentEntity.get().setFieldList(fieldEntities);
     }
 }

@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -121,6 +122,27 @@ public class FieldServiceIMPL implements FieldService {
 
     @Override
     public void updateField(String fieldCode, FieldDTO fieldDTO) {
+        Optional<FieldEntity>field =fieldDao.findById(fieldCode);
+        if (field.isPresent()){
+            field.get().setName(fieldDTO.getName());
+            field.get().setLocation(fieldDTO.getLocation());
+            field.get().setExtentSize(fieldDTO.getExtentSize());
+            field.get().setFieldImage1(fieldDTO.getFieldImage1());
+            field.get().setFieldImage2(fieldDTO.getFieldImage2());
+            List<CropEntity>cropEntities=new ArrayList<>();
+            List<StaffEntity>staffEntities=new ArrayList<>();
 
+
+                for (String id:fieldDTO.getCropsList()){
+                    cropEntities.add(cropDao.getReferenceById(id));
+                }
+                for (String sid :fieldDTO.getStaffList()){
+                    staffEntities.add(staffDao.getReferenceById(sid));
+                }
+
+                field.get().setStaffList(staffEntities);
+                field.get().setCropList(cropEntities);
+
+        }
     }
 }

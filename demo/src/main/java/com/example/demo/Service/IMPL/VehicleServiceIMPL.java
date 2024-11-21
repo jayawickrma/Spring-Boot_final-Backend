@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -68,6 +69,18 @@ public class VehicleServiceIMPL implements VehicleService {
 
     @Override
     public void updateVehicle(String vehicleCode, VehicleDTO vehicleDTO) {
+        Optional<VehicleEntity>vehicleEntity=vehicleDao.findById(vehicleCode);
+            if (vehicleEntity.isPresent()){
+                vehicleEntity.get().setLicensePlateNumber(vehicleDTO.getLicensePlateNumber());
+                vehicleEntity.get().setName(vehicleDTO.getName());
+                vehicleEntity.get().setCategory(vehicleDTO.getCategory());
+                vehicleEntity.get().setFuelType(vehicleDTO.getFuelType());
+                vehicleEntity.get().setRemark(vehicleDTO.getRemark());
+                vehicleEntity.get().setStatus(vehicleDTO.getStatus());
 
+                    String sid =vehicleDTO.getMemberCode();
+                    StaffEntity staffEntity =staffDao.getReferenceById(sid);
+                    vehicleEntity.get().setStaff(staffEntity);
+            }
     }
 }

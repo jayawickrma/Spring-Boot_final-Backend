@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -109,6 +110,18 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public void updateCrop(String cropCode, CropDTO cropDTO) {
+        Optional<CropEntity>optionalCrop =cropDao.findById(cropCode);
+        optionalCrop.get().setCropName(cropDTO.getCropName());
+        optionalCrop.get().setScientificName(cropDTO.getScientificName());
+        optionalCrop.get().setCategory(cropDTO.getCategory());
+        optionalCrop.get().setSeason(cropDTO.getSeason());
+        optionalCrop.get().setCropImage(cropDTO.getCropImage());
+
+        List<FieldEntity>fieldEntities=new ArrayList<>();
+        for (String id :cropDTO.getFieldList()){
+                fieldEntities.add(fieldDao.getReferenceById(id));
+        }
+        optionalCrop.get().setFieldList(fieldEntities);
 
     }
 }

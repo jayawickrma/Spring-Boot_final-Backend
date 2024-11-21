@@ -63,6 +63,9 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
                 fieldEntities.add(fieldDao.getReferenceById(fieldCode));
             }
         }
+        for (FieldEntity field: fieldEntities){
+            field.getLogList().add(log);
+        }
         LogEntity log1 =mapping.toMonitoringLogEntity(monitoringLogDTO);
         log1.setFieldList(fieldEntities);
         log1.setStaffList(staffEntities);

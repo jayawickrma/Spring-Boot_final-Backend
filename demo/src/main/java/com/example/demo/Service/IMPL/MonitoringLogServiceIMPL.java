@@ -23,6 +23,8 @@ import javax.swing.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 
@@ -126,6 +128,29 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
 
     @Override
     public void updateLog(String logCode, MonitoringLogDTO monitoringLogDTO) {
+        Optional<LogEntity>logEntity=monitoringLogDao.findById(logCode);
+            if (logEntity.isPresent()){
+                logEntity.get().setDate(monitoringLogDTO.getLogDate());
+                logEntity.get().setLogDetails(monitoringLogDTO.getLogDetails());
+                logEntity.get().setObservedImage(monitoringLogDTO.getObservedImage());
+                List<FieldEntity>fieldEntities=new ArrayList<>();
+                List<CropEntity>cropEntities=new ArrayList<>();
+                List<StaffEntity>staffEntities=new ArrayList<>();
 
+                    for (String sid :monitoringLogDTO.getStaffList()){
+                        staffEntities.add(staffDao.getReferenceById(sid));
+                    }
+                    for (String cid:monitoringLogDTO.getCropList()){
+                        cropEntities.add(cropDao.getReferenceById(cid));
+                    }
+                    for (String lid:monitoringLogDTO.getFieldList()){
+                        fieldEntities.add(fieldDao.getReferenceById(lid));
+                    }
+
+                    logEntity.get().setStaffList(staffEntities);
+                    logEntity.get().setCropList(cropEntities);
+                    logEntity.get().setFieldList(fieldEntities);
+
+            }
     }
 }

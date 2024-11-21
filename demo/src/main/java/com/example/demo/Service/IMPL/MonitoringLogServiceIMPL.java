@@ -44,7 +44,7 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
             number=Integer.parseInt(parts[1]);
         }
         monitoringLogDTO.setLogCode("LOG-"+ ++number);
-        LogEntity logEntity=mapping.toMonitoringLogEntity(monitoringLogDTO);
+
 
         List<StaffEntity>staffEntities =new ArrayList<>();
             for (String staffId : monitoringLogDTO.getStaffList()){
@@ -61,12 +61,12 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
             }
 
         List<FieldEntity>fieldEntities =new ArrayList<>();
-            for (String firldCode :monitoringLogDTO.getFieldList()){
-                if (fieldDao.existsById(firldCode)){
-                    fieldEntities.add(fieldDao.getReferenceById(firldCode));
+            for (String fieldCode :monitoringLogDTO.getFieldList()){
+                if (fieldDao.existsById(fieldCode)){
+                    fieldEntities.add(fieldDao.getReferenceById(fieldCode));
                 }
             }
-
+        LogEntity logEntity=mapping.toMonitoringLogEntity(monitoringLogDTO);
             logEntity.setStaffList(staffEntities);
             logEntity.setCropList(cropEntities);
             logEntity.setFieldList(fieldEntities);

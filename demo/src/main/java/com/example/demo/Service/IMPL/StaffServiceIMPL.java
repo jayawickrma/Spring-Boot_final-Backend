@@ -5,6 +5,7 @@ import com.example.demo.DTO.IMPL.*;
 import com.example.demo.DTO.StaffStatus;
 import com.example.demo.Entity.IMPL.*;
 import com.example.demo.Exception.DataPersistException;
+import com.example.demo.Exception.NotFoundException;
 import com.example.demo.Service.StaffService;
 import com.example.demo.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
+import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +81,31 @@ public class StaffServiceIMPL implements StaffService {
 
     @Override
     public void deleteStaff(String id) {
-            staffDao.deleteById(id);
+        if (staffDao.existsById(id)){
+            StaffEntity staffEntity =staffDao.getReferenceById(id);
+            List<FieldEntity>fieldEntities=staffEntity.getFieldList();
+            List<VehicleEntity>vehicleEntities=staffEntity.getVehicleList();
+            List<LogEntity>logEntities=staffEntity.getLogList();
+
+            for (FieldEntity field:fieldEntities){
+                List<StaffEntity>staffEntities=field.getStaffList();
+                staffEntities.remove(staffEntity);
+            }
+            for (VehicleEntity vehicle:vehicleEntities){
+                vehicle.setStaff(null);
+            }
+            for (LogEntity logEntity:logEntities){
+                List<StaffEntity>staffEntities=logEntity.getStaffList();
+                staffEntities.remove(staffEntity);
+            }
+            staffEntity.getFieldList().clear();
+            staffEntity.getVehicleList().clear();
+            staffEntity.getLogList().clear();
+
+                staffDao.delete(staffEntity);
+        }else {
+            throw new NotFoundException("You Entered Member ID not found");
+        }
     }
 
     @Override

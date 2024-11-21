@@ -68,6 +68,7 @@ public class FieldServiceIMPL implements FieldService {
         fieldEntity.setStaffList(staffEntities);
         fieldEntity.setCropList(cropEntities);
         fieldEntity.setLogList(logEntities);
+
         FieldEntity field1 = fieldDao.save(fieldEntity);
         if (field1 == null) {
             throw new DataPersistException("Something went wrong");

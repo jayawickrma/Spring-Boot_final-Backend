@@ -8,6 +8,7 @@ import com.example.demo.DTO.VehicleStatus;
 import com.example.demo.Entity.IMPL.StaffEntity;
 import com.example.demo.Entity.IMPL.VehicleEntity;
 import com.example.demo.Exception.DataPersistException;
+import com.example.demo.Exception.NotFoundException;
 import com.example.demo.Service.VehicleService;
 import com.example.demo.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,12 @@ public class VehicleServiceIMPL implements VehicleService {
     }
 
     @Override
-    public void deleteVehicle(String vehicleCode) {
+    public void deleteVehicle(String vehicleCode){
+        if (vehicleDao.existsById(vehicleCode)){
             vehicleDao.deleteById(vehicleCode);
+        }else {
+            throw new NotFoundException("You Entered Vehicle Code not found");
+        }
     }
 
     @Override

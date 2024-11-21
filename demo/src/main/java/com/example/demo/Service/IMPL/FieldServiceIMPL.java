@@ -11,6 +11,7 @@ import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Entity.IMPL.LogEntity;
 import com.example.demo.Entity.IMPL.StaffEntity;
 import com.example.demo.Exception.DataPersistException;
+import com.example.demo.Exception.NotFoundException;
 import com.example.demo.Service.FieldService;
 
 import com.example.demo.util.Mapping;
@@ -91,7 +92,31 @@ public class FieldServiceIMPL implements FieldService {
 
     @Override
     public void deleteFields(String fieldCode) {
-        fieldDao.deleteById(fieldCode);
+        if (fieldDao.existsById(fieldCode)){
+            FieldEntity field =fieldDao.getReferenceById(fieldCode);
+            List<CropEntity>cropEntities=field.getCropList();
+            List<StaffEntity>staffEntities=field.getStaffList();
+            List<LogEntity>logEntities=field.getLogList();
+
+            for (CropEntity crop :cropEntities){
+                List<FieldEntity>fieldEntities=crop.getFieldList();
+                fieldEntities.remove(field);
+            }
+            for (LogEntity logEntity:logEntities){
+                List<FieldEntity>fieldEntities=logEntity.getFieldList();
+                fieldEntities.remove(field);
+            }
+            for (StaffEntity staffEntity:staffEntities){
+                List<FieldEntity>fieldEntities=staffEntity.getFieldList();
+                fieldEntities.remove(field);
+            }
+            field.getLogList().clear();
+            field.getStaffList().clear();
+            field.getCropList().clear();
+            fieldDao.delete(field);
+        }else {
+            throw new NotFoundException("You entered Field ID not found");
+        }
     }
 
     @Override

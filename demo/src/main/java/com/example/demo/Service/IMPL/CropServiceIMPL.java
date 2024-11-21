@@ -10,6 +10,7 @@ import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Entity.IMPL.LogEntity;
 import com.example.demo.Exception.DataPersistException;
+import com.example.demo.Exception.NotFoundException;
 import com.example.demo.Service.CropService;
 
 
@@ -90,7 +91,18 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public void deleteCrop(String cropCode) {
-        cropDao.deleteById(cropCode);
+        if (cropDao.existsById(cropCode)){
+            CropEntity crop =cropDao.getReferenceById(cropCode);
+            List<FieldEntity>fieldEntities=crop.getFieldList();
+            for (FieldEntity field:fieldEntities){
+                List<CropEntity>cropEntities =field.getCropList();
+                    cropEntities.remove(crop);
+            }
+            crop.getFieldList().clear();
+            cropDao.delete(crop);
+        }else {
+            throw new NotFoundException("You entered crop ID not found");
+        }
 
 
     }

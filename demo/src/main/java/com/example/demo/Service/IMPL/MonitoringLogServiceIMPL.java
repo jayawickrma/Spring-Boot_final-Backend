@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,43 +45,34 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
             number=Integer.parseInt(parts[1]);
         }
         monitoringLogDTO.setLogCode("LOG-"+ ++number);
-
-
-        List<StaffEntity>staffEntities =new ArrayList<>();
-            for (String staffId : monitoringLogDTO.getStaffList()){
-                if (staffDao.existsById(staffId)){
-                    staffEntities.add(staffDao.getReferenceById(staffId));
-                }
+        List<StaffEntity>staffEntities=new ArrayList<>();
+        List<FieldEntity>fieldEntities=new ArrayList<>();
+        List<CropEntity>cropEntities=new ArrayList<>();
+        for (String staffId :monitoringLogDTO.getStaffList()){
+            if (staffDao.existsById(staffId)){
+                staffEntities.add(staffDao.getReferenceById(staffId));
             }
-
-        List<CropEntity>cropEntities =new ArrayList<>();
-            for (String cropCode: monitoringLogDTO.getCropList()){
-                if (cropDao.existsById(cropCode)){
-                    cropEntities.add(cropDao.getReferenceById(cropCode));
-                }
+        }
+        for (String cropCode :monitoringLogDTO.getCropList()){
+            if (cropDao.existsById(cropCode)){
+                cropEntities.add(cropDao.getReferenceById(cropCode));
             }
-
-        List<FieldEntity>fieldEntities =new ArrayList<>();
-            for (String fieldCode :monitoringLogDTO.getFieldList()){
-                if (fieldDao.existsById(fieldCode)){
-                    fieldEntities.add(fieldDao.getReferenceById(fieldCode));
-                }
+        }
+        for (String fieldCode : monitoringLogDTO.getFieldList()){
+            if (fieldDao.existsById(fieldCode)){
+                fieldEntities.add(fieldDao.getReferenceById(fieldCode));
             }
-        LogEntity logEntity=mapping.toMonitoringLogEntity(monitoringLogDTO);
-            logEntity.setStaffList(staffEntities);
-            logEntity.setCropList(cropEntities);
-            logEntity.setFieldList(fieldEntities);
+        }
+        LogEntity log1 =mapping.toMonitoringLogEntity(monitoringLogDTO);
+        log1.setFieldList(fieldEntities);
+        log1.setStaffList(staffEntities);
+        log1.setCropList(cropEntities);
 
-            for (FieldEntity field:fieldEntities){
-                field.getLogList().add(logEntity);
-            }
-
-            LogEntity log1 =monitoringLogDao.save(logEntity);
-        System.out.println(logEntity);
-            if (log1==null){
-                throw new DataPersistException("Something went wrong");
-            }
+        monitoringLogDao.save(log1);
     }
+
+
+
 
     @Override
     public List<MonitoringLogDTO> getAllLogs() {

@@ -8,6 +8,7 @@ import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.Entity.IMPL.EquipmentEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Exception.DataPersistException;
+import com.example.demo.Exception.NotFoundException;
 import com.example.demo.Service.EquipmentService;
 import com.example.demo.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,19 @@ public class EquipmenrServiceIMPL implements EquipmentService {
 
     @Override
     public void deleteEquipment(String equipmentId) {
-            equipmentDao.deleteById(equipmentId);
+            if (equipmentDao.existsById(equipmentId)){
+                EquipmentEntity equipmentEntity=equipmentDao.getReferenceById(equipmentId);
+                List<FieldEntity>fieldEntities=equipmentEntity.getFieldList();
+
+                for (FieldEntity field:fieldEntities){
+                    List<EquipmentEntity>equipmentEntities=field.getEquipmentsList();
+                    equipmentEntities.remove(equipmentEntity);
+                }
+                equipmentEntity.getFieldList().clear();
+                equipmentDao.delete(equipmentEntity);
+            }else {
+                throw new NotFoundException("Ypu entered Equipment ID not found");
+            }
     }
 
     @Override

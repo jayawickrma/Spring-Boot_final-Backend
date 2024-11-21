@@ -12,6 +12,7 @@ import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Entity.IMPL.LogEntity;
 import com.example.demo.Entity.IMPL.StaffEntity;
 import com.example.demo.Exception.DataPersistException;
+import com.example.demo.Exception.NotFoundException;
 import com.example.demo.Service.MonitoringLogService;
 import com.example.demo.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,32 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
 
     @Override
     public void deleteLog(String logCode) {
-        monitoringLogDao.deleteById(logCode);
+       if (monitoringLogDao.existsById(logCode)){
+           LogEntity logEntity =monitoringLogDao.getReferenceById(logCode);
+           List<CropEntity>cropEntities=logEntity.getCropList();
+           List<FieldEntity>fieldEntities=logEntity.getFieldList();
+           List<StaffEntity>staffEntities=logEntity.getStaffList();
+
+           for (CropEntity crop :cropEntities){
+                List<LogEntity>logEntities=crop.getLogList();
+                logEntities.remove(logEntity);
+           }
+           for (StaffEntity staffEntity :staffEntities){
+               List<LogEntity>logEntities=staffEntity.getLogList();
+               logEntities.remove(logEntity);
+           }
+           for (FieldEntity field:fieldEntities){
+               List<LogEntity>logEntities=field.getLogList();
+               logEntities.remove(logEntity);
+           }
+           logEntity.getCropList().clear();
+           logEntity.getStaffList().clear();
+           logEntity.getFieldList().clear();
+
+           monitoringLogDao.delete(logEntity);
+       }else {
+                throw new NotFoundException("You entered ID not found");
+       }
 
     }
 

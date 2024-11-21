@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -110,6 +111,38 @@ public class StaffServiceIMPL implements StaffService {
 
     @Override
     public void UpdateStaff(String id, StaffDTO staffDTO) {
+        Optional<StaffEntity>staffEntity=staffDao.findById(id);
+            if (staffEntity.isPresent()){
+                staffEntity.get().setFirstName(staffDTO.getFirstName());
+                staffEntity.get().setLastName(staffDTO.getLastName());
+                staffEntity.get().setJoinedDate(staffDTO.getJoinedDate());
+                staffEntity.get().setDateOfBirth(staffDTO.getDateOfBirth());
+                staffEntity.get().setGender(staffDTO.getGender());
+                staffEntity.get().setDesignation(staffDTO.getDesignation());
+                staffEntity.get().setAddressLine1(staffDTO.getAddressLine1());
+                staffEntity.get().setAddressLine2(staffDTO.getAddressLine2());
+                staffEntity.get().setAddressLine3(staffDTO.getAddressLine3());
+                staffEntity.get().setAddressLine4(staffDTO.getAddressLine4());
+                staffEntity.get().setAddressLine5(staffDTO.getAddressLine5());
+                staffEntity.get().setContactNo(staffDTO.getContactNo());
+                staffEntity.get().setRole(staffDTO.getRole());
+                List<VehicleEntity>vehicleEntities=new ArrayList<>();
+                List<FieldEntity>fieldEntities=new ArrayList<>();
+                List<LogEntity>logEntities=new ArrayList<>();
+                    for (String vehiId :staffDTO.getVehicleList()){
+                        vehicleEntities.add(vehicleDao.getReferenceById(vehiId));
+                    }
+                    for (String logId :staffDTO.getLogList()){
+                        logEntities.add(monitoringLogDao.getReferenceById(logId));
+                    }
+                    for (String fid :staffDTO.getFieldList()){
+                        fieldEntities.add(fieldDao.getReferenceById(fid));
+                    }
+                    staffEntity.get().setVehicleList(vehicleEntities);
+                    staffEntity.get().setFieldList(fieldEntities);
+                    staffEntity.get().setLogList(logEntities);
+
+            }
 
     }
 }

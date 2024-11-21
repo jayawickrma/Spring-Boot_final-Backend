@@ -1,9 +1,6 @@
 package com.example.demo.DTO.IMPL;
 
 import com.example.demo.DTO.StaffStatus;
-import com.example.demo.Entity.Gender;
-import com.example.demo.Entity.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;

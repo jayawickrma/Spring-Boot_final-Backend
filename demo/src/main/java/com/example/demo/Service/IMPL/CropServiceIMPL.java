@@ -99,6 +99,12 @@ public class CropServiceIMPL implements CropService {
                 List<CropEntity>cropEntities =field.getCropList();
                     cropEntities.remove(crop);
             }
+            List<LogEntity>logEntities=crop.getLogList();
+            for (LogEntity log:logEntities){
+                List<CropEntity> cropEntities=log.getCropList();
+                cropEntities.remove(log);
+            }
+
             crop.getFieldList().clear();
             cropDao.delete(crop);
         }else {

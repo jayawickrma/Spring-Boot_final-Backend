@@ -109,8 +109,27 @@ public class Mapping {
     public StaffDTO toStaffDto(StaffEntity staffEntity){
         return modelMapper.map(staffEntity, StaffDTO.class);
     }
-    public List<StaffDTO>asStafDtoList(List<StaffEntity>staffEntities){
-        return modelMapper.map(staffEntities,new TypeToken<List<StaffDTO>>(){}.getType());
+    public StaffDTO asStafDtoList(StaffEntity staffEntity){
+        StaffDTO staffDTO =new StaffDTO();
+            staffDTO.setMemberCode(staffEntity.getMemberCode());
+            staffDTO.setFirstName(staffEntity.getFirstName());
+            staffDTO.setLastName(staffEntity.getLastName());
+            staffDTO.setJoinedDate(staffEntity.getJoinedDate());
+            staffDTO.setDateOfBirth(staffEntity.getDateOfBirth());
+            staffDTO.setGender(staffEntity.getGender());
+            staffDTO.setDesignation(staffEntity.getDesignation());
+            staffDTO.setAddressLine1(staffEntity.getAddressLine1());
+            staffDTO.setAddressLine2(staffEntity.getAddressLine2());
+            staffDTO.setAddressLine3(staffEntity.getAddressLine3());
+            staffDTO.setAddressLine4(staffEntity.getAddressLine4());
+            staffDTO.setAddressLine5(staffEntity.getAddressLine5());
+            staffDTO.setContactNo(staffEntity.getContactNo());
+            staffDTO.setEmail(staffEntity.getEmail());
+            staffDTO.setRole(staffEntity.getRole());
+            staffDTO.setVehicleList(staffEntity.getVehicleList().stream().map(VehicleEntity::getVehicleCode).toList());
+            staffDTO.setFieldList(staffEntity.getFieldList().stream().map(FieldEntity::getFieldCode).toList());
+            staffDTO.setLogList(staffEntity.getLogList().stream().map(LogEntity::getLogCode).toList());
+    return staffDTO;
     }
 
 

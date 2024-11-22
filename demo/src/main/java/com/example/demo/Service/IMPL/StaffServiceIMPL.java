@@ -71,7 +71,29 @@ public class StaffServiceIMPL implements StaffService {
 
     @Override
     public List<StaffDTO> getAllStaff() {
-        return mapping.asStafDtoList(staffDao.findAll());
+
+        List<StaffDTO>staffDTOS=new ArrayList<>();
+        for (StaffEntity staffEntity: staffDao.findAll()){
+            List<String>vehicle=new ArrayList<>();
+            List<String>field=new ArrayList<>();
+            List<String>log=new ArrayList<>();
+
+            for (VehicleEntity vehicleEntity:staffEntity.getVehicleList()){
+                vehicle.add(vehicleEntity.getVehicleCode());
+            }
+            for (FieldEntity fieldEntity:staffEntity.getFieldList()){
+                field.add(fieldEntity.getFieldCode());
+            }
+            for (LogEntity logEntity:staffEntity.getLogList()){
+                log.add(logEntity.getLogCode());
+            }
+            StaffDTO staffDTO=mapping.asStafDtoList(staffEntity);
+            staffDTO.setFieldList(field);
+            staffDTO.setVehicleList(vehicle);
+            staffDTO.setLogList(log);
+            staffDTOS.add(staffDTO);
+        }
+        return staffDTOS;
     }
 
     @Override

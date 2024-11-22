@@ -73,20 +73,21 @@ public class CropController {
     }
 
     @PutMapping(value = "/{cropId}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void updateCrop(@PathVariable("cropId")String cropId,
+    public ResponseEntity<Void> updateCrop(@PathVariable("cropId")String cropId,
                                                 @RequestPart( "commonName") String cropName,
                                                 @RequestPart("scientificName") String scientificName,
                                                 @RequestPart("category") String category,
                                                 @RequestPart("season") String season,
                                                 @RequestPart("cropImage") MultipartFile cropIMg,
-                                                @RequestPart("field") String field){
-        String cripImage=PicEncorder.generatePicture(cropIMg);
-        List<String>field_code=new ArrayList<>();
-        if (field!=null){
-            field_code=SplitString.spiltLists(field);
-        }
-        CropDTO cropDTO =new CropDTO();
-        cropDTO.setCropCode(cropId);
+                                                @RequestPart("field") String field) {
+        try {
+            String cripImage = PicEncorder.generatePicture(cropIMg);
+            List<String> field_code = new ArrayList<>();
+            if (field != null) {
+                field_code = SplitString.spiltLists(field);
+            }
+            CropDTO cropDTO = new CropDTO();
+            cropDTO.setCropCode(cropId);
             cropDTO.setCropName(cropName);
             cropDTO.setScientificName(scientificName);
             cropDTO.setCategory(category);
@@ -94,6 +95,14 @@ public class CropController {
             cropDTO.setCropImage(cripImage);
             cropDTO.setFieldList(field_code);
 
-           cropService.updateCrop(cropId,cropDTO);
+            cropService.updateCrop(cropId, cropDTO);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DataPersistException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

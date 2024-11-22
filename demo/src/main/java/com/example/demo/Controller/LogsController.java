@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -65,6 +62,47 @@ public class LogsController {
             System.out.println(logDto);
 
             monitoringLogService.saveLog(logDto);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DataPersistException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PutMapping(value = "/{logCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void>updateLog(@PathVariable("logCode")String logCode,
+                                         @RequestPart("logDate") String date,
+                                         @RequestPart("logDetails") String details,
+                                         @RequestPart("logImg") MultipartFile img,
+                                         @RequestPart("field") String field,
+                                         @RequestPart("crop")String crop,
+                                         @RequestPart("staff")String staff) {
+        try {
+            String logImg = PicEncorder.generatePicture(img);
+            List<String> fieldCodes = new ArrayList<>();
+            List<String> cropCodes = new ArrayList<>();
+            List<String> stafList = new ArrayList<>();
+
+            if (field != null) {
+                fieldCodes = SplitString.spiltLists(field);
+            }
+            if (crop != null) {
+                cropCodes = SplitString.spiltLists(crop);
+            }
+            if (staff != null) {
+                stafList = SplitString.spiltLists(staff);
+            }
+
+            MonitoringLogDTO mldto = new MonitoringLogDTO();
+            mldto.setLogCode(logCode);
+            mldto.setLogDate(date);
+            mldto.setLogDetails(details);
+            mldto.setObservedImage(logImg);
+            mldto.setFieldList(fieldCodes);
+            mldto.setCropList(cropCodes);
+            mldto.setStaffList(stafList);
+
+            monitoringLogService.updateLog(logCode, mldto);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

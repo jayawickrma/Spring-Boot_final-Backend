@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -79,11 +80,28 @@ public class FieldServiceIMPL implements FieldService {
 
     }
 
-
-    @Override
+@Override
     public List<FieldDTO> getAllFields() {
-        return mapping.asFieldDtoList(fieldDao.findAll());
+        List<FieldDTO>fieldDTOS=new ArrayList<>();
+            for (FieldEntity field :fieldDao.findAll()){
+                List<String>staff =new ArrayList<>();
+                List<String>crop =new ArrayList<>();
+                for (StaffEntity staffEntity :field.getStaffList()){
+                    staff.add(staffEntity.getMemberCode());
+                }
+                for (CropEntity cropEntity:field.getCropList()){
+                    crop.add(cropEntity.getCropCode());
+                }
+                FieldDTO fieldDTO =mapping.asFieldDtoList(field);
+                fieldDTO.setStaffList(staff);
+                fieldDTO.setCropsList(crop);
+                fieldDTOS.add(fieldDTO);
+
+            }
+
+return fieldDTOS;
     }
+
 
     @Override
     public FieldDTO getField(String fieldCode) {

@@ -7,6 +7,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -48,8 +49,18 @@ public class Mapping {
 
         return modelMapper.map(fieldEntity, FieldDTO.class);
     }
-    public List<FieldDTO> asFieldDtoList(List<FieldEntity>fieldEntities){
-        return modelMapper.map(fieldEntities,new TypeToken<List<FieldDTO>>(){}.getType());
+    public FieldDTO asFieldDtoList(FieldEntity field){
+     FieldDTO fieldDTO =new FieldDTO();
+        fieldDTO.setFieldCode(field.getFieldCode());
+        fieldDTO.setName(field.getName());
+        fieldDTO.setLocation(field.getLocation());
+        fieldDTO.setExtentSize(field.getExtentSize());
+        fieldDTO.setFieldImage1(field.getFieldImage1());
+        fieldDTO.setFieldImage2(field.getFieldImage2());
+        fieldDTO.setStaffList(field.getStaffList().stream().map(StaffEntity::getMemberCode).toList());
+        fieldDTO.setCropsList(field.getCropList().stream().map(CropEntity::getCropCode).toList());
+        fieldDTO.setLogsList(field.getLogList().stream().map(LogEntity::getLogCode).toList());
+        return fieldDTO;
     }
 
 

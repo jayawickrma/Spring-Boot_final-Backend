@@ -1,5 +1,6 @@
 package com.example.demo.Entity.IMPL;
 
+import com.example.demo.DTO.IMPL.FieldDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "field")
-public class FieldEntity {
+public class FieldEntity  {
     @Id
     private String fieldCode;
     private String name;

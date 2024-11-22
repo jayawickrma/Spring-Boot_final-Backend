@@ -125,5 +125,14 @@ public class FieldController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping
+    public List<FieldDTO>getall(){
+        try {
+          return   fieldService.getAllFields();
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
 }
 

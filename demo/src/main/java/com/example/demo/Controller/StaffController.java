@@ -29,6 +29,20 @@ public class StaffController {
 
     }
 
+    @DeleteMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void>deleteStaffMember(@PathVariable("memberCode")String member){
+        try {
+            staffService.deleteStaff(member);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (DataPersistException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PutMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>updateMember(@PathVariable("memberCode")String memberCode,@RequestBody StaffDTO staffDTO){
         try {

@@ -1,17 +1,14 @@
 package com.example.demo.Controller;
 
 import com.example.demo.DTO.IMPL.EquipmentDTO;
-import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.EquipmentService;
-import com.example.demo.util.SplitString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,5 +32,18 @@ public class EquipmentController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<EquipmentDTO>getAllEquipments(){
         return equipmentService.getAllEquipments();
+    }
+
+    @PutMapping(value = "/{equipmentId}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> updateEquipment(@PathVariable("equipmentId")String equipmentId, @RequestBody EquipmentDTO equipmentDTO){
+            try {
+                    equipmentService.updateEquipment(equipmentId,equipmentDTO);
+                    return new ResponseEntity<>(HttpStatus.CREATED);
+            }catch (DataPersistException e){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }catch (Exception e){
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
     }
 }

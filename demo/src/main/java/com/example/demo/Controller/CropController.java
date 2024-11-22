@@ -72,7 +72,7 @@ public class CropController {
         return cropService.getAllCrops();
     }
 
-    @PutMapping(value = "/{cropId}")
+    @PutMapping(value = "/{cropId}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void updateCrop(@PathVariable("cropId")String cropId,
                                                 @RequestPart( "commonName") String cropName,
                                                 @RequestPart("scientificName") String scientificName,

@@ -64,8 +64,17 @@ public class CropController {
     }
 
     @DeleteMapping(value = "/{cropCode}")
-    public void deleteCrop(@PathVariable("cropCode")String cropCode){
-        cropService.deleteCrop(cropCode);
+    public ResponseEntity<Void> deleteCrop(@PathVariable("cropCode")String cropCode){
+        try{
+            cropService.deleteCrop(cropCode);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }catch (DataPersistException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropDTO>getAllCrops(){

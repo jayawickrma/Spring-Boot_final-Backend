@@ -70,7 +70,20 @@ public class FieldController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping(value = "/{fieldCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @DeleteMapping(value = "/{fieldCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void>deleteField(@PathVariable("fieldCode")String fieldCode){
+        try{
+            fieldService.deleteFields(fieldCode);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (DataPersistException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }    @PutMapping(value = "/{fieldCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> updateField(@PathVariable("fieldCode")String fieldCode,
                             @RequestPart("fieldName") String fieldName,
                             @RequestPart("fieldLocation") String fieldLocation,

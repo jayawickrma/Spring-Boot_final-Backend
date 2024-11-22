@@ -86,7 +86,28 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
 
     @Override
     public List<MonitoringLogDTO> getAllLogs() {
-        return mapping.asMonitoringDtoList(monitoringLogDao.findAll());
+
+        List<MonitoringLogDTO>monitoringLogDTOS=new ArrayList<>();
+        for (LogEntity logEntity :monitoringLogDao.findAll()){
+            List<String>crop=new ArrayList<>();
+            List<String>field=new ArrayList<>();
+            List<String>staff=new ArrayList<>();
+            for (FieldEntity fieldEntity:logEntity.getFieldList()){
+                field.add(fieldEntity.getFieldCode());
+            }
+            for (CropEntity cropEntity:logEntity.getCropList()){
+                crop.add(cropEntity.getCropCode());
+            }
+            for (StaffEntity staffEntity:logEntity.getStaffList()){
+                staff.add(staffEntity.getMemberCode());
+            }
+            MonitoringLogDTO mtd=mapping.asMonitoringDtoList(logEntity);
+            mtd.setFieldList(field);
+            mtd.setStaffList(staff);
+            mtd.setCropList(crop);
+            monitoringLogDTOS.add(mtd);
+        }
+        return monitoringLogDTOS;
     }
 
     @Override

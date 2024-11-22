@@ -69,6 +69,10 @@ public class LogsController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping
+    public List<MonitoringLogDTO>getAll(){
+        return monitoringLogService.getAllLogs();
+    }
     @DeleteMapping(value = "/{logCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteLog(@PathVariable("logCode")String log){
         try {

@@ -102,8 +102,16 @@ public class Mapping {
     public MonitoringLogDTO toMonitoringLogDto(LogEntity monitoringLog){
        return modelMapper.map(monitoringLog, MonitoringLogDTO.class);
     }
-    public List<MonitoringLogDTO>asMonitoringDtoList(List<LogEntity>monitoringLogEntities){
-        return modelMapper.map(monitoringLogEntities,new TypeToken<List<MonitoringLogDTO>>(){}.getType());
+    public MonitoringLogDTO asMonitoringDtoList(LogEntity logEntity){
+        MonitoringLogDTO mdt=new MonitoringLogDTO();
+        mdt.setLogCode(logEntity.getLogCode());
+        mdt.setLogDate(logEntity.getDate());
+        mdt.setLogDetails(logEntity.getLogDetails());
+        mdt.setObservedImage(logEntity.getObservedImage());
+        mdt.setStaffList(logEntity.getStaffList().stream().map(StaffEntity::getMemberCode).toList());
+        mdt.setCropList(logEntity.getCropList().stream().map(CropEntity::getCropCode).toList());
+        mdt.setFieldList(logEntity.getFieldList().stream().map(FieldEntity::getFieldCode).toList());
+        return mdt;
     }
 
 

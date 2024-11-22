@@ -81,20 +81,21 @@ public class CropController {
         return cropService.getAllCrops();
     }
 
-    @PutMapping(value = "/{cropId}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Void> updateCrop(@PathVariable("cropId")String cropId,
-                                                @RequestPart( "commonName") String cropName,
+    @PutMapping(value = "/{cropCode}")
+    public ResponseEntity<Void> updateCrop(@PathVariable("cropCode") String cropId,
+                                                @RequestPart( "cropName") String cropName,
                                                 @RequestPart("scientificName") String scientificName,
                                                 @RequestPart("category") String category,
                                                 @RequestPart("season") String season,
-                                                @RequestPart("cropImage") MultipartFile cropIMg,
-                                                @RequestPart("field") String field) {
+                                                @RequestPart("cropImage") MultipartFile cropIMg
+//                                                @RequestPart("field") String field
+    ) {
         try {
             String cripImage = PicEncorder.generatePicture(cropIMg);
-            List<String> field_code = new ArrayList<>();
-            if (field != null) {
-                field_code = SplitString.spiltLists(field);
-            }
+//            List<String> field_code = new ArrayList<>();
+//            if (field != null) {
+//                field_code = SplitString.spiltLists(field);
+//            }
             CropDTO cropDTO = new CropDTO();
             cropDTO.setCropCode(cropId);
             cropDTO.setCropName(cropName);
@@ -102,7 +103,7 @@ public class CropController {
             cropDTO.setCategory(category);
             cropDTO.setSeason(season);
             cropDTO.setCropImage(cripImage);
-            cropDTO.setFieldList(field_code);
+//            cropDTO.setFieldList(field_code);
 
             cropService.updateCrop(cropId, cropDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

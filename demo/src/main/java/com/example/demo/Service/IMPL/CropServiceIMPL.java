@@ -115,19 +115,13 @@ public class CropServiceIMPL implements CropService {
 
     @Override
     public void updateCrop(String cropCode, CropDTO cropDTO) {
-        Optional<CropEntity>optionalCrop =cropDao.findById(cropCode);
-            if (optionalCrop.isPresent()) {
-                optionalCrop.get().setCropName(cropDTO.getCropName());
-                optionalCrop.get().setScientificName(cropDTO.getScientificName());
-                optionalCrop.get().setCategory(cropDTO.getCategory());
-                optionalCrop.get().setSeason(cropDTO.getSeason());
-                optionalCrop.get().setCropImage(cropDTO.getCropImage());
-
-                List<FieldEntity> fieldEntities = new ArrayList<>();
-                for (String id : cropDTO.getFieldList()) {
-                    fieldEntities.add(fieldDao.getReferenceById(id));
-                }
-                optionalCrop.get().setFieldList(fieldEntities);
-            }
+        Optional<CropEntity> cropEntity = cropDao.findById(cropCode);
+        if (cropEntity.isPresent()){
+            cropEntity.get().setCropName(cropDTO.getCropName());
+            cropEntity.get().setScientificName(cropDTO.getScientificName());
+            cropEntity.get().setSeason(cropDTO.getSeason());
+            cropEntity.get().setCategory(cropDTO.getCategory());
+            cropEntity.get().setCropImage(cropDTO.getCropImage());
+        }
     }
 }

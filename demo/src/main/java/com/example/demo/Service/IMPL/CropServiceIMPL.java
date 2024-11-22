@@ -73,7 +73,7 @@ public class CropServiceIMPL implements CropService {
                 fieldCodes.add(fieldEntity.getFieldCode());
             }
 
-            CropDTO cropDTO =mapping.toCropDto(crop);
+            CropDTO cropDTO =mapping.asCropDtolist(crop);
 
             cropDTO.setFieldList(fieldCodes);
             cropDTOS.add(cropDTO);

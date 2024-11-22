@@ -7,7 +7,6 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -23,9 +22,18 @@ public class Mapping {
 
         return modelMapper.map(cropEntity, CropDTO.class);
     }
-    public List<CropDTO>asCropDtolist(List<CropEntity> cropEntity){
-        return modelMapper.map(cropEntity,new TypeToken<List<CropDTO>>(){}.getType());
+    public CropDTO asCropDtolist(CropEntity crop){
+       CropDTO cropDTO =new CropDTO();
+       cropDTO.setCropCode(crop.getCropCode());
+       cropDTO.setCropName(cropDTO.getCropName());
+       cropDTO.setScientificName(crop.getScientificName());
+       cropDTO.setSeason(crop.getSeason());
+       cropDTO.setCropImage(crop.getCropImage());
+       cropDTO.setFieldList(crop.getFieldList().stream().map(FieldEntity::getFieldCode).toList());
+       cropDTO.setLogList(crop.getLogList().stream().map(LogEntity::getLogCode).toList());
+    return cropDTO;
     }
+
 
     public UserEntity toUserEntity(UserDTO userDTO){
         return modelMapper.map(userDTO, UserEntity.class);

@@ -60,7 +60,18 @@ public class EquipmenrServiceIMPL implements EquipmentService {
 
     @Override
     public List<EquipmentDTO> getAllEquipments() {
-        return mapping.asEquipmentDtoList(equipmentDao.findAll());
+
+       List<EquipmentDTO>equipmentDTOS=new ArrayList<>();
+        for (EquipmentEntity equipmentEntity:equipmentDao.findAll()){
+            List<String>field =new ArrayList<>();
+            for (FieldEntity fieldEntity:equipmentEntity.getFieldList()){
+                field.add(fieldEntity.getFieldCode());
+            }
+            EquipmentDTO equipmentDTO=mapping.asEquipmentDtoList(equipmentEntity);
+            equipmentDTO.setFieldList(field);
+            equipmentDTOS.add(equipmentDTO);
+        }
+        return equipmentDTOS;
     }
 
     @Override

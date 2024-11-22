@@ -82,8 +82,14 @@ public class Mapping {
     public EquipmentDTO toEquipmentDTO(EquipmentEntity equipmentEntity){
         return modelMapper.map(equipmentEntity, EquipmentDTO.class);
     }
-    public List<EquipmentDTO> asEquipmentDtoList(List<EquipmentEntity>equipmentEntities){
-        return modelMapper.map(equipmentEntities,new TypeToken<List<EquipmentDTO>>(){}.getType());
+    public EquipmentDTO asEquipmentDtoList(EquipmentEntity equipmentEntity){
+        EquipmentDTO equipmentDTO=new EquipmentDTO();
+            equipmentDTO.setEquipmentCode(equipmentEntity.getEquipmentCode());
+            equipmentDTO.setName(equipmentEntity.getName());
+            equipmentDTO.setType(equipmentEntity.getType());
+            equipmentDTO.setAvailableCount(equipmentEntity.getAvailableCount());
+            equipmentDTO.setFieldList(equipmentEntity.getFieldList().stream().map(FieldEntity::getFieldCode).toList());
+    return equipmentDTO;
     }
 
 

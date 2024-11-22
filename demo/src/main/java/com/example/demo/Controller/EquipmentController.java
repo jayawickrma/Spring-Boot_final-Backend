@@ -42,7 +42,7 @@ public class EquipmentController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public List<EquipmentDTO>getAllEquipments(){
         return equipmentService.getAllEquipments();
     }

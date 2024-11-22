@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.DTO.IMPL.CropDTO;
 import com.example.demo.DTO.IMPL.FieldDTO;
+import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.CropService;
 import com.example.demo.util.IdGenerater;
@@ -69,5 +70,30 @@ public class CropController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropDTO>getAllCrops(){
         return cropService.getAllCrops();
+    }
+
+    @PutMapping(value = "/{cropId}")
+    public void updateCrop(@PathVariable("cropId")String cropId,
+                                                @RequestPart( "commonName") String cropName,
+                                                @RequestPart("scientificName") String scientificName,
+                                                @RequestPart("category") String category,
+                                                @RequestPart("season") String season,
+                                                @RequestPart("cropImage") MultipartFile cropIMg,
+                                                @RequestPart("field") String field){
+        String cripImage=PicEncorder.generatePicture(cropIMg);
+        List<String>field_code=new ArrayList<>();
+        if (field!=null){
+            field_code=SplitString.spiltLists(field);
+        }
+        CropDTO cropDTO =new CropDTO();
+        cropDTO.setCropCode(cropId);
+            cropDTO.setCropName(cropName);
+            cropDTO.setScientificName(scientificName);
+            cropDTO.setCategory(category);
+            cropDTO.setSeason(season);
+            cropDTO.setCropImage(cripImage);
+            cropDTO.setFieldList(field_code);
+
+           cropService.updateCrop(cropId,cropDTO);
     }
 }

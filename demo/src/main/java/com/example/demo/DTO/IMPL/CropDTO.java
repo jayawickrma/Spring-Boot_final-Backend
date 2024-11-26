@@ -21,9 +21,7 @@ public class CropDTO implements CropStatus {
    private String category;
    private String season;
    private String cropImage;
-   @JsonIgnore
-    private List<String>logList;
-   @JsonIgnore
+   private List<String>logList;
    private List<String> fieldList;
 
 

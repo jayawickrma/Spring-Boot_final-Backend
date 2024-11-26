@@ -1,15 +1,9 @@
 package com.example.demo.Service.IMPL;
 
-import com.example.demo.DAO.CropDao;
-import com.example.demo.DAO.FieldDao;
-import com.example.demo.DAO.MonitoringLogDao;
-import com.example.demo.DAO.StaffDao;
+import com.example.demo.DAO.*;
 import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.DTO.IMPL.StaffDTO;
-import com.example.demo.Entity.IMPL.CropEntity;
-import com.example.demo.Entity.IMPL.FieldEntity;
-import com.example.demo.Entity.IMPL.LogEntity;
-import com.example.demo.Entity.IMPL.StaffEntity;
+import com.example.demo.Entity.IMPL.*;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Exception.NotFoundException;
 import com.example.demo.Service.FieldService;
@@ -37,6 +31,8 @@ public class FieldServiceIMPL implements FieldService {
     private Mapping mapping;
     @Autowired
     private MonitoringLogDao monitoringLogDao;
+    @Autowired
+    private EquipmentDao equipmentDao;
 
     @Override
     public void saveField(FieldDTO fieldDTO) {
@@ -67,10 +63,17 @@ public class FieldServiceIMPL implements FieldService {
                 logEntities.add(monitoringLogDao.getReferenceById(logCode));
             }
         }
+        List<EquipmentEntity>equipmentEntities=new ArrayList<>();
+        for (String eqid :fieldDTO.getEquipmentsList()){
+            if (equipmentDao.existsById(eqid)){
+                equipmentEntities.add(equipmentDao.getReferenceById(eqid));
+            }
+        }
 
         fieldEntity.setStaffList(staffEntities);
         fieldEntity.setCropList(cropEntities);
         fieldEntity.setLogList(logEntities);
+        fieldEntity.setEquipmentsList(equipmentEntities);
 
         FieldEntity field1 = fieldDao.save(fieldEntity);
         if (field1 == null) {
@@ -86,11 +89,19 @@ public class FieldServiceIMPL implements FieldService {
             for (FieldEntity field :fieldDao.findAll()){
                 List<String>staff =new ArrayList<>();
                 List<String>crop =new ArrayList<>();
+                List<String>log=new ArrayList<>();
+                List<String>equipment=new ArrayList<>();
                 for (StaffEntity staffEntity :field.getStaffList()){
                     staff.add(staffEntity.getMemberCode());
                 }
                 for (CropEntity cropEntity:field.getCropList()){
                     crop.add(cropEntity.getCropCode());
+                }
+                for(LogEntity logEntity:field.getLogList()){
+                    log.add(logEntity.getLogCode());
+                }
+                for (EquipmentEntity equipmentEntity :field.getEquipmentsList()){
+                    equipment.add(equipmentEntity.getEquipmentCode());
                 }
                 FieldDTO fieldDTO =mapping.asFieldDtoList(field);
                 fieldDTO.setStaffList(staff);

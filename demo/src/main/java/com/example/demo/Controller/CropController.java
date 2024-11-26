@@ -26,12 +26,12 @@ public class CropController {
     private CropService cropService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveCrop(@RequestPart( "commonName") String cropName,
+    public ResponseEntity<Void> saveCrop(@RequestPart( "cropName") String cropName,
                                          @RequestPart("scientificName") String scientificName,
                                          @RequestPart("category") String category,
                                          @RequestPart("season") String season,
                                          @RequestPart("cropImage") MultipartFile cropIMg,
-                                         @RequestPart("field") String field) {
+                                         @RequestPart("fieldList") String field) {
 
         try {
             String cropIMG = PicEncorder.generatePicture(cropIMg);

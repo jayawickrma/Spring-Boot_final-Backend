@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/crops")
+@CrossOrigin
 public class CropController {
     @Autowired
     private CropService cropService;

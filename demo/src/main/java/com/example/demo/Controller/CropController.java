@@ -1,8 +1,6 @@
 package com.example.demo.Controller;
 
 import com.example.demo.DTO.IMPL.CropDTO;
-import com.example.demo.DTO.IMPL.FieldDTO;
-import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.CropService;
 import com.example.demo.util.IdGenerater;
@@ -13,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -26,7 +24,9 @@ import java.util.List;
 public class CropController {
     @Autowired
     private CropService cropService;
-    @RolesAllowed({"MANAGER","SCIENTIST"})
+
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
+//    @RolesAllowed({"ROLE_MANAGER","ROLE_SCIENTIST"})
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveCrop(@RequestPart( "cropName") String cropName,
                                          @RequestPart("scientificName") String scientificName,
@@ -64,9 +64,8 @@ public class CropController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @DeleteMapping(value = "/{cropCode}")
-
     public ResponseEntity<Void> deleteCrop(@PathVariable("cropCode")String cropCode){
         try{
             cropService.deleteCrop(cropCode);
@@ -79,7 +78,7 @@ public class CropController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping
     public List<CropDTO>getAllCrops(){
         return cropService.getAllCrops();

@@ -26,7 +26,7 @@ public class LogsController {
     private MonitoringLogService monitoringLogService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","SCIENTIST"})
     public ResponseEntity<Void> saveLog(@RequestPart("logDate") String date,
                                         @RequestPart("logDetails") String details,
                                         @RequestPart("logImg") MultipartFile img,
@@ -78,7 +78,7 @@ public class LogsController {
         return monitoringLogService.getAllLogs();
     }
     @DeleteMapping(value = "/{logCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","SCIENTIST"})
     public ResponseEntity<Void>deleteLog(@PathVariable("logCode")String log){
         try {
             monitoringLogService.deleteLog(log);
@@ -92,7 +92,7 @@ public class LogsController {
         }
     }
     @PutMapping(value = "/{logCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","SCIENTIST"})
     public ResponseEntity<Void>updateLog(@PathVariable("logCode")String logCode,
                                          @RequestPart("logDate") String date,
                                          @RequestPart("logDetails") String details,

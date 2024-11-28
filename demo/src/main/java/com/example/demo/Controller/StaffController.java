@@ -62,7 +62,7 @@ public class StaffController {
         }
     }
     @GetMapping
-    @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
+        @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
 
     public List<StaffDTO>getAll(){
         return staffService.getAllStaff();

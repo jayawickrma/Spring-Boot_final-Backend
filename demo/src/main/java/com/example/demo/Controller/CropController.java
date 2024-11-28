@@ -26,7 +26,6 @@ public class CropController {
     private CropService cropService;
 
     @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
-//    @RolesAllowed({"ROLE_MANAGER","ROLE_SCIENTIST"})
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveCrop(@RequestPart( "cropName") String cropName,
                                          @RequestPart("scientificName") String scientificName,

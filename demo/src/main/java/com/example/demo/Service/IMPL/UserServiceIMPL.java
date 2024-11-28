@@ -26,6 +26,11 @@ public class UserServiceIMPL implements UserService {
 
 
     @Override
+    public void saveUser(UserDTO userDTO) {
+
+    }
+
+    @Override
     public UserDetailsService userDetailsService() {
         return username ->
                 userDao.findByEmail(username).

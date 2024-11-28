@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface UserService {
-    void saveUser(UserDTO userDTO);
+
     UserDetailsService userDetailsService();
     boolean sendCodeToChangePassword(UserWithKey userWithKey);
 }

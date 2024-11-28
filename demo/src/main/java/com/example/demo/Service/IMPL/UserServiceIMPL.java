@@ -2,6 +2,7 @@ package com.example.demo.Service.IMPL;
 
 import com.example.demo.DAO.UserDao;
 import com.example.demo.DTO.IMPL.UserDTO;
+import com.example.demo.DTO.IMPL.UserWithKey;
 import com.example.demo.Entity.IMPL.UserEntity;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Exception.UserNotFoundException;
@@ -21,34 +22,14 @@ public class UserServiceIMPL implements UserService {
     @Autowired
     private Mapping mapping;
 
-    @Override
-    public void saveUser(UserDTO userDTO) {
-        UserEntity saveUser =mapping.toUserEntity(userDTO);
-        userDao.save(saveUser);
-            if (saveUser==null){
-                throw new DataPersistException("User Not Saved!");
-            }
-
-    }
-
-    @Override
-    public void deleteUser(String userId) {
-            userDao.deleteById(userId);
-    }
-
-    @Override
-    public void updateUser(String userId, UserDTO userDTO) {
-
-    }
-
-    @Override
-    public List<UserDTO> getAllUsers() {
-        return mapping.asUserDTOList(userDao.findAll());
-    }
 
     @Override
     public UserDetailsService userDetailsService() {
         return null;
     }
 
+    @Override
+    public boolean sendCodeToChangePassword(UserWithKey userWithKey) {
+        return false;
+    }
 }

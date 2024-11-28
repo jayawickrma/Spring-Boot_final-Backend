@@ -20,7 +20,7 @@ public class StaffController {
     @Autowired
     private StaffService staffService;
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
     public ResponseEntity<Void>saveStaff(@RequestBody StaffDTO staffDTO){
         try{
             System.out.println(staffDTO);
@@ -35,7 +35,7 @@ public class StaffController {
     }
 
     @DeleteMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
     public ResponseEntity<Void>deleteStaffMember(@PathVariable("memberCode")String member){
         try {
             staffService.deleteStaff(member);
@@ -50,7 +50,7 @@ public class StaffController {
     }
 
     @PutMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
     public ResponseEntity<Void>updateMember(@PathVariable("memberCode")String memberCode,@RequestBody StaffDTO staffDTO){
         try {
             staffService.UpdateStaff(memberCode,staffDTO);
@@ -62,7 +62,8 @@ public class StaffController {
         }
     }
     @GetMapping
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
+
     public List<StaffDTO>getAll(){
         return staffService.getAllStaff();
     }

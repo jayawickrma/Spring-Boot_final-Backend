@@ -27,7 +27,8 @@ public class UserServiceIMPL implements UserService {
 
     @Override
     public void saveUser(UserDTO userDTO) {
-
+            UserEntity userEntity =mapping.toUserEntity(userDTO);
+            userDao.save(userEntity);
     }
 
     @Override

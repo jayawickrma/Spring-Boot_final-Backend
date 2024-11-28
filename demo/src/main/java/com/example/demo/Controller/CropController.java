@@ -8,6 +8,7 @@ import com.example.demo.Service.CropService;
 import com.example.demo.util.IdGenerater;
 import com.example.demo.util.PicEncorder;
 import com.example.demo.util.SplitString;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +28,7 @@ public class CropController {
     private CropService cropService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void> saveCrop(@RequestPart( "cropName") String cropName,
                                          @RequestPart("scientificName") String scientificName,
                                          @RequestPart("category") String category,
@@ -65,6 +67,7 @@ public class CropController {
     }
 
     @DeleteMapping(value = "/{cropCode}")
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void> deleteCrop(@PathVariable("cropCode")String cropCode){
         try{
             cropService.deleteCrop(cropCode);
@@ -78,11 +81,13 @@ public class CropController {
         }
     }
     @GetMapping
+    @RolesAllowed({"MANAGER"})
     public List<CropDTO>getAllCrops(){
         return cropService.getAllCrops();
     }
 
     @PutMapping(value = "/{cropCode}")
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void> updateCrop(@PathVariable("cropCode") String cropId,
                                                 @RequestPart( "cropName") String cropName,
                                                 @RequestPart("scientificName") String scientificName,

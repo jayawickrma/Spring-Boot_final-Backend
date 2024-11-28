@@ -4,6 +4,7 @@ import com.example.demo.DTO.IMPL.VehicleDTO;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.VehicleService;
 import com.example.demo.util.IdGenerater;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void> saveVehicle(@RequestBody VehicleDTO vehicleDTO) {
         try {
             vehicleService.saveVehicle(vehicleDTO);
@@ -33,6 +35,7 @@ public class VehicleController {
         }
     }
     @DeleteMapping(value = "/{vehicleCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void>deleteVehicle(@PathVariable("vehicleCode")String vehicle){
         try {
             vehicleService.deleteVehicle(vehicle);
@@ -46,10 +49,12 @@ public class VehicleController {
         }
     }
     @GetMapping
+    @RolesAllowed({"MANAGER"})
     public List<VehicleDTO>getAll(){
         return vehicleService.getAllVehicles();
     }
     @PutMapping(value = "/{vehicleCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void>updateVehicle(@PathVariable("vehicleCode")String vehicleCode,@RequestBody VehicleDTO vehicleDTO){
         try {
             vehicleService.updateVehicle(vehicleCode,vehicleDTO);

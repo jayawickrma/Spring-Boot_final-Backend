@@ -4,6 +4,7 @@ import com.example.demo.DTO.IMPL.StaffDTO;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.StaffService;
 import com.example.demo.util.IdGenerater;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ public class StaffController {
     @Autowired
     private StaffService staffService;
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void>saveStaff(@RequestBody StaffDTO staffDTO){
         try{
             System.out.println(staffDTO);
@@ -33,6 +35,7 @@ public class StaffController {
     }
 
     @DeleteMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void>deleteStaffMember(@PathVariable("memberCode")String member){
         try {
             staffService.deleteStaff(member);
@@ -47,6 +50,7 @@ public class StaffController {
     }
 
     @PutMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void>updateMember(@PathVariable("memberCode")String memberCode,@RequestBody StaffDTO staffDTO){
         try {
             staffService.UpdateStaff(memberCode,staffDTO);
@@ -58,6 +62,7 @@ public class StaffController {
         }
     }
     @GetMapping
+    @RolesAllowed({"MANAGER"})
     public List<StaffDTO>getAll(){
         return staffService.getAllStaff();
     }

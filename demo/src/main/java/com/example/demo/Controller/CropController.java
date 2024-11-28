@@ -26,9 +26,8 @@ import java.util.List;
 public class CropController {
     @Autowired
     private CropService cropService;
-
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveCrop(@RequestPart( "cropName") String cropName,
                                          @RequestPart("scientificName") String scientificName,
                                          @RequestPart("category") String category,
@@ -65,9 +64,9 @@ public class CropController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @DeleteMapping(value = "/{cropCode}")
     @RolesAllowed({"MANAGER","SCIENTIST"})
+    @DeleteMapping(value = "/{cropCode}")
+
     public ResponseEntity<Void> deleteCrop(@PathVariable("cropCode")String cropCode){
         try{
             cropService.deleteCrop(cropCode);
@@ -80,14 +79,14 @@ public class CropController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping
     @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
+    @GetMapping
     public List<CropDTO>getAllCrops(){
         return cropService.getAllCrops();
     }
-
-    @PutMapping(value = "/{cropCode}")
     @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PutMapping(value = "/{cropCode}")
+
     public ResponseEntity<Void> updateCrop(@PathVariable("cropCode") String cropId,
                                                 @RequestPart( "cropName") String cropName,
                                                 @RequestPart("scientificName") String scientificName,

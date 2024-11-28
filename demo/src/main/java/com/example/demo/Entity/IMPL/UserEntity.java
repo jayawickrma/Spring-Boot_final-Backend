@@ -3,6 +3,7 @@ package com.example.demo.Entity.IMPL;
 import com.example.demo.Entity.Role;
 import com.example.demo.Entity.SuperEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class UserEntity implements SuperEntity, UserDetails {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
+    @Column(length = 50)
     private Role role;
 
 
@@ -33,7 +35,7 @@ public class UserEntity implements SuperEntity, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority>authorities =new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE"+role.name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_"+role.name()));
         return authorities;
     }
 

@@ -31,12 +31,14 @@ public class AuthenticationServiceIMPL implements AuthenticationService {
     public JWTAuthResponse signUp(SignUp signUp) {
         UserDTO userDTO =UserDTO.builder()
                 .email(signUp.getEmail())
-                .password(signUp.getPassword())
-                .role(String.valueOf(signUp.getRole()))
+                .password(passwordEncoder.encode(signUp.getPassword()))
+                .role(signUp.getRole())
                 .build();
-
-        UserEntity userEntity =userDao.save(mapping.toUserEntity(userDTO));
-        String generateToken = jwtService.generateToken(userEntity);
+        UserEntity userEntity1 = mapping.toUserEntity(userDTO);
+        System.out.println(userEntity1);
+        userDao.save(userEntity1);
+        System.out.println(userEntity1);
+        String generateToken = jwtService.generateToken(userEntity1);
         return JWTAuthResponse.builder().tokens(generateToken).build();
     }
 

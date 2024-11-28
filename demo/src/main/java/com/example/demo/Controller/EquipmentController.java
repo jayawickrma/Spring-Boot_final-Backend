@@ -18,8 +18,9 @@ import java.util.List;
 public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+
     public ResponseEntity<Void>saveEquipment(@RequestBody EquipmentDTO equipmentDTO){
         try {
             equipmentService.saveEquipment(equipmentDTO);
@@ -32,8 +33,9 @@ public class EquipmentController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @DeleteMapping(value = "/{equipmentId}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @DeleteMapping(value = "/{equipmentId}",consumes = MediaType.APPLICATION_JSON_VALUE)
+
     public ResponseEntity<Void>deleveEquipment(@PathVariable("equipmentId")String equid){
         try{
             equipmentService.deleteEquipment(equid);
@@ -46,14 +48,14 @@ public class EquipmentController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping
     @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
+    @GetMapping
     public List<EquipmentDTO>getAllEquipments(){
         return equipmentService.getAllEquipments();
     }
-
-    @PutMapping(value = "/{equipmentId}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PutMapping(value = "/{equipmentId}",consumes = MediaType.APPLICATION_JSON_VALUE)
+
     public ResponseEntity<Object> updateEquipment(@PathVariable("equipmentId")String equipmentId, @RequestBody EquipmentDTO equipmentDTO){
             try {
                     equipmentService.updateEquipment(equipmentId,equipmentDTO);

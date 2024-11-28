@@ -19,8 +19,8 @@ import java.util.List;
 public class StaffController {
     @Autowired
     private StaffService staffService;
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>saveStaff(@RequestBody StaffDTO staffDTO){
         try{
             System.out.println(staffDTO);
@@ -33,9 +33,8 @@ public class StaffController {
         }
 
     }
-
-    @DeleteMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @DeleteMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteStaffMember(@PathVariable("memberCode")String member){
         try {
             staffService.deleteStaff(member);
@@ -48,9 +47,8 @@ public class StaffController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @PutMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PutMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>updateMember(@PathVariable("memberCode")String memberCode,@RequestBody StaffDTO staffDTO){
         try {
             staffService.UpdateStaff(memberCode,staffDTO);
@@ -61,9 +59,8 @@ public class StaffController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
     @GetMapping
-        @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
-
     public List<StaffDTO>getAll(){
         return staffService.getAllStaff();
     }

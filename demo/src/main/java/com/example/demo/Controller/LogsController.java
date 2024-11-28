@@ -24,9 +24,8 @@ import java.util.List;
 public class LogsController {
     @Autowired
     private MonitoringLogService monitoringLogService;
-
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveLog(@RequestPart("logDate") String date,
                                         @RequestPart("logDetails") String details,
                                         @RequestPart("logImg") MultipartFile img,
@@ -72,13 +71,13 @@ public class LogsController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping
     @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
+    @GetMapping
     public List<MonitoringLogDTO>getAll(){
         return monitoringLogService.getAllLogs();
     }
-    @DeleteMapping(value = "/{logCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","SCIENTIST"})
+    @DeleteMapping(value = "/{logCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteLog(@PathVariable("logCode")String log){
         try {
             monitoringLogService.deleteLog(log);
@@ -91,8 +90,8 @@ public class LogsController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping(value = "/{logCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PutMapping(value = "/{logCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void>updateLog(@PathVariable("logCode")String logCode,
                                          @RequestPart("logDate") String date,
                                          @RequestPart("logDetails") String details,

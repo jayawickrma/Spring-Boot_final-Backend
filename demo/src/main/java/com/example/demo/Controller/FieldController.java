@@ -25,9 +25,8 @@ import java.util.List;
 public class FieldController {
     @Autowired
     private FieldService fieldService;
-
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveField(@RequestPart("fieldName") String fieldName,
                                           @RequestPart("fieldLocation") String fieldLocation,
                                           @RequestPart("fieldSize") String fieldSize,
@@ -73,8 +72,8 @@ public class FieldController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @DeleteMapping(value = "/{fieldCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","SCIENTIST"})
+    @DeleteMapping(value = "/{fieldCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteField(@PathVariable("fieldCode")String fieldCode){
         try{
             fieldService.deleteFields(fieldCode);
@@ -88,8 +87,8 @@ public class FieldController {
         }
 
     }
-    @PutMapping(value = "/{fieldCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PutMapping(value = "/{fieldCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> updateField(@PathVariable("fieldCode")String fieldCode,
                             @RequestPart("fieldName") String fieldName,
                             @RequestPart("fieldLocation") String fieldLocation,
@@ -131,8 +130,8 @@ public class FieldController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping
     @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
+    @GetMapping
     public List<FieldDTO>getall(){
         try {
           return   fieldService.getAllFields();

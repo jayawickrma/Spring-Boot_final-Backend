@@ -20,9 +20,8 @@ import java.util.List;
 public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveVehicle(@RequestBody VehicleDTO vehicleDTO) {
         try {
             vehicleService.saveVehicle(vehicleDTO);
@@ -34,8 +33,8 @@ public class VehicleController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @DeleteMapping(value = "/{vehicleCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @DeleteMapping(value = "/{vehicleCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteVehicle(@PathVariable("vehicleCode")String vehicle){
         try {
             vehicleService.deleteVehicle(vehicle);
@@ -48,13 +47,13 @@ public class VehicleController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping
     @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
+    @GetMapping
     public List<VehicleDTO>getAll(){
         return vehicleService.getAllVehicles();
     }
-    @PutMapping(value = "/{vehicleCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PutMapping(value = "/{vehicleCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>updateVehicle(@PathVariable("vehicleCode")String vehicleCode,@RequestBody VehicleDTO vehicleDTO){
         try {
             vehicleService.updateVehicle(vehicleCode,vehicleDTO);

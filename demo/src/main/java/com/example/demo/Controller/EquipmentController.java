@@ -47,7 +47,7 @@ public class EquipmentController {
         }
     }
     @GetMapping
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
     public List<EquipmentDTO>getAllEquipments(){
         return equipmentService.getAllEquipments();
     }

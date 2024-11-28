@@ -81,7 +81,7 @@ public class CropController {
         }
     }
     @GetMapping
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
     public List<CropDTO>getAllCrops(){
         return cropService.getAllCrops();
     }

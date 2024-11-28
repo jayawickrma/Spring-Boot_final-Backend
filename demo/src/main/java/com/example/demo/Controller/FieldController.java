@@ -132,7 +132,7 @@ public class FieldController {
         }
     }
     @GetMapping
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
     public List<FieldDTO>getall(){
         try {
           return   fieldService.getAllFields();

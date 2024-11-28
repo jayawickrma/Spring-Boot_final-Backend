@@ -49,7 +49,7 @@ public class VehicleController {
         }
     }
     @GetMapping
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
     public List<VehicleDTO>getAll(){
         return vehicleService.getAllVehicles();
     }

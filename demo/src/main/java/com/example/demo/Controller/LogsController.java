@@ -73,7 +73,7 @@ public class LogsController {
         }
     }
     @GetMapping
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE","SCIENTIST"})
     public List<MonitoringLogDTO>getAll(){
         return monitoringLogService.getAllLogs();
     }

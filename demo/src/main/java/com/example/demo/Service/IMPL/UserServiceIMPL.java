@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 
 public class UserServiceIMPL implements UserService {
@@ -25,11 +27,17 @@ public class UserServiceIMPL implements UserService {
 
     @Override
     public UserDetailsService userDetailsService() {
-        return null;
+        return username ->
+                userDao.findByEmail(username).
+                        orElseThrow(()->new UserNotFoundException("User Name Not Found"));
     }
 
     @Override
     public boolean sendCodeToChangePassword(UserWithKey userWithKey) {
+        Optional<UserEntity>byEmail=userDao.findByEmail((userWithKey.getEmail()));
+        if (byEmail.isPresent()){
+            return true;
+        }
         return false;
     }
 }

@@ -28,7 +28,11 @@ public class UserServiceIMPL implements UserService {
     @Override
     public void saveUser(UserDTO userDTO) {
             UserEntity userEntity =mapping.toUserEntity(userDTO);
-            userDao.save(userEntity);
+            UserEntity save=userDao.save(userEntity);
+
+            if (save==null){
+                throw new DataPersistException("Something Went Wrong");
+            }
     }
 
     @Override

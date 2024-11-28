@@ -8,6 +8,7 @@ import com.example.demo.Service.FieldService;
 import com.example.demo.util.IdGenerater;
 import com.example.demo.util.PicEncorder;
 import com.example.demo.util.SplitString;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +27,7 @@ public class FieldController {
     private FieldService fieldService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void> saveField(@RequestPart("fieldName") String fieldName,
                                           @RequestPart("fieldLocation") String fieldLocation,
                                           @RequestPart("fieldSize") String fieldSize,
@@ -72,6 +74,7 @@ public class FieldController {
         }
     }
     @DeleteMapping(value = "/{fieldCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void>deleteField(@PathVariable("fieldCode")String fieldCode){
         try{
             fieldService.deleteFields(fieldCode);
@@ -84,7 +87,9 @@ public class FieldController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-    }    @PutMapping(value = "/{fieldCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    }
+    @PutMapping(value = "/{fieldCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @RolesAllowed({"MANAGER"})
     public ResponseEntity<Void> updateField(@PathVariable("fieldCode")String fieldCode,
                             @RequestPart("fieldName") String fieldName,
                             @RequestPart("fieldLocation") String fieldLocation,
@@ -127,6 +132,7 @@ public class FieldController {
         }
     }
     @GetMapping
+    @RolesAllowed({"MANAGER"})
     public List<FieldDTO>getall(){
         try {
           return   fieldService.getAllFields();

@@ -19,7 +19,7 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
     public ResponseEntity<Void>saveEquipment(@RequestBody EquipmentDTO equipmentDTO){
         try {
             equipmentService.saveEquipment(equipmentDTO);
@@ -33,7 +33,7 @@ public class EquipmentController {
         }
     }
     @DeleteMapping(value = "/{equipmentId}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
     public ResponseEntity<Void>deleveEquipment(@PathVariable("equipmentId")String equid){
         try{
             equipmentService.deleteEquipment(equid);
@@ -53,7 +53,7 @@ public class EquipmentController {
     }
 
     @PutMapping(value = "/{equipmentId}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
     public ResponseEntity<Object> updateEquipment(@PathVariable("equipmentId")String equipmentId, @RequestBody EquipmentDTO equipmentDTO){
             try {
                     equipmentService.updateEquipment(equipmentId,equipmentDTO);

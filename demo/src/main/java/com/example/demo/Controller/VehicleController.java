@@ -22,7 +22,7 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
     public ResponseEntity<Void> saveVehicle(@RequestBody VehicleDTO vehicleDTO) {
         try {
             vehicleService.saveVehicle(vehicleDTO);
@@ -35,7 +35,7 @@ public class VehicleController {
         }
     }
     @DeleteMapping(value = "/{vehicleCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
     public ResponseEntity<Void>deleteVehicle(@PathVariable("vehicleCode")String vehicle){
         try {
             vehicleService.deleteVehicle(vehicle);
@@ -54,7 +54,7 @@ public class VehicleController {
         return vehicleService.getAllVehicles();
     }
     @PutMapping(value = "/{vehicleCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
     public ResponseEntity<Void>updateVehicle(@PathVariable("vehicleCode")String vehicleCode,@RequestBody VehicleDTO vehicleDTO){
         try {
             vehicleService.updateVehicle(vehicleCode,vehicleDTO);

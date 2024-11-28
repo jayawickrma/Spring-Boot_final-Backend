@@ -20,7 +20,7 @@ import java.util.List;
 public class StaffController {
     @Autowired
     private StaffService staffService;
-    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>saveStaff(@RequestBody StaffDTO staffDTO){
         try{
@@ -34,7 +34,7 @@ public class StaffController {
         }
 
     }
-    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @DeleteMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteStaffMember(@PathVariable("memberCode")String member){
         try {
@@ -48,7 +48,7 @@ public class StaffController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @PutMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>updateMember(@PathVariable("memberCode")String memberCode,@RequestBody StaffDTO staffDTO){
         try {

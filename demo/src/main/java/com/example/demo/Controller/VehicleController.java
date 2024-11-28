@@ -21,7 +21,7 @@ import java.util.List;
 public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
-    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveVehicle(@RequestBody VehicleDTO vehicleDTO) {
         try {
@@ -34,7 +34,7 @@ public class VehicleController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @DeleteMapping(value = "/{vehicleCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteVehicle(@PathVariable("vehicleCode")String vehicle){
         try {
@@ -53,7 +53,7 @@ public class VehicleController {
     public List<VehicleDTO>getAll(){
         return vehicleService.getAllVehicles();
     }
-    @RolesAllowed({"MANAGER","ADMINISTRATIVE"})
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @PutMapping(value = "/{vehicleCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>updateVehicle(@PathVariable("vehicleCode")String vehicleCode,@RequestBody VehicleDTO vehicleDTO){
         try {

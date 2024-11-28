@@ -1,14 +1,17 @@
 package com.example.demo.DTO.IMPL;
 
+import com.example.demo.DTO.SuperDto;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserDTO {
+@Builder
+public class UserDTO implements SuperDto {
     @Id
     private String email;
     private String password;

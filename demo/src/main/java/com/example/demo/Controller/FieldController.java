@@ -27,7 +27,7 @@ public class FieldController {
     private FieldService fieldService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","SCIENTIST"})
     public ResponseEntity<Void> saveField(@RequestPart("fieldName") String fieldName,
                                           @RequestPart("fieldLocation") String fieldLocation,
                                           @RequestPart("fieldSize") String fieldSize,
@@ -74,7 +74,7 @@ public class FieldController {
         }
     }
     @DeleteMapping(value = "/{fieldCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","SCIENTIST"})
     public ResponseEntity<Void>deleteField(@PathVariable("fieldCode")String fieldCode){
         try{
             fieldService.deleteFields(fieldCode);
@@ -89,7 +89,7 @@ public class FieldController {
 
     }
     @PutMapping(value = "/{fieldCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @RolesAllowed({"MANAGER"})
+    @RolesAllowed({"MANAGER","SCIENTIST"})
     public ResponseEntity<Void> updateField(@PathVariable("fieldCode")String fieldCode,
                             @RequestPart("fieldName") String fieldName,
                             @RequestPart("fieldLocation") String fieldLocation,

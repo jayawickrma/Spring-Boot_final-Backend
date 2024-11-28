@@ -83,9 +83,8 @@ public class CropController {
     public List<CropDTO>getAllCrops(){
         return cropService.getAllCrops();
     }
-    @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @PutMapping(value = "/{cropCode}")
-
     public ResponseEntity<Void> updateCrop(@PathVariable("cropCode") String cropId,
                                                 @RequestPart( "cropName") String cropName,
                                                 @RequestPart("scientificName") String scientificName,

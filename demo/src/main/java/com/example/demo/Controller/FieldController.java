@@ -26,7 +26,7 @@ import java.util.List;
 public class FieldController {
     @Autowired
     private FieldService fieldService;
-    @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveField(@RequestPart("fieldName") String fieldName,
                                           @RequestPart("fieldLocation") String fieldLocation,
@@ -73,7 +73,7 @@ public class FieldController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @DeleteMapping(value = "/{fieldCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteField(@PathVariable("fieldCode")String fieldCode){
         try{
@@ -88,7 +88,7 @@ public class FieldController {
         }
 
     }
-    @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @PutMapping(value = "/{fieldCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> updateField(@PathVariable("fieldCode")String fieldCode,
                             @RequestPart("fieldName") String fieldName,

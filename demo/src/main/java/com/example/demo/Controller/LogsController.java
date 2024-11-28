@@ -25,7 +25,7 @@ import java.util.List;
 public class LogsController {
     @Autowired
     private MonitoringLogService monitoringLogService;
-    @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveLog(@RequestPart("logDate") String date,
                                         @RequestPart("logDetails") String details,
@@ -77,7 +77,7 @@ public class LogsController {
     public List<MonitoringLogDTO>getAll(){
         return monitoringLogService.getAllLogs();
     }
-    @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @DeleteMapping(value = "/{logCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteLog(@PathVariable("logCode")String log){
         try {
@@ -91,7 +91,7 @@ public class LogsController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @RolesAllowed({"MANAGER","SCIENTIST"})
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @PutMapping(value = "/{logCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void>updateLog(@PathVariable("logCode")String logCode,
                                          @RequestPart("logDate") String date,

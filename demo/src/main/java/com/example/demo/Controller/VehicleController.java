@@ -52,7 +52,6 @@ public class VehicleController {
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping
     public List<VehicleDTO>getAll(){
-
         return vehicleService.getAllVehicles();
     }
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")

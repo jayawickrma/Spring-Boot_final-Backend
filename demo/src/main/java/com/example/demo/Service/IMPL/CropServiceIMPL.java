@@ -69,7 +69,6 @@ public class CropServiceIMPL implements CropService {
 
         for (CropEntity crop: cropDao.findAll()){
             List<String>fieldCodes =new ArrayList<>();
-            System.out.println(crop.getCropName());
             for (FieldEntity fieldEntity:crop.getFieldList()){
                 fieldCodes.add(fieldEntity.getFieldCode());
             }

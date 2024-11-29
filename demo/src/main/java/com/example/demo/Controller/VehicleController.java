@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -51,6 +52,7 @@ public class VehicleController {
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping
     public List<VehicleDTO>getAll(){
+
         return vehicleService.getAllVehicles();
     }
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")

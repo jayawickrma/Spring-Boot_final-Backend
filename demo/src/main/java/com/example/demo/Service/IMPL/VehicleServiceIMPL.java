@@ -49,7 +49,17 @@ public class VehicleServiceIMPL implements VehicleService {
 
     @Override
     public List<VehicleDTO> getAllVehicles() {
-        return mapping.asVehicleDto(vehicleDao.findAll());
+        List<VehicleDTO>vehicleDTOS=new ArrayList<>();
+        List<VehicleEntity>vehicleEntities=vehicleDao.findAll();
+        for (VehicleEntity vehicle:vehicleEntities){
+            VehicleDTO vehicleDTO=mapping.toVehicleDto(vehicle);
+            if (vehicle.getStaff()!=null){
+                String sid =vehicle.getStaff().getMemberCode();
+                vehicleDTO.setMemberCode(sid);
+            }
+            vehicleDTOS.add(vehicleDTO);
+        }
+        return vehicleDTOS;
     }
 
     @Override

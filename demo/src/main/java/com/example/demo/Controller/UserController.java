@@ -13,14 +13,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+@RestController
 @RequestMapping("api/v1/auth")
 @CrossOrigin
-@RestController
 public class UserController {
     @Autowired
     private AuthenticationService authenticationService;
-    @PostMapping("/{signIn}")
+    @PostMapping("/signIn")
     public ResponseEntity<JWTAuthResponse>signIN(@RequestBody SignIn signIn){
+        System.out.println("sign ekta awa ========================================");
         return ResponseEntity.ok(authenticationService.signIn(signIn));
     }
     @PostMapping("/signUp")

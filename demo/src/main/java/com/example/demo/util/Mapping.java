@@ -25,7 +25,7 @@ public class Mapping {
     public CropDTO asCropDtolist(CropEntity crop){
        CropDTO cropDTO =new CropDTO();
        cropDTO.setCropCode(crop.getCropCode());
-       cropDTO.setCropName(cropDTO.getCropName());
+       cropDTO.setCropName(crop.getCropName());
        cropDTO.setScientificName(crop.getScientificName());
        cropDTO.setSeason(crop.getSeason());
        cropDTO.setCropImage(crop.getCropImage());
@@ -87,6 +87,7 @@ public class Mapping {
             equipmentDTO.setEquipmentCode(equipmentEntity.getEquipmentCode());
             equipmentDTO.setName(equipmentEntity.getName());
             equipmentDTO.setType(equipmentEntity.getType());
+            equipmentDTO.setStatus(equipmentEntity.getStatus());
             equipmentDTO.setAvailableCount(equipmentEntity.getAvailableCount());
             equipmentDTO.setFieldList(equipmentEntity.getFieldList().stream().map(FieldEntity::getFieldCode).toList());
     return equipmentDTO;

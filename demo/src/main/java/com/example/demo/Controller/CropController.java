@@ -35,6 +35,7 @@ public class CropController {
                                          @RequestPart("fieldList") String field) {
 
         try {
+            System.out.println("aaaaaaaaaaaaaAAAAAAAAA");
             String cropIMG = PicEncorder.generatePicture(cropIMg);
             List<String> filed_codes = new ArrayList<>();
 

@@ -23,6 +23,7 @@ public class EquipmentController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 
     public ResponseEntity<Void>saveEquipment(@RequestBody EquipmentDTO equipmentDTO){
+        System.out.println(equipmentDTO);
         try {
             equipmentService.saveEquipment(equipmentDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);

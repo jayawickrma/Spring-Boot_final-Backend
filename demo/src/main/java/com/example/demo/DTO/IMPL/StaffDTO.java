@@ -1,6 +1,7 @@
 package com.example.demo.DTO.IMPL;
 
 import com.example.demo.DTO.StaffStatus;
+import com.example.demo.Entity.Role;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +29,7 @@ public class StaffDTO implements StaffStatus {
     private String addressLine5;
     private String contactNo;
     private String email;
-    private String role;
+    private Role role;
     private List<staffDetailsDto> staffEquipmentDetailsList;
     private List<String> vehicleList;
     private List<String> fieldList;

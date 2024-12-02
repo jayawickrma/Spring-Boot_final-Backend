@@ -57,23 +57,7 @@ public class FieldServiceIMPL implements FieldService {
                 cropEntities.add(cropDao.getReferenceById(cropCode));
             }
         }
-        List<LogEntity>logEntities =new ArrayList<>();
-        for (String logCode : fieldDTO.getLogsList()){
-            if (monitoringLogDao.existsById(logCode)){
-                logEntities.add(monitoringLogDao.getReferenceById(logCode));
-            }
-        }
-        List<EquipmentEntity>equipmentEntities=new ArrayList<>();
-        for (String eqid :fieldDTO.getEquipmentsList()){
-            if (equipmentDao.existsById(eqid)){
-                equipmentEntities.add(equipmentDao.getReferenceById(eqid));
-            }
-        }
 
-        fieldEntity.setStaffList(staffEntities);
-        fieldEntity.setCropList(cropEntities);
-        fieldEntity.setLogList(logEntities);
-        fieldEntity.setEquipmentsList(equipmentEntities);
 
         FieldEntity field1 = fieldDao.save(fieldEntity);
         if (field1 == null) {

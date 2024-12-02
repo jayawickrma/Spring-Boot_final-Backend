@@ -44,7 +44,7 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
         int number=0;
         LogEntity log =monitoringLogDao.findLastRowNative();
         if (log!=null){
-            String [] parts=monitoringLogDTO.getLogCode().split("-");
+            String [] parts=log.getLogCode().split("-");
             number=Integer.parseInt(parts[1]);
         }
         monitoringLogDTO.setLogCode("LOG-"+ ++number);

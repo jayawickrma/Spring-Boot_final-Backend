@@ -23,9 +23,7 @@ public class StaffController {
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>saveStaff(@RequestBody StaffDTO staffDTO){
-        System.out.println(staffDTO);
         try{
-            System.out.println(staffDTO);
             staffService.saveStaff(staffDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {

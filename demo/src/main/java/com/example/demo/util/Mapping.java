@@ -2,6 +2,7 @@ package com.example.demo.util;
 
 import com.example.demo.DTO.IMPL.*;
 import com.example.demo.Entity.IMPL.*;
+import com.example.demo.Entity.Role;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,7 +141,7 @@ public class Mapping {
             staffDTO.setAddressLine5(staffEntity.getAddressLine5());
             staffDTO.setContactNo(staffEntity.getContactNo());
             staffDTO.setEmail(staffEntity.getEmail());
-            staffDTO.setRole(staffEntity.getRole());
+            staffDTO.setRole(Role.valueOf(staffEntity.getRole()));
             staffDTO.setVehicleList(staffEntity.getVehicleList().stream().map(VehicleEntity::getVehicleCode).toList());
             staffDTO.setFieldList(staffEntity.getFieldList().stream().map(FieldEntity::getFieldCode).toList());
             staffDTO.setLogList(staffEntity.getLogList().stream().map(LogEntity::getLogCode).toList());

@@ -6,7 +6,6 @@ import com.example.demo.Service.CropService;
 import com.example.demo.util.IdGenerater;
 import com.example.demo.util.PicEncorder;
 import com.example.demo.util.SplitString;
-import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -81,6 +80,10 @@ public class CropController {
     @GetMapping
     public List<CropDTO>getAllCrops(){
         return cropService.getAllCrops();
+    }
+    @GetMapping("/{cropCode}")
+    public CropDTO getCRop(@PathVariable("cropCode")String cropCode){
+        return cropService.getCrop(cropCode);
     }
     @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @PutMapping(value = "/{cropCode}")

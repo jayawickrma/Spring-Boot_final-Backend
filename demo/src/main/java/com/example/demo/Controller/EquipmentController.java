@@ -37,7 +37,6 @@ public class EquipmentController {
     }
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @DeleteMapping(value = "/{equipmentId}",consumes = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<Void>deleveEquipment(@PathVariable("equipmentId")String equid){
         try{
             equipmentService.deleteEquipment(equid);
@@ -55,6 +54,7 @@ public class EquipmentController {
     public List<EquipmentDTO>getAllEquipments(){
         return equipmentService.getAllEquipments();
     }
+
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @PutMapping(value = "/{equipmentId}",consumes = MediaType.APPLICATION_JSON_VALUE)
 

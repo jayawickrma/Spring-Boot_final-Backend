@@ -31,8 +31,7 @@ public class StaffServiceIMPL implements StaffService {
     private MonitoringLogDao monitoringLogDao;
     @Autowired
     private VehicleDao vehicleDao;
-    @Autowired
-    private StaffDetailsDao staffDetailsDao;
+
     @Override
     public void saveStaff(StaffDTO staffDTO) {
         int number =0;

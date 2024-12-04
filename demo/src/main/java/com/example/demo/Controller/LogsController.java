@@ -133,6 +133,7 @@ public class LogsController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping("/{logCode}")
     public MonitoringLogDTO getLog(@PathVariable("logCode")String logCode){
         return monitoringLogService.getLog(logCode);

@@ -82,7 +82,7 @@ public class CropController {
         return cropService.getAllCrops();
     }
 
-    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping("/{cropCode}")
     public CropDTO getCRop(@PathVariable("cropCode")String cropCode){
         return cropService.getCrop(cropCode);

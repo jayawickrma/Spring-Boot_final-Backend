@@ -132,6 +132,7 @@ public class FieldController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping("/{fieldCode}")
     public FieldDTO getField(@PathVariable ("fieldCode")String fieldCode ){
         return fieldService.getField(fieldCode);

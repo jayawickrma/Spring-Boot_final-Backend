@@ -51,6 +51,13 @@ public class VehicleController {
         }
     }
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
+    @GetMapping("/{vehicleCode}")
+    public ResponseEntity<VehicleDTO>getVehicle(@PathVariable("vehicleCode")String vehicleCode){
+        vehicleService.getVehicle(vehicleCode);
+        return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+    }
+
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping
     public List<VehicleDTO>getAll(){
         return vehicleService.getAllVehicles();

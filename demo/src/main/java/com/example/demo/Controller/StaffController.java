@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,13 @@ public class StaffController {
         }
 
     }
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
+    @GetMapping("/{memberCode}")
+    public ResponseEntity<StaffDTO> getStaff(@PathVariable("memberCode")String memberCode){
+        staffService.getStaff(memberCode);
+        return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+    }
+
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @DeleteMapping(value = "/{memberCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteStaffMember(@PathVariable("memberCode")String member){

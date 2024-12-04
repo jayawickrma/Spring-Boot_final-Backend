@@ -81,6 +81,8 @@ public class CropController {
     public List<CropDTO>getAllCrops(){
         return cropService.getAllCrops();
     }
+
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @GetMapping("/{cropCode}")
     public CropDTO getCRop(@PathVariable("cropCode")String cropCode){
         return cropService.getCrop(cropCode);

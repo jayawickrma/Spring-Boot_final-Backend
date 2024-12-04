@@ -76,7 +76,7 @@ public class FieldController {
     @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @DeleteMapping(value = "/{fieldCode}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void>deleteField(@PathVariable("fieldCode")String fieldCode){
-        System.out.println(fieldCode);
+        System.out.println("HUTTTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"+fieldCode);
         try{
             fieldService.deleteFields(fieldCode);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -131,6 +131,10 @@ public class FieldController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @GetMapping("/{fieldCode}")
+    public void getField(@PathVariable ("fieldCode")String fieldCode ){
+         fieldService.getField(fieldCode);
     }
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping

@@ -22,7 +22,6 @@ public class UserController {
     private AuthenticationService authenticationService;
     @PostMapping("/signIn")
     public ResponseEntity<JWTAuthResponse>signIN(@RequestBody SignIn signIn){
-        System.out.println("sign ekta awa ========================================");
         return ResponseEntity.ok(authenticationService.signIn(signIn));
     }
     @PostMapping("/signUp")

@@ -133,8 +133,8 @@ public class FieldController {
         }
     }
     @GetMapping("/{fieldCode}")
-    public void getField(@PathVariable ("fieldCode")String fieldCode ){
-         fieldService.getField(fieldCode);
+    public FieldDTO getField(@PathVariable ("fieldCode")String fieldCode ){
+        return fieldService.getField(fieldCode);
     }
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping

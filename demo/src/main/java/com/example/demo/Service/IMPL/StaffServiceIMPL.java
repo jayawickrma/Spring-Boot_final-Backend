@@ -2,7 +2,6 @@ package com.example.demo.Service.IMPL;
 
 import com.example.demo.DAO.*;
 import com.example.demo.DTO.IMPL.*;
-import com.example.demo.DTO.StaffStatus;
 import com.example.demo.Entity.IMPL.*;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Exception.NotFoundException;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
-import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -96,7 +93,7 @@ public class StaffServiceIMPL implements StaffService {
     }
 
     @Override
-    public StaffStatus getStaff(String id) {
+    public StaffDTO getStaff(String id) {
         StaffEntity searchStaff =staffDao.getReferenceById(id);
         return mapping.toStaffDto(searchStaff);
     }

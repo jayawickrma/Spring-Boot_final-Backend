@@ -37,9 +37,8 @@ public class StaffController {
     }
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @GetMapping("/{memberCode}")
-    public ResponseEntity<StaffDTO> getStaff(@PathVariable("memberCode")String memberCode){
-        staffService.getStaff(memberCode);
-        return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+    public StaffDTO getStaff(@PathVariable("memberCode")String memberCode){
+        return staffService.getStaff(memberCode);
     }
 
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")

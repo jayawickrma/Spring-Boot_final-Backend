@@ -3,13 +3,11 @@ package com.example.demo.Controller;
 import com.example.demo.DTO.IMPL.EquipmentDTO;
 import com.example.demo.Exception.DataPersistException;
 import com.example.demo.Service.EquipmentService;
-import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,9 +50,8 @@ public class EquipmentController {
     }
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping("/{equipmentCode}")
-    public ResponseEntity<EquipmentDTO>getEquipment(@PathVariable("equipmentCode")String equipmentCode){
-         equipmentService.getEquipment(equipmentCode);
-         return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+    public EquipmentDTO getEquipment(@PathVariable("equipmentCode")String equipmentCode) {
+       return equipmentService.getEquipment(equipmentCode);
     }
     @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE','SCIENTIST')")
     @GetMapping

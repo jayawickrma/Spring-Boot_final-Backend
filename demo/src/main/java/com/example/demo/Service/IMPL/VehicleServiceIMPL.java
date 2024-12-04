@@ -2,9 +2,7 @@ package com.example.demo.Service.IMPL;
 
 import com.example.demo.DAO.StaffDao;
 import com.example.demo.DAO.VehicleDao;
-import com.example.demo.DTO.IMPL.StaffDTO;
 import com.example.demo.DTO.IMPL.VehicleDTO;
-import com.example.demo.DTO.VehicleStatus;
 import com.example.demo.Entity.IMPL.StaffEntity;
 import com.example.demo.Entity.IMPL.VehicleEntity;
 import com.example.demo.Exception.DataPersistException;
@@ -63,7 +61,7 @@ public class VehicleServiceIMPL implements VehicleService {
     }
 
     @Override
-    public VehicleStatus getVehicle(String vehicleCode) {
+    public VehicleDTO getVehicle(String vehicleCode) {
         VehicleEntity searchVehicle =vehicleDao.getReferenceById(vehicleCode);
             return mapping.toVehicleDto(searchVehicle);
     }

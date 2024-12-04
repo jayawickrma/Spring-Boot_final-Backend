@@ -4,9 +4,7 @@ import com.example.demo.DAO.CropDao;
 import com.example.demo.DAO.FieldDao;
 import com.example.demo.DAO.MonitoringLogDao;
 import com.example.demo.DAO.StaffDao;
-import com.example.demo.DTO.IMPL.FieldDTO;
 import com.example.demo.DTO.IMPL.MonitoringLogDTO;
-import com.example.demo.DTO.MonitoringLogStatus;
 import com.example.demo.Entity.IMPL.CropEntity;
 import com.example.demo.Entity.IMPL.FieldEntity;
 import com.example.demo.Entity.IMPL.LogEntity;
@@ -19,8 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.*;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -111,7 +107,7 @@ public class MonitoringLogServiceIMPL implements MonitoringLogService {
     }
 
     @Override
-    public MonitoringLogStatus getLog(String logCode) {
+    public MonitoringLogDTO getLog(String logCode) {
         LogEntity findLog =monitoringLogDao.getReferenceById(logCode);
         return mapping.toMonitoringLogDto(findLog);
     }

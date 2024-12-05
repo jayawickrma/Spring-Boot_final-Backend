@@ -28,6 +28,7 @@ public class Mapping {
        cropDTO.setCropCode(crop.getCropCode());
        cropDTO.setCropName(crop.getCropName());
        cropDTO.setScientificName(crop.getScientificName());
+       cropDTO.setCategory(crop.getCategory());
        cropDTO.setSeason(crop.getSeason());
        cropDTO.setCropImage(crop.getCropImage());
        cropDTO.setFieldList(crop.getFieldList().stream().map(FieldEntity::getFieldCode).toList());

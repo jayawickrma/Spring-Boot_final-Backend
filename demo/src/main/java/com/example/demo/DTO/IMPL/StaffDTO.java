@@ -1,7 +1,6 @@
 package com.example.demo.DTO.IMPL;
 
 import com.example.demo.DTO.StaffStatus;
-import com.example.demo.Entity.Role;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,13 +26,30 @@ public class StaffDTO implements StaffStatus {
     private String addressLine5;
     private String contactNo;
     private String email;
-    private Role role;
+    private String role;
     private List<staffDetailsDto> staffEquipmentDetailsList;
     private List<String> vehicleList;
     private List<String> fieldList;
     private List<String> logList;
 
-    public void setRole(String role) {
+    // Getter for Role
+    public String getRole() {
+        return role;
+    }
 
+    // Setter for Role
+
+
+    // toString method
+    @Override
+    public String toString() {
+        return "StaffDTO{" +
+                "role=" + role +
+                // add other fields if needed
+                '}';
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,4 +33,7 @@ public class StaffDTO implements StaffStatus {
     private List<String> fieldList;
     private List<String> logList;
 
+    public void setRole(String role) {
+
+    }
 }

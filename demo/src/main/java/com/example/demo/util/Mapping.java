@@ -141,7 +141,7 @@ public class Mapping {
             staffDTO.setAddressLine5(staffEntity.getAddressLine5());
             staffDTO.setContactNo(staffEntity.getContactNo());
             staffDTO.setEmail(staffEntity.getEmail());
-            staffDTO.setRole(Role.valueOf(staffEntity.getRole()));
+            staffDTO.setRole(staffEntity.getRole());
             staffDTO.setVehicleList(staffEntity.getVehicleList().stream().map(VehicleEntity::getVehicleCode).toList());
             staffDTO.setFieldList(staffEntity.getFieldList().stream().map(FieldEntity::getFieldCode).toList());
             staffDTO.setLogList(staffEntity.getLogList().stream().map(LogEntity::getLogCode).toList());

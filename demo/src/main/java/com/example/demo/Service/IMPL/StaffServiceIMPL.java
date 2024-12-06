@@ -55,9 +55,7 @@ public class StaffServiceIMPL implements StaffService {
         staffEntity.setVehicleList(vehicleEntities);
         staffEntity.setLogList(logEntities);
 
-        for (FieldEntity field:fieldEntities){
-            field.getStaffList().add(staffEntity);
-        }
+
             StaffEntity staffEntity1 =staffDao.save(staffEntity);
             if (staffEntity1==null){
                 throw new DataPersistException("Something went wrong");

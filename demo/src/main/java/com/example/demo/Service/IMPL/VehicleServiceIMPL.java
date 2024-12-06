@@ -28,6 +28,7 @@ public class VehicleServiceIMPL implements VehicleService {
     private StaffDao staffDao;
     @Override
     public void saveVehicle(VehicleDTO vehicleDTO) {
+        System.out.println("vehicleeeeeeeeeeeeeeeeeeee"+vehicleDTO);
        int number=0;
        VehicleEntity vehicle =vehicleDao.findLastRowNative();
        if (vehicle!=null){

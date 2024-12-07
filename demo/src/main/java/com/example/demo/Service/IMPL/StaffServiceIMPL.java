@@ -146,7 +146,7 @@ public class StaffServiceIMPL implements StaffService {
                 staffEntity.get().setAddressLine4(staffDTO.getAddressLine4());
                 staffEntity.get().setAddressLine5(staffDTO.getAddressLine5());
                 staffEntity.get().setContactNo(staffDTO.getContactNo());
-                staffEntity.get().setRole(String.valueOf(staffDTO.getRole()));
+                staffEntity.get().setRole(staffDTO.getRole());
                 List<VehicleEntity>vehicleEntities=new ArrayList<>();
                 List<FieldEntity>fieldEntities=new ArrayList<>();
                 List<LogEntity>logEntities=new ArrayList<>();
